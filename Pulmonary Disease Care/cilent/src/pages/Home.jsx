@@ -13,7 +13,6 @@ import ChatBot from 'react-simple-chatbot';
 const Home = () => {
 
 
-
   return (
    <>
 

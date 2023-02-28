@@ -1,101 +1,122 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import {Form,Button} from 'react-bootstrap'
-import { RegUser } from "../services/api";
+import * as React from 'react';
+import axios from 'axios';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { TextField, Button, Grid, Box, Typography } from '@mui/material';
+import {useNavigate} from 'react-router-dom'
 
-const Register = () => {
+const validationSchema = Yup.object({
+  email: Yup.string().email('Invalid email address').required('Required'),
+  username: Yup.string().required('Required'),
+  password: Yup.string().required('Required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Required'),
+});
 
-  const defaultValue = {
-    usertype:'',
-    email:'',
-    username:'',
-    password:'',
-    conformpassword:'',
-}
+const SignUpForm = () => {
 
+  const navigate = useNavigate();
 
-  const onValueChange = (e) =>{
-    console.log(e.target.value);
-    setUser({...user, [e.target.name] : e.target.value})
-      // console.log(user);
-}
-
-const [user, setUser] =useState(defaultValue);
-
-const addUserDetails = async () => {
-  await RegUser(user);
-  alert(JSON.stringify(user));
- 
-}
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      username: '',
+      password: '',
+      confirmPassword: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values, { setSubmitting }) => {
+      setSubmitting(true);
+      try {
+        const response = await axios.post('/register', values);
+        navigate('/login')
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+      setSubmitting(false);
+    },
+  });
 
   return (
-    <>
-      <div className="container">
-        <section className="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-          <div className="container">
-            <div className="row justify-content-center">
-              <div className="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-                <div className="d-flex justify-content-center py-4">
-                  <Link
-                    to="index.html"
-                    className="logo d-flex align-items-center w-auto"
-                  >
-                    <img src="../assets/images/logo/logo.png" alt="" />
-                    {/* <span className="d-none d-lg-block">PulmoCare</span> */}
-                  </Link>
-                </div>
-
-                <div className="card mb-3">
-                  <div className="card-body">
-                    <div className="pt-4 pb-2">
-                      <h5 className="card-title text-center pb-0 fs-4">
-                        Create an Account
-                      </h5>
-                      <p className="text-center small">
-                        Enter your personal details to create account
-                      </p>
-                    </div>
-
-{/* FORM STARTS */}
-
-
-<div class="input-group mb-3">
-<div style={{ display: 'block', 
-                  width: 400, 
-                  padding: 30 }}>
-      <Form>
-      <Form.Group className="mb-3">
-          <Form.Control type="text" onChange={(e)=>onValueChange(e)}
-                        placeholder="Email" />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Control type="text" onChange={(e)=>onValueChange(e)}
-                        placeholder="Username" />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Control type="password" placeholder="Password" onChange={(e)=>onValueChange(e)}/>
-        </Form.Group>
-        <Form.Group>
-          <Form.Control type="password" placeholder="Conform Password" className="mb-3" onChange={(e)=>onValueChange(e)}/>
-        </Form.Group>
-        <Button variant="primary" type="submit" onClick={() => addUserDetails()}>
-           Create Account
-        </Button>
-      </Form>
-    </div>
-</div>
-
-
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </>
+    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+      <Box sx={{ maxWidth: 400, width: '100%', px: 3 }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          Sign Up
+        </Typography>
+        <form onSubmit={formik.handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="email"
+                name="email"
+                label="Email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="username"
+                name="username"
+                label="Username"
+                value={formik.values.username}
+                onChange={formik.handleChange}
+                error={formik.touched.username && Boolean(formik.errors.username)}
+                helperText={formik.touched.username && formik.errors.username}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="password"
+                name="password"
+                label="Password"
+                type="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                error={formik.touched.password && Boolean(formik.errors.password)}
+                helperText={formik.touched.password && formik.errors.password}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="confirmPassword"
+                name="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.confirmPassword &&
+                  Boolean(formik.errors.confirmPassword)
+                }
+                helperText={
+                  formik.touched.confirmPassword && formik.errors.confirmPassword
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                disabled={formik.isSubmitting}
+              >
+                {formik.isSubmitting ? 'Submitting...' : 'Submit'}
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Box>
+    </Box>
   );
 };
 
-export default Register;
+export default SignUpForm;

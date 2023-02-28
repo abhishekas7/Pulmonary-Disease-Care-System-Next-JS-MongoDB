@@ -1,6 +1,6 @@
 import express , { Router }from 'express'
 
-import { RegUser } from '../controllers/user_controller.js';
+import Register from '../controllers/user_controller.js';
 
 
 const router = express.Router();
@@ -9,7 +9,9 @@ const router = express.Router();
 // console.log('hello');
 // });
 
-router.post('/register',RegUser)
+router.post('/register',Register)
+// router.post('/register',Register)
+
 
 
 export default router;
