@@ -1,5 +1,5 @@
 {
-  
+  "proxy": "http://localhost:8000",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "npm start --prefix server",

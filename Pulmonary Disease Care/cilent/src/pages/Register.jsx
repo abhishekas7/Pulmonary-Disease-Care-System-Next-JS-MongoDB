@@ -29,8 +29,8 @@ const SignUpForm = () => {
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
-        const response = await axios.post('/register', values);
-        navigate('/login')
+        const response = await axios.post('/api/register', values);
+        navigate('/')
         console.log(response.data);
       } catch (error) {
         console.error(error);
