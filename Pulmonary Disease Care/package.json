@@ -1,0 +1,12 @@
+{
+  
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "npm start --prefix server",
+    "cilent": "npm start --prefix cilent",
+    "dev": "concurrently \"npm run server\" \"npm run cilent"
+  },
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
