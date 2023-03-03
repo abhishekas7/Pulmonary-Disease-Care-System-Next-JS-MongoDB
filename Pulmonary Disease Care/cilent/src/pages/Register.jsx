@@ -1,10 +1,9 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { TextField, Button, Grid, Box, Typography } from '@mui/material';
-import {useNavigate} from 'react-router-dom'
-
 const validationSchema = Yup.object({
   email: Yup.string().email('Invalid email address').required('Required'),
   username: Yup.string().required('Required'),
@@ -14,10 +13,9 @@ const validationSchema = Yup.object({
     .required('Required'),
 });
 
+
+
 const SignUpForm = () => {
-
-  const navigate = useNavigate();
-
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -29,8 +27,8 @@ const SignUpForm = () => {
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
-        const response = await axios.post('/api/register', values);
-        navigate('/')
+        const response = await axios.post('http://localhost:8000/register', values);
+        navigate('/login')
         console.log(response.data);
       } catch (error) {
         console.error(error);
@@ -38,6 +36,8 @@ const SignUpForm = () => {
       setSubmitting(false);
     },
   });
+
+  const navigate = useNavigate();
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>

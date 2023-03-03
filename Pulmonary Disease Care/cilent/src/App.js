@@ -5,6 +5,9 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Test from './pages/Test';
+import Admindash from './pages/Admindash';
+import Doctordash from './pages/Doctordash';
+import Userdash from './pages/Userdash';
 
 
 function App() {
@@ -17,6 +20,9 @@ function App() {
 <Route path='/login' element={<Login/>}/>
 <Route path='/register' element={<Register/>}/>
 <Route path='/test' element={<Test/>}/>
+<Route path='/admindash' element={<Admindash/>}/>
+<Route path='/docdash' element={<Doctordash/>}/>
+<Route path='/userdash' element={<Userdash/>}/>
 
 
 </Routes>

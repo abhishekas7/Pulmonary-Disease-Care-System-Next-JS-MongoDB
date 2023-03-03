@@ -1,56 +1,138 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+
+import {
+  TextField,
+  Button,
+  Box,
+  Grid,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
+});
 
 const Login = () => {
-  return (
-    <div className="container-scroller">
-    <div className="container-fluid page-body-wrapper full-page-wrapper">
-      <div className="content-wrapper d-flex align-items-center auth px-0">
-        <div className="row w-100 mx-0">
-          <div className="col-lg-4 mx-auto">
-            <div className="auth-form-light text-left py-5 px-4 px-sm-5">
-              <div className="brand-logo">
-                <img src="../../images/logo.svg" alt="logo"/>
-              </div>
-              <h4>Hello! let's get started</h4>
-              <h6 className="fw-light">Sign in to continue.</h6>
-              <form className="pt-3">
-                <div className="form-group">
-                  <input type="email" className="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username"/>
-                </div>
-                <div className="form-group">
-                  <input type="password" className="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password"/>
-                </div>
-                <div className="mt-3">
-                  <a className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../../index.html">SIGN IN</a>
-                </div>
-                <div className="my-2 d-flex justify-content-between align-items-center">
-                  <div className="form-check">
-                    <label className="form-check-label text-muted">
-                      <input type="checkbox" className="form-check-input"/>
-                      Keep me signed in
-                    </label>
-                  </div>
-                  <Link to="#" className="auth-link text-black">Forgot password?</Link>
-                </div>
-                <div className="mb-2">
-                  <button type="button" className="btn btn-block btn-facebook auth-form-btn">
-                    <i className="ti-facebook me-2"></i>Connect using facebook
-                  </button>
-                </div>
-                <div className="text-center mt-4 fw-light">
-                  Don't have an account? <Link to="register.html" className="text-primary">Create</Link>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const initialValues = {
+    email: '',
+    password: '',
+  };
+
+  const onSubmit =  async (values, { setSubmitting }) => {
+    setTimeout(async () => {
+      // Mock login functionality
+try {
+  const res = await axios.post('http://localhost:8000/login', values);
+  console.log(res);
+
+  // localStorage.setItem('token', res.data.token);
+  if(res.data.role==="admin")
+  {
+      navigate('/admindash');
+  }
+  else if(res.data.role==="doctor"){
+      navigate('/docdash');
+  }
+  else if(res.data.role==="user"){
+    navigate('/userdash');
+}
   
-    </div>
+
+} catch (error) {
   
-  </div>
-  )
 }
 
-export default Login
+      setSubmitting(false);
+    }, 400);
+
+    
+
+
+
+  };
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: isSmallScreen ? 'column' : 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '2rem',
+        height: '100vh',
+      }}
+    >
+      <Box sx={{ width: isSmallScreen ? '100%' : 'auto' }}>
+        <img
+          src="https://via.placeholder.com/300x300.png?text=Logo"
+          alt="Logo"
+          style={{ height: '300px', width: '100%' }}
+        />
+      </Box>
+      <Box sx={{ width: isSmallScreen ? '100%' : '50%' }}>
+        <Typography variant="h4" sx={{ fontWeight: 'bold', mb: '1rem' }}>
+          Login
+        </Typography>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          {({ isSubmitting, errors, touched }) => (
+            <Form>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Field
+                    as={TextField}
+                    variant="outlined"
+                    label="Email"
+                    name="email"
+                    fullWidth
+                    error={touched.email && Boolean(errors.email)}
+                    helperText={touched.email && errors.email}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Field
+                    as={TextField}
+                    variant="outlined"
+                    label="Password"
+                    name="password"
+                    type="password"
+                    fullWidth
+                    error={touched.password && Boolean(errors.password)}
+                    helperText={touched.password && errors.password}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    disabled={isSubmitting}
+                    fullWidth
+                  >
+                    Submit
+                  </Button>
+                </Grid>
+              </Grid>
+            </Form>
+          )}
+        </Formik>
+      </Box>
+    </Box>
+  );
+};
+
+export default Login;
