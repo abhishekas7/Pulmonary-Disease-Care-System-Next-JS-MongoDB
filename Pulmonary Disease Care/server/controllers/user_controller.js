@@ -2,8 +2,11 @@
 import User from "../model/UserModel.js";
 import asyncHandler from 'express-async-handler'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 
+import express from 'express'
+const router = express.Router()
+import jwt from 'jsonwebtoken'
+import session from 'express-session';
 
 //--------------------USER REGISTER---------------------
 
@@ -14,6 +17,10 @@ export const RegUser = asyncHandler(async(req,res) =>{
         const user = await User.findOne({ email: email });
         if (user) {
           return res.status(400).json({ message: 'User already exists' });
+        }
+        
+        if(password.length<8){
+          return res.status(400).json({ message: 'Password should be the least 8 characters long' });
         }
     
         // Hash password
@@ -70,7 +77,7 @@ try {
         res.status(400).json({ msg: 'Something missing' })
       }
     // res.send(user)
-
+    
    if(user && (await bcrypt.compareSync(password,user.password))){
   res.json({
       _id:user._id,
@@ -78,6 +85,11 @@ try {
       email:user.email,
       role:user.role,
     })
+
+    res.session.username=user.username
+    res.session.role=user.role
+
+
    }
    
  
