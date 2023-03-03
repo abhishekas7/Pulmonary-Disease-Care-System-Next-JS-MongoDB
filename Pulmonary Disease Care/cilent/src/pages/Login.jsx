@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -32,6 +32,7 @@ const Login = () => {
 
   const onSubmit =  async (values, { setSubmitting }) => {
     setTimeout(async () => {
+
       // Mock login functionality
 try {
   const res = await axios.post('http://localhost:8000/login', values);
