@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import autoIncrement from 'mongoose-auto-increment'
+import { Schema } from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   email: {
     type: String,
     required: true,
@@ -33,5 +34,5 @@ const userSchema = new mongoose.Schema({
 autoIncrement.initialize(mongoose.connection);
 userSchema.plugin(autoIncrement.plugin,'user');
 
-const User = mongoose.model('tb_user',userSchema);
-export default User;
+const Users = mongoose.model('tb_user',userSchema);
+export default Users;

@@ -1,139 +1,117 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Grid, TextField, Button } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import loginImage from '../images/pexels-anna-shvets-3786153.jpg';
 
-import {
-  TextField,
-  Button,
-  Box,
-  Grid,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email address').required('Required'),
   password: Yup.string().required('Required'),
 });
 
+// eslint-disable-next-line react-hooks/rules-of-hooks
+
+
 const Login = () => {
+  const navigate=useNavigate();
+ useEffect(() => {
+ 
+   if(!sessionStorage.getItem('sessionKey')){
 
-  const navigate = useNavigate();
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+     navigate('/login')
 
-  const initialValues = {
-    email: '',
-    password: '',
-  };
+   }else{
 
-  const onSubmit =  async (values, { setSubmitting }) => {
-    setTimeout(async () => {
+      navigate('/')
 
-      // Mock login functionality
-try {
-  const res = await axios.post('http://localhost:8000/login', values);
-  console.log(res);
+   }
+   return () => {
+    console.log( sessionStorage.getItem('sessionKey'))
 
-  // localStorage.setItem('token', res.data.token);
-  if(res.data.role==="admin")
-  {
-      navigate('/admindash');
-  }
-  else if(res.data.role==="doctor"){
-      navigate('/docdash');
-  }
-  else if(res.data.role==="user"){
-    navigate('/userdash');
-}
-  
+   }
+ }, [])
+ 
 
-} catch (error) {
-  
-}
-
-      setSubmitting(false);
-    }, 400);
-
-    
-
-
-
+  const handleSubmit = async (values) => {
+    try {
+      console.log(values)
+      const response = await axios.post('http://localhost:8000/login', values);
+      if (response) {
+        var item_value = sessionStorage.setItem("sessionKey",response.data);
+        var item = sessionStorage.setItem("value",response.data);
+        navigate('/admindash');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: isSmallScreen ? 'column' : 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '2rem',
-        height: '100vh',
-      }}
-    >
-      <Box sx={{ width: isSmallScreen ? '100%' : 'auto' }}>
-        <img
-          src="https://via.placeholder.com/300x300.png?text=Logo"
-          alt="Logo"
-          style={{ height: '300px', width: '100%' }}
-        />
-      </Box>
-      <Box sx={{ width: isSmallScreen ? '100%' : '50%' }}>
-        <Typography variant="h4" sx={{ fontWeight: 'bold', mb: '1rem' }}>
-          Login
-        </Typography>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-        >
-          {({ isSubmitting, errors, touched }) => (
-            <Form>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Field
-                    as={TextField}
-                    variant="outlined"
-                    label="Email"
-                    name="email"
-                    fullWidth
-                    error={touched.email && Boolean(errors.email)}
-                    helperText={touched.email && errors.email}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Field
-                    as={TextField}
-                    variant="outlined"
-                    label="Password"
-                    name="password"
-                    type="password"
-                    fullWidth
-                    error={touched.password && Boolean(errors.password)}
-                    helperText={touched.password && errors.password}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    disabled={isSubmitting}
-                    fullWidth
-                  >
-                    Submit
-                  </Button>
-                </Grid>
-              </Grid>
-            </Form>
-          )}
-        </Formik>
-      </Box>
-    </Box>
+    <Grid container sx={{ height: '100vh' }}>
+      <Grid item xs={12} md={6}>
+        <img src={loginImage} alt="login" style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
+      </Grid>
+      <Grid container item xs={12} md={6} alignItems="center" justifyContent="center">
+        <Grid item xs={10} sm={8} md={6}>
+    <Formik
+  initialValues={{ email: '', password: '' }}
+  validate={values => {
+    const errors = {};
+    if (!values.email) {
+      errors.email = 'Required';
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+    ) {
+      errors.email = 'Invalid email address';
+    }
+    if (!values.password) {
+      errors.password = 'Required';
+    }
+    return errors;
+  }}
+  onSubmit={handleSubmit}
+>
+  {({ errors, touched, isSubmitting }) => (
+    <Form>
+      <Field
+        as={TextField}
+        label="Email"
+        name="email"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        error={errors.email && touched.email}
+        helperText={errors.email && touched.email && errors.email}
+      />
+      <Field
+        as={TextField}
+        label="Password"
+        name="password"
+        type="password"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        error={errors.password && touched.password}
+        helperText={errors.password && touched.password && errors.password}
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        disabled={isSubmitting}
+      >
+        Login
+      </Button>
+    </Form>
+  )}
+</Formik>
+
+        </Grid>
+      </Grid>
+    </Grid>
   );
-};
+}
 
 export default Login;

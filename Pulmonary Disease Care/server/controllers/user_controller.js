@@ -2,7 +2,7 @@
 import User from "../model/UserModel.js";
 import asyncHandler from 'express-async-handler'
 import bcrypt from 'bcrypt'
-
+import passport from "passport";
 import express from 'express'
 const router = express.Router()
 import jwt from 'jsonwebtoken'
@@ -68,37 +68,18 @@ export const Regadmin = asyncHandler(async(req,res) =>{
 
 })
 
-//-----------------USER LOGIN-------------------------
+// -----------------USER LOGIN-------------------------
 export const Oathuser= asyncHandler(async(req,res) =>{
-try {
-    const {email, password } = req.body
-    const user = await User.findOne({ email })
-    if (!email || !password) {
-        res.status(400).json({ msg: 'Something missing' })
-      }
-    // res.send(user)
+  passport.authenticate('local', {
+    failureRedirect: '/login',
+    failureFlash: true,
+  }),
+  (req, res) => {
     
-   if(user && (await bcrypt.compareSync(password,user.password))){
-  res.json({
-      _id:user._id,
-      name:user.username,
-      email:user.email,
-      role:user.role,
-    })
-
-    res.session.username=user.username
-    res.session.role=user.role
-
-
-   }
-   
- 
-
-   else{
-    res.status(401);
-    throw new Error("Invalid Email or Password");
-   }
-} catch (error) {
-    res.status(209).json({message:error.message});
-}
+    res.send('Logged in successfully!');
+  }
 })
+
+
+
+
