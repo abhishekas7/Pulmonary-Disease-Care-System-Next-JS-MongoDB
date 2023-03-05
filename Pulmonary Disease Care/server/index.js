@@ -16,102 +16,18 @@ import connectMongo from 'connect-mongo';
 import LocalStrategy from 'passport-local';
 import User from './model/UserModel.js'; 
 
+
 const app = express();
-
 const port = process.env.PORT || 8000
+
+
 app.use(cors())
-
-// const MongoStore = connectMongo(session);
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-
-app.use(
-  session({
-    secret: 'secret',
-    resave: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 },// 1 day
-    saveUninitialized: false,
-    
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-
 // Initialize the connect-flash middleware
 app.use(flash());
 
-passport.use(
-  new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
-    try {
-      const user = await Users.findOne({ email });
 
-      if (!user) {
-        return done(null, false, { message: 'Incorrect email or password.' });
-      }
-
-      const match = await bcrypt.compare(password, user.password);
-
-      if (!match) {
-        return done(null, false, { message: 'Incorrect email or password.' });
-      }
-
-      return done(null, user);
-    } catch (error) {
-      return done(error);
-    }
-  })
-);
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await Users.findById(id);
-
-    if (!user) {
-      return done(null, false);
-    }
-
-    return done(null, user);
-  } catch (error) {
-    return done(error);
-  }
-});
-
-
-// app.post('/login', function(req, res, next) {
-//   // Set custom properties on the request object
-//   req.body.username = req.body.email; // Assume the email is used as username
-
-//   // Call the passport.authenticate middleware with the "local" strategy and options
-//   passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/login',
-//     failureFlash: true
-//   })(req, res, next);
-// });
-
-app.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  
-}));
-
-// app.post('/login', passport.authenticate('local'), (req, res) => {
-//   res.json({ user: req.user });
-// });
-
-app.get('/logout', (req, res) => {
-  req.logout();
-  res.json({ message: 'Logged out successfully.' });
-});
 
 
 
