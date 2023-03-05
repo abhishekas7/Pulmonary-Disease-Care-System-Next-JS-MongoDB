@@ -16,31 +16,34 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
   const navigate=useNavigate();
- useEffect(() => {
+//  useEffect(() => {
  
-   if(!sessionStorage.getItem('sessionKey')){
+//    if(!sessionStorage.getItem('sessionKey')){
 
-     navigate('/login')
+//      navigate('/login')
 
-   }else{
+//    }else{
 
-      navigate('/')
+//       navigate('/')
 
-   }
-   return () => {
-    console.log( sessionStorage.getItem('sessionKey'))
+//    }
+//    return () => {
+//     // console.log( sessionStorage.getItem('sessionKey'))
 
-   }
- }, [])
+//    }
+//  }, [])
  
 
   const handleSubmit = async (values) => {
     try {
       console.log(values)
       const response = await axios.post('http://localhost:8000/login', values);
+
+      console.log(response);
+
       if (response) {
-        var item_value = sessionStorage.setItem("sessionKey",response.data);
-        var item = sessionStorage.setItem("value",response.data);
+        // var item_value = sessionStorage.setItem("sessionKey",response.data);
+        // var item = sessionStorage.setItem("value",response.data);
         navigate('/admindash');
       }
     } catch (error) {

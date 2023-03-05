@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Admindash() {
+const Admindash = () => {
   return (
     <div>Admindash</div>
   )

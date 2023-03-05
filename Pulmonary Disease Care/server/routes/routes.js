@@ -3,11 +3,22 @@ const router = express.Router();
 import passport from 'passport';
 import {RegUser,Regadmin,Oathuser} from '../controllers/user_controller.js'
 import { Strategy as LocalStrategy } from 'passport-local';
-
+import { SasiHandler,GetSasi,SingleValue} from '../controllers/sasi-controller.js';
 
 
 router.post("/register",RegUser)
 router.post("/admin",Regadmin);
+
+router.post("/sasi",SasiHandler)
+router.get("/getsasi",GetSasi)
+router.get("/getsasi/:das",SingleValue)
+
+
+
+
+
+
+
 // router.post("/login",Oathuser);
 // router.post(
 //     '/login',

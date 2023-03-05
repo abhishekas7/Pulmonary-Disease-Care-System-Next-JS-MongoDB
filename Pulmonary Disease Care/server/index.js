@@ -101,6 +101,7 @@ passport.deserializeUser(async (id, done) => {
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
+  
 }));
 
 // app.post('/login', passport.authenticate('local'), (req, res) => {
@@ -166,6 +167,7 @@ app.get('/login', (req, res) => {
   if (req.sessionID) {
     // User is authenticated, so allow access to the dashboard
     res.send(req.sessionID)
+
   }else{
     res.send('fail')
   }
@@ -173,7 +175,7 @@ app.get('/login', (req, res) => {
 app.get('/dashboard', (req, res) => {
   if (req.isAuthenticated()) {
     // User is authenticated, so allow access to the dashboard
-    res.render('dashboard');
+    res.render('Home');
   } else {
     // User is not authenticated, so redirect to the login page
     res.redirect('/login');
@@ -196,6 +198,7 @@ passport.use(
       }
 
       return done(null, user);
+      
     } catch (error) {
       return done(error);
     }

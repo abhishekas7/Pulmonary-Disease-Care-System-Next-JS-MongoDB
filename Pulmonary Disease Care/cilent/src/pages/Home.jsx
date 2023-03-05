@@ -22,7 +22,7 @@ const Home = () => {
 
    <Header></Header>
 <Banner></Banner>
-<ChatBot
+{/* <ChatBot
 botAvatar='../assets/images/logo/favicon.png'
   steps={[
     {
@@ -41,7 +41,7 @@ botAvatar='../assets/images/logo/favicon.png'
       end: true,
     },
   ]}
-/>
+/> */}
 <Features></Features>
 <Footer/>
 <Link to={'/test'}>ss</Link>
