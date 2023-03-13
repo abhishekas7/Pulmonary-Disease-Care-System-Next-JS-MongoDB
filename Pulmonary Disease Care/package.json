@@ -1,5 +1,4 @@
 {
-  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "npm start --prefix server",
@@ -7,6 +6,10 @@
     "dev": "concurrently \"npm run server\" \"npm run cilent"
   },
   "dependencies": {
-    "concurrently": "^7.6.0"
+    "@adminjs/express": "^5.1.0",
+    "@adminjs/mongoose": "^3.0.3",
+    "adminjs": "^6.8.7",
+    "concurrently": "^7.6.0",
+    "react-pro-sidebar": "^1.0.0"
   }
 }

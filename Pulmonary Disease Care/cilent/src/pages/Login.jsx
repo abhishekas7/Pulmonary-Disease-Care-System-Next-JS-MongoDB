@@ -1,119 +1,97 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Grid, TextField, Button } from '@mui/material';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import loginImage from '../images/pexels-anna-shvets-3786153.jpg';
-
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email address').required('Required'),
-  password: Yup.string().required('Required'),
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import Bg from '../images/doc_pat.png'
+function Login() {
+  const [data, setData] = useState([]);
+const navigate = useNavigate();
+useEffect(() => {
+    const myValue = sessionStorage.getItem("myKey");
+    const type = sessionStorage.getItem("type");
+    console.log(type)
+    if(myValue&& type==='user'){
+      console.log(myValue)
+      navigate('/userdash')
+    }
+    if(myValue&& type==='admin'){
+      console.log(myValue)
+      navigate('/admindash')
+    }
+    if(myValue&& type==='doctor'){
+      console.log(myValue)
+      navigate('/docdash')
+    }
 });
 
-// eslint-disable-next-line react-hooks/rules-of-hooks
-
-
-const Login = () => {
-  const navigate=useNavigate();
-//  useEffect(() => {
- 
-//    if(!sessionStorage.getItem('sessionKey')){
-
-//      navigate('/login')
-
-//    }else{
-
-//       navigate('/')
-
-//    }
-//    return () => {
-//     // console.log( sessionStorage.getItem('sessionKey'))
-
-//    }
-//  }, [])
- 
-
-  const handleSubmit = async (values) => {
-    try {
-      console.log(values)
-      const response = await axios.post('http://localhost:8000/login', values);
-
-      console.log(response);
-
-      if (response) {
-        // var item_value = sessionStorage.setItem("sessionKey",response.data);
-        // var item = sessionStorage.setItem("value",response.data);
-        navigate('/admindash');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
-    <Grid container sx={{ height: '100vh' }}>
-      <Grid item xs={12} md={6}>
-        <img src={loginImage} alt="login" style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
-      </Grid>
-      <Grid container item xs={12} md={6} alignItems="center" justifyContent="center">
-        <Grid item xs={10} sm={8} md={6}>
-    <Formik
-  initialValues={{ email: '', password: '' }}
-  validate={values => {
-    const errors = {};
-    if (!values.email) {
-      errors.email = 'Required';
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-    ) {
-      errors.email = 'Invalid email address';
-    }
-    if (!values.password) {
-      errors.password = 'Required';
-    }
-    return errors;
-  }}
-  onSubmit={handleSubmit}
->
-  {({ errors, touched, isSubmitting }) => (
-    <Form>
-      <Field
-        as={TextField}
-        label="Email"
-        name="email"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        error={errors.email && touched.email}
-        helperText={errors.email && touched.email && errors.email}
-      />
-      <Field
-        as={TextField}
-        label="Password"
-        name="password"
-        type="password"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        error={errors.password && touched.password}
-        helperText={errors.password && touched.password && errors.password}
-      />
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        disabled={isSubmitting}
+<>
+<div className="container-fluid">
+  <div className="row ">
+    <div className="col-6 mt-5">
+    <img src={Bg} alt='ss' className='img-fluid' width={400}/>
+ <div className="w-100 mt-5">
+ <div className="col-md-5 d-block">
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        validate={values => {
+          const errors = {};
+          if (!values.email) {
+            errors.email = 'Required';
+          }
+          if (!values.password) {
+            errors.password = 'Required';
+          } 
+          return errors;
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          axios.post('http://localhost:8000/login', values)
+          
+            .then(response => {
+              console.log(response);
+              setData([...data, response.data]);
+              console.log(response.data.user.role);
+              const my = sessionStorage.setItem("myKey",response.data.token);
+              sessionStorage.setItem("data",response.data.user.name);
+              const myValue = sessionStorage.setItem("type",response.data.user.role);
+              setSubmitting(false);
+              navigate('/login')
+            })
+            .catch(error => {
+              console.log(error);
+              setSubmitting(false);
+            });
+        }}
       >
-        Login
-      </Button>
-    </Form>
-  )}
-</Formik>
+        {({ isSubmitting }) => (
+          <Form>
+            <div className="form-group">
+              <label htmlFor="email">Name</label>
+              <Field type="text" name="email" className="form-control" placeholder="Enter your name" />
+              <ErrorMessage name="email" component="div" className="text-danger" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <Field type="text" name="password" className="form-control" placeholder="Enter your age" />
+              <ErrorMessage name="password" component="div" className="text-danger" />
+            </div>
+            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Submit</button>
+          </Form>
+        )}
+      </Formik>
+      </div>
+ </div>
+    </div>
+    <div className="col-6">
+      ddd
+    </div>
+  </div>
+</div>
+</>
 
-        </Grid>
-      </Grid>
-    </Grid>
+    
   );
 }
 

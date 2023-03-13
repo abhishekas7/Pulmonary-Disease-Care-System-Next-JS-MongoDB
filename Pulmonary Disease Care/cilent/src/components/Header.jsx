@@ -4,12 +4,13 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import '../css/custom.css'
 const Header = () => {
   return (
 <>
     <header className="header-area">
         <div className="header-top">
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row">
                     <div className="col-lg-9 d-md-flex">
                         <h6 className="mr-3"><span className="mr-2"><i className="fa fa-mobile"></i></span> call us now! +1 305 708 2563</h6>
@@ -31,7 +32,7 @@ const Header = () => {
             </div>
         </div>
         <div id="header" >
-            <div className="container">
+            <div className="container-fluid p-0 bg_header" >
                 
                 <div className="">
                 <Navbar expand="lg" >
@@ -40,9 +41,10 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link"> <Link to={'/login'}>LOGIN</Link></Nav.Link>
-           
+          <Nav.Link > <Link to={'/'}>Home</Link></Nav.Link>
+            <Nav.Link > <Link to={'/login'}>LOGIN</Link></Nav.Link>
+            <Nav.Link> <Link to={'/register'}>REGISTER</Link></Nav.Link>
+            <Nav.Link> <Link to={'/productlist'}>PRODUCT LIST</Link></Nav.Link>
 
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

@@ -1,0 +1,213 @@
+const oneDay = 1000 * 60 * 60 * 24;
+
+app.use(cookieParser());
+// app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'mysecretkey',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.get('/login', (req, res) => {
+    res.send(req.session)
+});
+app.get('/', (req, res) => {
+  res.send(req.session)
+});
+app.get('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'An error occurred' });
+    } else {
+      res.redirect('/login')
+      res.json({ success: true });
+    }
+  });
+  
+  });
+
+app.post('/login',(req,res)=>{
+  User.findOne({ email: req.body.email }, async (err, data) => {
+    console.log(data);
+    const match = await bcrypt.compare(req.body.password,data.password);
+		if (data) {
+			if (match) {
+        req.session.loggedIn = true;
+        req.session.sid = data._id;
+        req.session.email = data.email;
+        req.session.username = data.username;
+        res.send(req.session)
+				// res.send({ "Success": "Success!","id":req.session.sid });
+			} else {
+				res.send({ "Success": "Wrong password!" });
+			}
+		} else {
+			res.send({ "Success": "This Email Is not regestered!" });
+      res.status(404).json(session.userId);
+		}
+	});
+
+})
+
+// Access the session as req.session
+// Access the session as req.session
+// app.get('/', function(req, res, next) {
+//   if (req.session.views) {
+//     req.session.views++
+//     res.setHeader('Content-Type', 'text/html')
+//     res.write('<p>views: ' + req.session.views + '</p>')
+//     res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+//     res.end()
+//   } else {
+//     req.session.views = 1
+//     res.end('welcome to the session demo. refresh!')
+//   }
+// })
+
+// function requireLogin(req, res, next) {
+//   if (req.session && req.session.user) {
+//     // User is logged in, allow access to the route
+//     next();
+//   } else {
+//     // User is not logged in, redirect to the login page
+//     res.redirect('/login');
+//   }
+// }
+
+
+
+__________________________________________________________________________________________________________________
+NEW
+
+
+
+
+
+import mongoose from 'mongoose';
+import express from 'express';
+import cors from 'cors'
+// import passport, { use } from 'passport';
+import session from 'express-session';
+import bodyParser from "body-parser";
+import Routes from '../server/routes/routes.js'
+import './database/db.js'
+// import './util/passport.js'
+// import './config/passport.js'
+import cookieParser from 'cookie-parser'
+import flash from 'connect-flash'
+// import User from './model/UserModel.js'; 
+import Users from './model/UserModel.js';
+import bcrypt from 'bcrypt'
+import MongoStore from 'connect-mongo';
+import LocalStrategy from 'passport-local';
+import User from './model/UserModel.js';
+import connectMongoDBSession from 'connect-mongodb-session';
+const MongoDBStore = connectMongoDBSession(session);
+import path from 'path';
+
+
+// Create a new session store
+// const store = new MongoDBStore({
+//   uri: 'mongodb://localhost:27017/PulmocareDB',
+//   collection: 'sessions'
+// });
+
+
+const app = express();
+const port = process.env.PORT || 8000
+
+
+
+
+app.use(cors())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// Initialize the connect-flash middleware
+app.use(flash());
+
+// Bodyparser middleware
+app.use(
+    bodyParser.urlencoded({
+      extended: false
+    })
+  );
+app.use(bodyParser.json());
+
+
+// app.use('/', Routes);
+// app.get('/dashboard', requireLogin, (req, res) => {
+//   res.render('dashboard', { user: req.session.user });
+// });
+app.listen(port, function(error){
+  if(error) throw error
+  console.log("Server created Successfully on port :", port)
+})
+
+// --------------------------------------------------------------
+app.use(session({
+  secret: 'yffdfdjjhuy',
+  resave: true,
+  saveUninitialized: true
+}));
+
+app.post('/login', (req, res) => {
+  // check if username and password are valid
+  // if (req.body.email === 'rome@gmail.com' && req.body.password === 'rome') {
+  //   // store user data in session object
+  //   req.session.user = {
+  //     username: req.body.email,
+  //     isLoggedIn: true
+  //   };
+  //   res.send({"message":'You are logged in!',"session":req.session});
+  // } else {
+  //   res.status(401).send('Invalid username or password');
+  // }
+  if (req.session.user && req.session.user.isLoggedIn) {
+    res.status(401).send({"message":'You are already logged in',"login":req.session.isLoggedIn});
+}else{
+ 
+  User.findOne({ email: req.body.email }, async (err, data) => {
+    console.log(data);
+    const match = await bcrypt.compare(req.body.password,data.password);
+		if (data) {
+			if (match) {
+        req.session.user = {
+          id:data._id,
+          email: req.body.email,
+          name: data.username,
+          isLoggedIn: true
+        };
+        // res.send(req.session)
+				res.json({ "Success": "Success!","id":req.session.user.id });
+			} else {
+				res.send({ "Success": "Wrong password!" });
+			}
+		} else {
+			res.send({ "Success": "This Email Is not regestered!" });
+      res.status(404).json(session.userId);
+		}
+	});
+}
+});
+app.get('/', (req, res) => {
+  // check if user is logged in
+  if (req.session.user.isLoggedIn) {
+    User.findOne({ email: req.session.user.email }, async (err, data) => {
+    res.send({ 'name':data.username,'email':data.email});
+  });
+  } else {
+    res.status(401).send({"message":'You are not authorized to view this page'});
+  }
+});
+
+app.post('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Error logging out');
+    } else {
+      res.redirect('/');
+    }
+  });
+});
