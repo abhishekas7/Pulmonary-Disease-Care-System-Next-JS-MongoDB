@@ -106,6 +106,28 @@ const router=useRouter()
                         {product.category}
                         </span>
                       </li>
+                      <li>
+                        <strong>Description</strong>
+                        <span>
+         
+                  {product.description}
+              
+                        </span>
+                      </li>
+                      <li>
+                        <strong>InStock</strong>
+                        <span>{product.quantity}</span>
+                      </li>
+
+                      <li>
+                        <strong>Company </strong>
+                        <span>{product.manufacturer}</span>
+                      </li>
+
+                      <li>
+                        <strong>Prescription Required </strong>
+                        <span>{product.prescription_required==true ? 'Yes' : 'No'}</span>
+                      </li>
                     </ul>
                   </div>
                   <div className="ltn__product-details-menu-2">
@@ -336,8 +358,9 @@ const router=useRouter()
 }
 export async function getServerSideProps({ params }) {
   // const product =await Product.findbyId(params.productdetails
+    db.connect()
   const product = await Product.findById(params.productdetails).lean();
-  db.connect()
+
   // const product = await Product.findOne({ _id: params.productdetails});
   console.log(product);
   db.disconnect();

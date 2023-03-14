@@ -1,29 +1,30 @@
-import { Schema, model } from 'mongoose';
-
+import { Schema, mongoose } from 'mongoose';
 const doctorSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
   },
   specialty: {
     type: String,
-    required: true
   },
   experience: {
     type: Number,
-    required: true
   },
   qualification: {
     type: String,
-    required: true
+  },
+  status: {
+    type: Boolean,
+    default:true
+  },
+  image:{
+    type:String,
   },
   appointments: [{
     type: Schema.Types.ObjectId,
     ref: 'Appointment'
   }]
 });
+const Doctor = mongoose.models.Doctor || mongoose.model("Doctor", doctorSchema);
+export default Doctor;
 
-const Doctor = model('Doctor', doctorSchema);
-
-export default Doctor;

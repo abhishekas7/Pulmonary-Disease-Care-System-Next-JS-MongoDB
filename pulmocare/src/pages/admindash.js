@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Script from "next/Script";
 import AddProduct from "./dashboards/AddProduct";
 import ViewProducts from "./dashboards/ViewProducts";
+import AddDoctor from "./dashboards/AddDoctor";
 
 const Admindash = () => {
 
@@ -17,6 +18,8 @@ const Admindash = () => {
           return <ViewProducts/>;
           case "viewproduct":
             return <ViewProducts/>;
+            case "adddoctor":
+              return <AddDoctor/>;
       default:
         return "e";
     }
@@ -51,7 +54,7 @@ const Admindash = () => {
         <div className="d-flex align-items-center justify-content-between">
           <a href="index.html" className="logo d-flex align-items-center">
             <img src="assets/img/logo.png" alt="" />
-            <span className="d-none d-lg-block">NiceAdmin</span>
+            <span className="d-none d-lg-block">Admin</span>
           </a>
           <i className="bi bi-list toggle-sidebar-btn" />
         </div>
@@ -317,7 +320,7 @@ const Admindash = () => {
               <span>Dashboard</span>
             </a>
           </li>
-          <li className="nav-heading">Pages</li>
+          <li className="nav-heading">Product Pages</li>
           <li className="nav-item">
             <a
               className="nav-link collapsed"
@@ -326,7 +329,7 @@ const Admindash = () => {
               href="#"
             >
               <i className="bi bi-layout-text-window-reverse" />
-              <span>Products</span>
+              <span>Product Management</span>
               <i className="bi bi-chevron-down ms-auto" />
             </a>
             <ul
@@ -343,6 +346,62 @@ const Admindash = () => {
 
             </ul>
           </li>
+
+   <li className="nav-heading">User Pages</li>
+          <li className="nav-item">
+            <a
+              className="nav-link collapsed"
+              data-bs-target="#tables-nav2"
+              data-bs-toggle="collapse"
+              href="#"
+            >
+              <i className="bi bi-layout-text-window-reverse" />
+              <span>User Management</span>
+              <i className="bi bi-chevron-down ms-auto" />
+            </a>
+            <ul
+              id="tables-nav2"
+              className="nav-content collapse "
+              data-bs-parent="#sidebar-nav"
+            >
+              <li>
+                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('adduser')}}}>Add User</button>           
+              </li>
+              <li>
+                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('viewuser')}}}>View User</button>           
+              </li>
+
+            </ul>
+          </li>
+    
+    
+   <li className="nav-heading">Doctor Pages</li>
+          <li className="nav-item">
+            <a
+              className="nav-link collapsed"
+              data-bs-target="#tables-nav3"
+              data-bs-toggle="collapse"
+              href="#"
+            >
+              <i className="bi bi-layout-text-window-reverse" />
+              <span>Doctor Management</span>
+              <i className="bi bi-chevron-down ms-auto" />
+            </a>
+            <ul
+              id="tables-nav3"
+              className="nav-content collapse "
+              data-bs-parent="#sidebar-nav"
+            >
+              <li>
+                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('adddoctor')}}}>Add Doctor</button>           
+              </li>
+              <li>
+                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('viewdoctor')}}}>View Doctor</button>           
+              </li>
+
+            </ul>
+          </li>
+
         </ul>
       </aside>
 
@@ -364,15 +423,11 @@ const Admindash = () => {
         <i className="bi bi-arrow-up-short" />
       </a>
 
-      <Script src="assets/vendor/apexcharts/apexcharts.min.js"></Script>
+
       <Script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></Script>
-      <Script src="assets/vendor/chart.js/chart.umd.js"></Script>
-      <Script src="assets/vendor/echarts/echarts.min.js"></Script>
-      <Script src="assets/vendor/quill/quill.min.js"></Script>
-      <Script src="assets/vendor/simple-datatables/simple-datatables.js"></Script>
-      <Script src="assets/vendor/php-email-form/validate.js"></Script>
+
       <Script src="assets/js/main.js"></Script>
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/tinymce.min.js"></Script>
+
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/tinymce.min.js"></Script>
       <Script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></Script>
       <Script src="http://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/jquery.tinymce.min.js"></Script>

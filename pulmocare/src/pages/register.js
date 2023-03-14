@@ -70,8 +70,6 @@ const register = () => {
           <div className="col-12 p-3">
             <Field as="select" name="role" className="form-control p-4">
               <option value="">Select role</option>
-              <option value="admin">Admin</option>
-              <option value="doctor">Doctor</option>
               <option value="patient">Patient</option>
             </Field>
             <ErrorMessage name="role" className="error-message" component="div" />

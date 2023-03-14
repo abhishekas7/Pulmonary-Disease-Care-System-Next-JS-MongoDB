@@ -27,6 +27,10 @@ const appointmentSchema = new Schema({
     type: Boolean,
     default: false
   },
+  status: {
+    type: Boolean,
+    default: true
+  },
   created_at: {
     type: Date,
     default: Date.now

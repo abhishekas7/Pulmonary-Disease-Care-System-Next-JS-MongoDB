@@ -2,7 +2,13 @@ import React from 'react'
 import Footer from './Footer'
 import Header from './Header'
 
+
+
 function Checkout() {
+
+  
+
+
   return (
     <div>
     <Header/>
@@ -53,50 +59,7 @@ function Checkout() {
         </div>
       </div>
       <div className="row">
-        <div className="col-lg-4 col-md-6">
-          <h6>Country</h6>
-          <div className="input-item">
-            <select className="nice-select" style={{ display: "none" }}>
-              <option>Select Country</option>
-              <option>Australia</option>
-              <option>Canada</option>
-              <option>China</option>
-              <option>Morocco</option>
-              <option>Saudi Arabia</option>
-              <option>United Kingdom (UK)</option>
-              <option>United States (US)</option>
-            </select>
-            <div className="nice-select" tabIndex={0}>
-              <span className="current">Select Country</span>
-              <ul className="list">
-                <li data-value="Select Country" className="option selected">
-                  Select Country
-                </li>
-                <li data-value="Australia" className="option">
-                  Australia
-                </li>
-                <li data-value="Canada" className="option">
-                  Canada
-                </li>
-                <li data-value="China" className="option">
-                  China
-                </li>
-                <li data-value="Morocco" className="option">
-                  Morocco
-                </li>
-                <li data-value="Saudi Arabia" className="option">
-                  Saudi Arabia
-                </li>
-                <li data-value="United Kingdom (UK)" className="option">
-                  United Kingdom (UK)
-                </li>
-                <li data-value="United States (US)" className="option">
-                  United States (US)
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+   
         <div className="col-lg-12 col-md-12">
           <h6>Address</h6>
           <div className="row">

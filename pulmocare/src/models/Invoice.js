@@ -6,6 +6,7 @@ const invoiceSchema = new Schema({
     ref: 'User',
     required: true
   },
+  
   products: [{
     product: {
       type: Schema.Types.ObjectId,
@@ -16,11 +17,16 @@ const invoiceSchema = new Schema({
       type: Number,
       required: true
     },
+    
     price: {
       type: Number,
       required: true
     }
   }],
+  status: {
+    type: Boolean,
+    default: true
+  },
   total_amount: {
     type: Number,
     required: true

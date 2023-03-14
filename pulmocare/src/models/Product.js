@@ -17,17 +17,18 @@ const productSchema = new Schema({
     type: Boolean,
     default: false
   },
-  image:{
-    type:String,
-  },
+
   quantity: {
     type: Number,
     default: 0
   },
   category: {
     type: String,
-   
-  }
+  },
+  status: {
+    type: Boolean,
+    default: true
+  },
 });
 
 

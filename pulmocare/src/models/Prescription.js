@@ -20,7 +20,11 @@ const prescriptionSchema = new Schema({
     },
     warnings: {
       type: String
-    }
+    },
+    status: {
+      type: Boolean,
+      default: true
+    },
   });
 const Prescription = model('Prescription', prescriptionSchema);
 

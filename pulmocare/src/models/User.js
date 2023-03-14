@@ -14,6 +14,10 @@ const userSchema = new Schema({
       type: String,
       required: true
     },
+    status: {
+      type: Boolean,
+      default: true
+    },
     role: {
       type: String,
       enum: ['admin', 'doctor', 'patient'],

@@ -8,7 +8,8 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { useContext } from 'react'
 import { useEffect } from 'react'
-import { data } from 'jquery'
+
+import axios from 'axios'
 
 
 
@@ -19,7 +20,7 @@ const Addtocart = () => {
   const [qty,setqty]=useState('');
   const { state, dispatch } = useContext(Store);
   const {cart: { cartItems },} = state;
-  const removeItemHandler = (item) => {
+  const removeItemHandler = async(item) => {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   };
   const updateCartHandler = async (item, qty) => {
@@ -34,6 +35,9 @@ const Addtocart = () => {
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
     toast.success('Product updated in the cart');
   };
+
+
+
   useEffect(() => {
     setCount(true);
     setTimeout(() => {
@@ -45,7 +49,10 @@ const Addtocart = () => {
     if (sess.status=='unauthorized') {
       return router.push('/auth/login');
     }
+   
     
+
+
 
     // fetchUserName();
   }, []);
@@ -77,7 +84,7 @@ const Addtocart = () => {
 
               
                 <tr >
-                  <td className="cart-product-remove">x</td>
+                  <td className="cart-product-remove"><button type='button' onClick={()=>removeItemHandler(item)}>x</button></td>
                   <td className="cart-product-image">
                     <a href="product-details.html">
                       <img src={`/images/${item.image}`} alt="#" />
@@ -93,9 +100,24 @@ const Addtocart = () => {
                   <td className="cart-product-price">
                   <td>
 
-<input type="number" name="number"
-min = "0" max="100" step="5"  /><br /><br />
+                  <select
+                        value={item.quantity}
+                        onChange={(e) =>
+                          updateCartHandler(item, e.target.value)
+                        }
+                      >
+                      
+                        {[...Array(item.quantity).keys()].map((x) => (
+                          <option key={x + 1} value={x + 1}>
+                            {x + 1}
+                          </option>
+                          
+                        ))}
+                       
+                        
 
+                      </select>
+           
 </td>
                   </td>
                   {/* <td class="cart-product-quantity">
@@ -180,3 +202,15 @@ min = "0" max="100" step="5"  /><br /><br />
 }
 
 export default Addtocart
+
+
+// export async function getServerSideProps() {
+//   await db.connect();
+//   const products = await Product.find().lean();
+//   console.log(products);
+//   return {
+//     props: {
+//       products: products.map(db.convertDocToObj),
+//     },
+//   };
+// }

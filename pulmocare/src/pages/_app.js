@@ -14,10 +14,6 @@ import 'jquery/dist/jquery.min.js';
 import 'popper.js/dist/umd/popper.min.js';
 
 
-
-
-
-
 export default function App({ Component,   pageProps: { session, ...pageProps }, }) {
   return (
     <>

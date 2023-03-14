@@ -41,7 +41,7 @@ const ViewProduct = () => {
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet" />
   {/* Template Main CSS File */}
   <link href="assets/css/style.css" rel="stylesheet" />
-      <table className="table table-hover">
+      <table className="table table-hover table-responsive" >
         <thead>
           <tr>
             <th scope="col">id</th>

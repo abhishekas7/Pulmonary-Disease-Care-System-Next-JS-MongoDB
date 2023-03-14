@@ -2975,3 +2975,38 @@ const productpage = () => {
 }
 
 export default productpage
+
+
+
+
+ <div className=''>
+ {doctor.map((doc) => (
+        <div key={String(doc)}>
+
+      <div className="col-lg-3 col-sm-6">
+        <div className="ltn__team-item ltn__team-item-3---">
+          <div className="team-img">
+          <img src={`/images/${doc.image}`} alt='product image'/>
+          </div>
+          <div className="team-info">
+            <h4>
+              <a href="team-details.html">{doc.user.name}</a>
+            </h4>
+            <h6 className="ltn__secondary-color">{doc.experience}</h6>
+            <h6 className="ltn__secondary-color">{doc.specialty}</h6>
+
+            <div className="ltn__social-media">
+              <ul>
+              <button className="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">
+  Take Appointment
+</button>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+  
+      </div>
+      ))}
+ </div>

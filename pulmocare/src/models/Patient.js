@@ -16,7 +16,11 @@ const patientSchema = new mongoose.Schema({
     },
     medical_history: {
       type: String
-    }
+    } ,
+     status: {
+      type: Boolean,
+      default: true
+    },
   });
 
 const Patient = mongoose.model('Patient', patientSchema);
