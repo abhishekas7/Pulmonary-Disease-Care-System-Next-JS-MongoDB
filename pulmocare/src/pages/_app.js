@@ -9,6 +9,7 @@ import '/public/css/font-icons.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import  {StoreProvider} from '../util/Store'
 import Script from 'next/script';
+import "react-datetime/css/react-datetime.css";
 
 import 'jquery/dist/jquery.min.js';
 import 'popper.js/dist/umd/popper.min.js';
