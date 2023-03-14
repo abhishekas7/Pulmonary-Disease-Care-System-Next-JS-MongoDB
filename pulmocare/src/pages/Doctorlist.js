@@ -5,6 +5,7 @@ import { Modal,Button } from 'react-bootstrap';
 import Modalc from '@/components/Modal';
 import Doctor from '@/models/Doctor';
 import db from '@/util/db';
+import Link from 'next/link';
 
 
 const Doctorlist = ({doctor}) => {
@@ -33,14 +34,14 @@ const handleShowModal = () => setShowModal(true);
             <h4>
               <a href="team-details.html">{doc.user.name}</a>
             </h4>
-            <h6 className="ltn__secondary-color">{doc.experience}</h6>
-            <h6 className="ltn__secondary-color">{doc.specialty}</h6>
+            <h6 className="ltn__secondary-color"><span>Experience  :  </span>{doc.experience}</h6>
+            <h6 className="ltn__secondary-color">Qualification : {doc.specialty}</h6>
 
             <div className="ltn__social-media">
               <ul>
-              <button className="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">
+              <Link href='/Bookdoc' className="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">
   Take Appointment
-</button>
+</Link>
               </ul>
             </div>
           </div>
