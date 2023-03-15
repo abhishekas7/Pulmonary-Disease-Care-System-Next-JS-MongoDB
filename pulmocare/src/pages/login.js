@@ -38,8 +38,8 @@ export default function Home() {
             To Your Account
           </h6>
           <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br />
-            Sit aliquid, Non distinctio vel iste.
+            Sign in to your Account<br />
+            Order Medical products from PulmoCare as Per the Physician Suggestion
           </p>
         </div>
       </div>
@@ -99,8 +99,8 @@ if(result.error){
         <div className="account-create text-center pt-50">
           <h4>DONT HAVE AN ACCOUNT?</h4>
           <p>
-            Add items to your wishlistget personalised recommendations <br />
-            check out more quickly track your orders register
+        Go to Register Page and Creat the Account First <br />
+            Happy Diagnosis 
           </p>
           <div className="btn-wrapper">
             <a href="register" className="theme-btn-1 btn black-btn">

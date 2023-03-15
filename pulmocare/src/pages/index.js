@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
 import Script from 'next/script'
-import Header from './Header'
+import Header from './components/Header'
 import Footer from './Footer'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
@@ -13,11 +13,33 @@ import { signOut } from 'next-auth/react'
 import axios from 'axios'
 import db from '@/util/db'
 import Product from '@/models/Product'
+import { useRouter } from 'next/router'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({products}) {
-  const sess=useSession()
+  const {data,status}=useSession()
+  const router=useRouter()
+  useEffect(() => {
+    if(status==='unauthenticated'){
+      router.push('/login')
+       
+        console.log(status)
+    }else {
+      if(status!=='loading'){
+        if(data.user.role==='doctor'){
+          router.push('/doctorDash')
+        }
+        if(data.user.role==='admin'){
+          router.push('/admindash')
+        }
+        
+      }
+      
+    }
+  }, [data,status])
+  
 console.log(products);
+console.log(data)
  
   return (
   <>
@@ -38,7 +60,6 @@ console.log(products);
 
 <Header/>
 {/* <button onClick={signOut()}></button> */}
-
   <div className="ltn__utilize-overlay" />
   {/* SLIDER AREA START (slider-3) */}
   {/* SLIDER AREA END */}

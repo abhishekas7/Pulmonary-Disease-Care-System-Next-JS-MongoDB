@@ -10,11 +10,6 @@ const register = () => {
   
   return (
     <div>
-  <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
-  <link rel="stylesheet" href="css/font-icons.css" />
-  <link rel="stylesheet" href="css/plugins.css" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/responsive.css" />
   <div className="ltn__login-area pb-110">
   <div className="container">
     <div className="row">

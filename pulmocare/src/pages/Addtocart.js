@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import Footer from './Footer'
-import Header from './Header'
+import Header from './components/Header'
 import { Store } from '@/util/Store'
 import { useState } from 'react'
 import { useRouter } from 'next/router'

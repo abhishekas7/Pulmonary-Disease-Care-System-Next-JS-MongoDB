@@ -1,18 +1,43 @@
 import React, { useState } from "react";
 import Modal from 'react-modal';
+import Datetime from 'react-datetime';
+import moment from "moment";
 
 export default function ({isOpen,onClose,onEventAdded}){
 
     const [title,setTitle]=useState("");
-    const [start,setTitle]=useState("");
-    const [title,setTitle]=useState("");
+    const [start,setStart]=useState(new Date());
+    const [end,setEnd]=useState(new Date());
 
-    return{
+    const onSubmit = (event) =>{
+        event.preventDefault();
+
+        onEventAdded({
+            title,
+            start,
+            end,
+        })
+        onClose();
+    }
+    
+
+    return(
      <Modal isOpen={isOpen} onRequestClose={onClose}>
      <form onSubmit={onSubmit}>
      <input placeholder="Description" value={title} onChange={e => setTitle(e.target.value)}/>
+        <div>
+            <label for="start">start</label>
+        <Datetime value={start} onChange={date=>setStart(date)}/>
 
+        </div>
+        <div>
+            <label for="End">end</label>
+        <Datetime value={end} onChange={date=>setEnd(date)}/>
+
+        </div>
+
+        <button>Add Event</button>
      </form>
      </Modal>
-    }
+    )
 }

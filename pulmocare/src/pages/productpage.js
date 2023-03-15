@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-css-tags */
 import Script from 'next/script'
 import React from 'react'
-import Header from './Header'
+import Header from './components/Header'
 import Links from './Links'
 
 const productpage = () => {

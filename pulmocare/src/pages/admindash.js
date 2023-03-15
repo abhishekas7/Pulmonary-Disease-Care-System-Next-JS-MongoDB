@@ -5,8 +5,38 @@ import Script from "next/Script";
 import AddProduct from "./dashboards/AddProduct";
 import ViewProducts from "./dashboards/ViewProducts";
 import AddDoctor from "./dashboards/AddDoctor";
+import { useRouter } from 'next/router'
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { signOut} from 'next-auth/react'
 
 const Admindash = () => {
+
+  const logout=()=>{
+    signOut({callbackUrl:'/login'})
+
+}
+
+  const {data,status}=useSession()
+  const router=useRouter()
+  useEffect(() => {
+    if(status==='unauthenticated'){
+      router.push('/login')
+       
+        console.log(status)
+    }else {
+      if(status!=='loading'){
+        if(data.user.role==='doctor'){
+          router.push('/doctorDash')
+        }
+        if(data.user.role==='admin'){
+          router.push('/admindash')
+        }
+       
+      }
+      
+    }
+  }, [data,status])
 
   const [option, setOption] = useState('/');
 
@@ -88,8 +118,8 @@ const Admindash = () => {
                 href="#"
                 data-bs-toggle="dropdown"
               >
-                <i className="bi bi-bell" />
-                <span className="badge bg-primary badge-number">4</span>
+                {/* <i className="bi bi-bell" />
+                <span className="badge bg-primary badge-number">4</span> */}
               </a>
               <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                 <li className="dropdown-header">
@@ -298,13 +328,10 @@ const Admindash = () => {
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item d-flex align-items-center"
-                    href="#"
-                  >
-                    <i className="bi bi-box-arrow-right" />
-                    <span>Sign Out</span>
-                  </a>
+                
+                   
+                   <button onClick={logout}>logout</button>
+                  
                 </li>
               </ul>
             </li>

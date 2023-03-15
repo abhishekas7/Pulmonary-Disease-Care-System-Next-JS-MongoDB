@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import React from 'react'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 
 const Header = () => {
+  const sess=useSession()
   const logout=()=>{
-       signOut()
+       signOut({callbackUrl:'/login'})
 
   }
   return (
@@ -203,18 +204,18 @@ const Header = () => {
                       <ul>
                         <li>
                          
-                          <Link href="login">Sign in</Link>
+                          {sess.status==='authenticated'?(<button className='bg-light' onClick={logout}>Logout</button>):(<Link href="/login">Sign in</Link>)}
                         </li>
              
                         
                         <li>
-                          <Link href="register">Register</Link>
+                          <Link href="/register">Register</Link>
                         </li>
                         <li>
-                          <Link href="admindash">Admindash</Link>
+                          {!sess.status==='loading'?(<div>{sess.data.user.role==='admin'?(<Link href="/admindash">Admindash</Link>):(<div>{sess.data.user.role==='admin'?(<Link href="/admindash">Admindash</Link>):(null)}</div>)}</div>):(null)}
                         </li>
                         <li>
-                          <Link href="wishlist">Wishlist</Link>
+                          <Link href="/Patientprofile">My Account</Link>
                         </li>
                       </ul>
                     </li>

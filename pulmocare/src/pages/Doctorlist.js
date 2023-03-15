@@ -1,6 +1,6 @@
 import React from 'react'
 import Footer from './Footer'
-import Header from './Header'
+import Header from './components/Header';
 import { Modal,Button } from 'react-bootstrap';
 import Modalc from '@/components/Modal';
 import Doctor from '@/models/Doctor';
@@ -25,17 +25,15 @@ const handleShowModal = () => setShowModal(true);
 
  {doctor.map((doc,i) => (
         // <div >
-      <div className="col-lg-3 col-sm-6" key={i} >
-        <div className="ltn__team-item ltn__team-item-3---">
+      <div className="col-lg-3 col-sm-6 " key={i} >
+        <div className="ltn__team-item ltn__team-item-3--- ">
           <div className="team-img">
           <img src={`/images/${doc.image}`} alt='product image'/>
           </div>
           <div className="team-info">
             <h4>
               <a href="team-details.html">{doc.user.name}</a>
-            </h4>
-            <h6 className="ltn__secondary-color"><span>Experience  :  </span>{doc.experience}</h6>
-            <h6 className="ltn__secondary-color">Qualification : {doc.specialty}</h6>
+            </h4>            <h6 className="ltn__secondary-color">Qualification : {doc.specialty}</h6>
 
             <div className="ltn__social-media">
               <ul>
@@ -77,11 +75,8 @@ export async function getServerSideProps({query}) {
         match: { role: 'doctor' },
         select: '-_id -__v -password', // exclude these fields from the result
       }).lean();
-      
-
-
   // const product = await Product.findOne({ _id: params.productdetails});
-  console.log(doctor);
+  // console.log(doctor);
   db.disconnect();
   return {
     props: {
@@ -90,5 +85,7 @@ export async function getServerSideProps({query}) {
   };
 
 }
+
+
 
 
