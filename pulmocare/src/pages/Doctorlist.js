@@ -37,10 +37,9 @@ const handleShowModal = () => setShowModal(true);
 
             <div className="ltn__social-media">
               <ul>
-              <Link href='/Bookdoc' className="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">
-  Take Appointment
-</Link>
-              </ul>
+              <Link href={`/doctor/${doc._id}`}>
+                    Take Appointement
+                  </Link>              </ul>
             </div>
           </div>
         </div> 

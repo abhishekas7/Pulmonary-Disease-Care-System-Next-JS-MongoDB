@@ -218,7 +218,7 @@ console.log(data)
               <div className="ltn__product-item ltn__product-item-2 text-left" key={i}>
                 <div className="product-img">
                 {/* <Link href='productdetails'> */}
-                  <Link        href={`/product/${product._id}`}>
+                  <Link href={`/product/${product._id}`}>
                     <img src={`images/${product.image}`} alt="" />
                   </Link>
                   <div className="product-badge">

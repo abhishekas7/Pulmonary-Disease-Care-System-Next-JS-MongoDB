@@ -15,6 +15,8 @@ const[image,setImage] = useState('')
     .required('Password is required'),
     specialty: Yup.string()
       .required('specialty is required'),
+      description: Yup.string()
+      .required('description is required'),
     experience: Yup.number()
       .required('experience is required')
       .positive('experience must be a positive number'),
@@ -35,7 +37,9 @@ const Submit =async (values)=>{
     body.append('file', image)
     body.append('specialty', values.specialty);
     body.append('experience', values.experience);
+    body.append('description', values.description);
     body.append('qualification', values.qualification);
+    alert(body)
     const response = await fetch('/api/doctor/doctor', {method: 'POST', body})
 }
   return (
@@ -47,6 +51,7 @@ const Submit =async (values)=>{
         email:'',
         password:'',
         specialty: '',
+        description:'',
         experience: '',
         image:'',
         qualification: '',
@@ -55,7 +60,7 @@ const Submit =async (values)=>{
       onSubmit={async (values, { setSubmitting }) => {
         
         Submit(values)
-        alert('doctor added')
+        alert(values)
       }}
     >
       {({ isSubmitting }) => (
@@ -82,6 +87,11 @@ const Submit =async (values)=>{
             <label htmlFor="specialty">Specialty</label>
             <Field type="text" name="specialty" className="form-control" />
             <ErrorMessage name="specialty" className="text-danger" component="div" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <Field type="text" name="description" className="form-control" />
+            <ErrorMessage name="description" className="text-danger" component="div" />
           </div>
           <div className="form-group">
             <label htmlFor="experience">Experience</label>

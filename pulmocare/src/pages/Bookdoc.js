@@ -11,7 +11,7 @@ function Bookdoc() {
 
    <>
    <Header/>
-   <Appointmentprofile/>
+   <Appointmentprofile />
    <Footer/>
    </>
     

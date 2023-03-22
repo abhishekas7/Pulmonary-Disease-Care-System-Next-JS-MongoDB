@@ -5,38 +5,33 @@ import moment from "moment";
 
 export default function ({isOpen,onClose,onEventAdded}){
 
-    const [title,setTitle]=useState("");
-    const [start,setStart]=useState(new Date());
-    const [end,setEnd]=useState(new Date());
+    const [reason,setReson]=useState("");
+    const [date,setDate]=useState(new Date());
+ 
 
     const onSubmit = (event) =>{
         event.preventDefault();
 
         onEventAdded({
-            title,
-            start,
-            end,
+            reason,
+            date,
         })
+
         onClose();
+        alert(reason)
+        alert(date)
     }
     
 
     return(
      <Modal isOpen={isOpen} onRequestClose={onClose}>
      <form onSubmit={onSubmit}>
-     <input placeholder="Description" value={title} onChange={e => setTitle(e.target.value)}/>
+     <input placeholder="Description" value={reason} onChange={e => setReson(e.target.value)}/>
         <div>
-            <label for="start">start</label>
-        <Datetime value={start} onChange={date=>setStart(date)}/>
-
+            <label for="date">date</label>
+        <Datetime value={date} onChange={date=>setDate(date)}/>
         </div>
-        <div>
-            <label for="End">end</label>
-        <Datetime value={end} onChange={date=>setEnd(date)}/>
-
-        </div>
-
-        <button>Add Event</button>
+        <button>Book Now</button>
      </form>
      </Modal>
     )

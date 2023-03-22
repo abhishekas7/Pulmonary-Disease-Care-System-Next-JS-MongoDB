@@ -7,6 +7,9 @@ const doctorSchema = new Schema({
   specialty: {
     type: String,
   },
+  description: {
+    type: String,
+  },
   experience: {
     type: Number,
   },

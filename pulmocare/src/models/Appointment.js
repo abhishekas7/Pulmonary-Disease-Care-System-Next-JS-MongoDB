@@ -1,27 +1,23 @@
-import { Schema, model } from 'mongoose';
+import { Schema, mongoose } from 'mongoose';
 
 const appointmentSchema = new Schema({
   doctor: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+ 
   },
   patient: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+
   },
   date: {
     type: Date,
-    required: true
-  },
-  duration: {
-    type: Number,
-    required: true
+
   },
   reason: {
     type: String,
-    required: true
+   
   },
   is_completed: {
     type: Boolean,
@@ -41,6 +37,6 @@ const appointmentSchema = new Schema({
   }
 });
 
-const Appointment = model('Appointment', appointmentSchema);
+const Appointment = mongoose.models.appointment || mongoose.model("appointment", appointmentSchema);
+export default Appointment;
 
-export default Appointment;

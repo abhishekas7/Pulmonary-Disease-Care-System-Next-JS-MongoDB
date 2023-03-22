@@ -1,51 +1,85 @@
-import React, { useState } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import ReactEventModal from './ReactEventModal'
-import { useRef } from 'react'
-import axios from 'axios'
-import moment from 'moment'
+import axios from 'axios';
+import Modal from 'react-modal';
+import React, { useState } from "react";
+
+import Datetime from 'react-datetime';
+import moment from "moment";
+// import { al } from '../../../public/assets/vendor/chart.js/chunks/helpers.segment';
+import { getError } from '@/util/error';
+
+const events = [
+  { title: 'Meeting', start: new Date() }
+]
+
+function Calender({doctor}) {
+
+  const [reason,setReson]=useState("");
+  const [date,setDate]=useState(new Date());
+  const [phoneNumber, setPhoneNumber] = useState("");
 
 
-function Calender() {
+  const onSubmit = async (event) =>{
+      event.preventDefault();
+      alert(reason)
+      alert(date)
+      // console.log(event);
+      try{
+      await axios.post('/api/calender/create-booking',{'reason':reason,'date':date,'doctor':doctor._id}).then((res=>alert(res.data.message)));
+      }catch(e){
+        alert(getError(e))
+      }
+      // onEventAdded({
+      //     reason,
+      //     date,
+      // })
 
-  const[modalOpen,setModalOpen] = useState(false)
-
-  const calenderRef = useRef(null)
-  const [events,setEvents] =useState([])
-
-  const onEventAdded = event =>{
-    let calendarApi = calenderRef.current.getApi()
-    calendarApi.addEvent(event);
+      // onClose();
+      
   }
 
-  async function handleEventAdd(data){
-    await axios.post("api/calender/create-booking",data.event);
-  }
-  async function handleDataSet(data){
-    const response = await axios.get(`"api/calendar/getevents?start="${moment(data.start).toISOString()}"&end="${moment(data.end).toISOString()}`);
-      setEvents(response.data)
-      console.log(response.data);
-  }
 
   return (
-    <section>
-    <button onClick={() => setModalOpen(true)}>Add Event</button>
-<div style={{position:"relative", zIndex:0}}>
-<FullCalendar
-   ref={calenderRef}
+    <div>
+
+      <FullCalendar
         plugins={[dayGridPlugin]}
         initialView='dayGridMonth'
         weekends={false}
-        eventAdd={(event => handleEventAdd(event))}
-        datesSet={(date)=>handleDataSet(date)}
-        events={events}
-        // eventContent={renderEventContent}
+        // events={events}
+        // eventAdd={(event => handleEventAdd(event))}
+        eventContent={renderEventContent}
       />
-</div>
-<ReactEventModal isOpen={modalOpen} onClose={()=>setModalOpen(false)} onEventAdded={event => onEventAdded(event)}/>
-      
-    </section>
+ <div>
+   <form onSubmit={onSubmit}>
+     <input placeholder="Description" value={reason} onChange={e => setReson(e.target.value)}/>
+        <div>
+            <label for="date">date</label>
+        <Datetime value={date} onChange={date=>setDate(date)}/>
+        </div>
+        <label>
+        Phone number:</label>
+        <input
+          type="text"
+          value={phoneNumber}
+          onChange={(event) => setPhoneNumber(event.target.value)}
+        />
+        <button>Schedule Appointment</button>
+     </form>
+ </div>
+    </div>
+  )
+}
+
+// a custom render function
+function renderEventContent(eventInfo) {
+  return (
+    <>
+      <b>{eventInfo.timeText}</b>
+      <i>{eventInfo.event.title}</i>
+    </>
   )
 }
 

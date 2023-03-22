@@ -25,8 +25,8 @@ export default async function Upload(req, res) {
     if (err) {
       console.log(err);
     }
-    console.log(fields);
-    console.log(files);
+    // console.log(fields);
+    // console.log(files);
     db.connect();
     const newUser = new User({
       name: fields.name,
@@ -40,8 +40,10 @@ export default async function Upload(req, res) {
       user:newUser._id,  
       status: fields.status,
       specialty: fields.specialty,
+      description: fields.description,
       image: files.file.newFilename,
       experience: fields.experience,
+      qualification: fields.qualification,
     });
 
     const doctor2 = await details.save();
