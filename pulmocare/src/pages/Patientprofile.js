@@ -1,16 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from './components/Header'
 import Footer from './Footer'
 import { signOut, useSession } from 'next-auth/react'
-
+import UpdateProfile from './components/UpdateProfile'
+import Loading from '@/components/Loading'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { set } from 'mongoose'
 
 function Patientprofile() {
-    const sess=useSession()
-    const logout=()=>{
-         signOut({callbackUrl:'/login'})
-  
-    }
 
+    const router = useRouter();
+    const [username,setusername]=useState(
+      ''
+    )
+    const sess=useSession()
+    
+    // const logout=()=>{
+    //      signOut({callbackUrl:'/login'})
+  
+    // }
+    useEffect(() => {
+        if(sess.status==="authenticated"){
+          setusername(sess.data.user)
+        }
+    
+    }, [])
+    
+    
 
   return (
     <div>
@@ -58,7 +75,7 @@ function Patientprofile() {
                   <div className="tab-pane fade active show" id="liton_tab_1_1">
                     <div className="ltn__myaccount-tab-content-inner">
                       <p>
-                        Hello <strong>{sess.data.user.name}</strong> (not{" "}
+                        Hello <strong>{username.name}</strong> (not{" "}
                         <strong>UserName</strong>?{" "}
                         <small>
                           <a href="login-register.html">Log out</a>
@@ -223,60 +240,7 @@ function Patientprofile() {
                         page by default.
                       </p>
                       <div className="ltn__form-box">
-                        <form action="#">
-                          <div className="row mb-50">
-                            <div className="col-md-6">
-                              <label>First name:</label>
-                              <input type="text" name="ltn__name" />
-                            </div>
-                            <div className="col-md-6">
-                              <label>Last name:</label>
-                              <input type="text" name="ltn__lastname" />
-                            </div>
-                            <div className="col-md-6">
-                              <label>Display Name:</label>
-                              <input
-                                type="text"
-                                name="ltn__lastname"
-                                placeholder="Ethan"
-                              />
-                            </div>
-                            <div className="col-md-6">
-                              <label>Display Email:</label>
-                              <input
-                                type="email"
-                                name="ltn__lastname"
-                                placeholder="example@example.com"
-                              />
-                            </div>
-                          </div>
-                          <fieldset>
-                            <legend>Password change</legend>
-                            <div className="row">
-                              <div className="col-md-12">
-                                <label>
-                                  Current password (leave blank to leave
-                                  unchanged):
-                                </label>
-                                <input type="password" name="ltn__name" />
-                                <label>
-                                  New password (leave blank to leave unchanged):
-                                </label>
-                                <input type="password" name="ltn__lastname" />
-                                <label>Confirm new password:</label>
-                                <input type="password" name="ltn__lastname" />
-                              </div>
-                            </div>
-                          </fieldset>
-                          <div className="btn-wrapper">
-                            <button
-                              type="submit"
-                              className="btn theme-btn-1 btn-effect-1 text-uppercase"
-                            >
-                              Save Changes
-                            </button>
-                          </div>
-                        </form>
+                      <UpdateProfile patient={username}/>
                       </div>
                     </div>
                   </div>

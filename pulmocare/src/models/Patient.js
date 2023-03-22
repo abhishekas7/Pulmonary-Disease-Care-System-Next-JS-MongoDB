@@ -1,5 +1,5 @@
-import { Schema, model } from 'mongoose';
-const patientSchema = new mongoose.Schema({
+import { Schema, mongoose } from 'mongoose';
+const patientSchema = new Schema({
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
@@ -14,15 +14,11 @@ const patientSchema = new mongoose.Schema({
       enum: ['male', 'female', 'other'],
       required: true
     },
-    medical_history: {
-      type: String
-    } ,
      status: {
       type: Boolean,
       default: true
     },
   });
 
-const Patient = mongoose.model('Patient', patientSchema);
-
-export default Patient;
+const Patient = mongoose.models.Patient || mongoose.model("Patient", patientSchema);
+export default Patient;

@@ -73,9 +73,9 @@ const Admindash = () => {
       />
       <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet" />
       <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
-      <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
-      <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet" />
-      <link href="assets/css/style.css" rel="stylesheet" />
+      <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet"/>
+      <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet"/>
+      <link href="assets/css/style.css" rel="stylesheet"/>
 
       <header
         id="header"
@@ -435,7 +435,7 @@ const Admindash = () => {
       <main id="main" className="main">
         <div className="pagetitle">
           <h1>DASHBOARD</h1>
-          
+          <button onClick={logout}>logout</button>
 <div>
 {page()}
 </div>
