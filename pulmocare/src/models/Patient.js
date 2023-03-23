@@ -1,18 +1,22 @@
 import { Schema, mongoose } from 'mongoose';
 const patientSchema = new Schema({
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true
+
     },
     age: {
       type: Number,
-      required: true
+
+    },
+    pincode: {
+      type: String,
+
     },
     gender: {
       type: String,
       enum: ['male', 'female', 'other'],
-      required: true
+
     },
      status: {
       type: Boolean,

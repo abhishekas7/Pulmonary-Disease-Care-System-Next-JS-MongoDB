@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
 import Header from './components/Header'
 import Footer from './Footer'
-import { signOut, useSession } from 'next-auth/react'
+import { getSession, signOut, useSession } from 'next-auth/react'
 import UpdateProfile from './components/UpdateProfile'
 import Loading from '@/components/Loading'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { set } from 'mongoose'
+import db from '@/util/db'
 
 function Patientprofile() {
 
     const router = useRouter();
-    const [username,setusername]=useState(
-      ''
-    )
+    const [username,setusername]=useState('')
     const sess=useSession()
     
     // const logout=()=>{
@@ -263,3 +262,15 @@ function Patientprofile() {
 }
 
 export default Patientprofile
+
+export async function getServerSideProps() {
+  await db.connect();
+
+  // const patient = await Patient.findById().lean();
+  // console.log(patient);
+  return {
+    props: {
+      // patients: patients.map(db.convertDocToObj),
+    },
+  };
+}

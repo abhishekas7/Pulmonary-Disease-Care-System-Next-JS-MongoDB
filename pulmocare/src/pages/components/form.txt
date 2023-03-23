@@ -1,0 +1,67 @@
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+
+const initialValues = {
+  name: '',
+  email: '',
+  password: '',
+  gender: '',
+};
+
+const validationSchema = Yup.object({
+  name: Yup.string().required('Name is required'),
+  email: Yup.string().email('Invalid email address').required('Email is required'),
+  password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
+  gender: Yup.string().oneOf(['male', 'female', 'other'], 'Invalid gender').required('Gender is required'),
+});
+
+const onSubmit = (values) => {
+  console.log(values);
+};
+
+const FormComponent = () => {
+  return (
+    <div>
+      <h1>Registration Form</h1>
+      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+        {({ touched, errors }) => (
+          <Form>
+            <div>
+              <label htmlFor="name">Name:</label>
+              <Field type="text" name="name" />
+              <ErrorMessage name="name" />
+            </div>
+
+            <div>
+              <label htmlFor="email">Email:</label>
+              <Field type="email" name="email" />
+              <ErrorMessage name="email" />
+            </div>
+
+            <div>
+              <label htmlFor="password">Password:</label>
+              <Field type="password" name="password" />
+              <ErrorMessage name="password" />
+            </div>
+
+            <div>
+              <label htmlFor="gender">Gender:</label>
+              <Field as="select" name="gender">
+                <option value="">Select a gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </Field>
+              <ErrorMessage name="gender" />
+            </div>
+
+            <button type="submit">Submit</button>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
+};
+
+export default FormComponent;

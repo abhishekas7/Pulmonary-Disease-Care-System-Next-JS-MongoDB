@@ -18,7 +18,7 @@ function Calender({doctor}) {
 
   const [reason,setReson]=useState("");
   const [date,setDate]=useState(new Date());
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phonenumber, setPhoneNumber] = useState("");
 
 
   const onSubmit = async (event) =>{
@@ -27,7 +27,7 @@ function Calender({doctor}) {
       alert(date)
       // console.log(event);
       try{
-      await axios.post('/api/calender/create-booking',{'reason':reason,'date':date,'doctor':doctor._id}).then((res=>alert(res.data.message)));
+      await axios.post('/api/calender/create-booking',{'reason':reason,'phonenumber':phonenumber,'date':date,'doctor':doctor._id}).then((res=>alert(res.data.message)));
       }catch(e){
         alert(getError(e))
       }
@@ -63,7 +63,7 @@ function Calender({doctor}) {
         Phone number:</label>
         <input
           type="text"
-          value={phoneNumber}
+          value={phonenumber}
           onChange={(event) => setPhoneNumber(event.target.value)}
         />
         <button>Schedule Appointment</button>

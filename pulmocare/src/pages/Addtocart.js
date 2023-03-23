@@ -8,54 +8,83 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { useContext } from 'react'
 import { useEffect } from 'react'
+import { toast } from 'react-toastify'
 
 import axios from 'axios'
+import { getError } from '@/util/error'
 
 
 
 const Addtocart = () => {
-  const [count, setCount] = useState(false);
-  const sess=useSession();
-  const router = useRouter();
-  const [qty,setqty]=useState('');
-  const { state, dispatch } = useContext(Store);
-  const {cart: { cartItems },} = state;
-  const removeItemHandler = async(item) => {
-    dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
-  };
-  const updateCartHandler = async (item, qty) => {
-    const quantity = Number(qty);
-    const loading=()=>{
-      <Loader/>
-    }
-    const { data } = await axios.get(`/api/product/${item._id}`);
-    if ( item.quantity < quantity) {
-      return toast.error('Sorry. Product is out of stock');
-    }
-    dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
-    toast.success('Product updated in the cart');
-  };
+  // const [count, setCount] = useState(false);
+  // const sess=useSession();
+  // const router = useRouter();
+  // const [qty,setqty]=useState('');
+  // const { state, dispatch } = useContext(Store);
+  // const {cart: { cartItems },} = state;
+  // const removeItemHandler = async(item) => {
+  //   dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+  // };
+  // const updateCartHandler = async (item, qty) => {
+  //   const quantity = Number(qty);
+  //   const loading=()=>{
+  //     <Loader/>
+  //   }
+  //   const { data } = await axios.get(`/api/product/${item._id}`);
+  //   if ( item.quantity < quantity) {
+  //     return toast.error('Sorry. Product is out of stock');
+  //   }
+  //   dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
+  //   toast.success('Product updated in the cart');
+  // };
 
 
 
-  useEffect(() => {
-    setCount(true);
-    setTimeout(() => {
-      setCount(false);
-    }, 3000);
+  // useEffect(() => {
+  //   setCount(true);
+  //   setTimeout(() => {
+  //     setCount(false);
+  //   }, 3000);
 
-    // console.log(cart);
-    // console.log(auth.currentUse}r.uid);
-    if (sess.status=='unauthorized') {
-      return router.push('/auth/login');
-    }
+  //   // console.log(cart);
+  //   // console.log(auth.currentUse}r.uid);
+  //   if (sess.status=='unauthorized') {
+  //     return router.push('/auth/login');
+  //   }
    
     
 
-
+  const router = useRouter();
+  const { state, dispatch } = useContext(Store);
+  const {
+    cart: { cartItems ,product},
+  } = state;
+  const removeItemHandler = (item) => {
+    dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+  };
+  const updateCartHandler = async (item, qty) => {
+   
+    const cartquantity = Number(qty);
+    try{
+    const { data } = await axios.get(`/api/products/${item._id}`);
+    console.log(data)
+    if (data.quantity < cartquantity) {
+      return toast.error('Sorry. Product is out of stock');
+    }
+  }catch(e){
+    toast.error(getError(e))
+  }
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, cartquantity } });
+    toast.success('Product updated in the cart');
+  };
 
     // fetchUserName();
-  }, []);
+//   }, []);
+useEffect(() => {
+  
+  console.log(cartItems);
+}, [])
+
   return (
     <div>
 <Header/>
@@ -99,19 +128,16 @@ const Addtocart = () => {
         
                   <td className="cart-product-price">
                   <td>
-
                   <select
-                        value={item.quantity}
+                        value={item.cartquantity}
                         onChange={(e) =>
                           updateCartHandler(item, e.target.value)
                         }
                       >
-                      
                         {[...Array(item.quantity).keys()].map((x) => (
                           <option key={x + 1} value={x + 1}>
                             {x + 1}
                           </option>
-                          
                         ))}
                        
                         
@@ -163,28 +189,13 @@ const Addtocart = () => {
               <tbody>
                 <tr>
                   <td>Cart Subtotal</td>
-                  <td>$618.00</td>
-                </tr>
-                <tr>
-                  <td>Shipping and Handing</td>
-                  <td>$15.00</td>
-                </tr>
-                <tr>
-                  <td>Vat</td>
-                  <td>$00.00</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Order Total</strong>
-                  </td>
-                  <td>
-                    <strong>$633.00</strong>
-                  </td>
+                  <td>({cartItems.reduce((a, c) => a + c.quantity, 0)}) : $
+                  {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}</td>
                 </tr>
               </tbody>
             </table>
             <div className="btn-wrapper text-right">
-              <Link href="Checkout" className="theme-btn-1 btn btn-effect-1">
+              <Link href="Checkout" className="theme-btn-1 btn btn-effect-1" >
                 Proceed to checkout
               </Link>
             </div>

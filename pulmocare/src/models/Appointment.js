@@ -19,6 +19,10 @@ const appointmentSchema = new Schema({
     type: String,
    
   },
+  phonenumber: {
+    type: String,
+   
+  },
   is_completed: {
     type: Boolean,
     default: false

@@ -19,6 +19,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home({products}) {
   const {data,status}=useSession()
   const router=useRouter()
+
   useEffect(() => {
     if(status==='unauthenticated'){
       router.push('/login')

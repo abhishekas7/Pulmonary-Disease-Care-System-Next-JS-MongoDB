@@ -20,14 +20,14 @@ export default function k({product}) {
 
   const addToCartHandler = async () => {
     const existItem = state.cart.cartItems.find((x) => x._id === product._id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const cartquantity = existItem ? existItem.cartquantity + 1 : 1;
     const { data } = await axios.get(`/api/product/${product._id}`);
     console.log(data)
 
     // if (data.countInStock < quantity) {
     //   return toast.error('Sorry. Product is out of stock');
     // }
-    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, cartquantity } });
     router.push('/Addtocart');
   }
 

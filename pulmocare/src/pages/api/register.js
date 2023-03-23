@@ -4,6 +4,7 @@ import User from '@/models/User';
 import data from '@/util/data';
 import bcrypt from 'bcrypt'
 import db from '@/util/db';
+import Patient from '@/models/Patient';
 
 
 
@@ -32,17 +33,34 @@ const { email,name ,password } = req.body;
    name,
    password:hash,
  });
+ const savedUser = await newUser.save();
  
-
+ if(savedUser.role==='patient'){
  try {
-  const savedUser = await newUser.save();
+  const patient = new Patient({user:savedUser._id,age:0,pincode:'',gender:'male'})
+  if(patient){
+    console.log(patient)
+  }
+  const savedpatient = await patient.save() 
   db.disconnect()
   res.status(201).json(savedUser);
 } catch (err) {
+  console.log(err)
   res.status(400).json({ message: err.message });
 }
+}
+//  try {
+//   const patient = new Patient({user:savedUser._id})
+
+//   const savedpatient = await patient.save() 
+//   db.disconnect()
+//   res.status(201).json(savedUser);
+// } catch (err) {
+//   console.log(err)
+//   res.status(400).json({ message: err.message });
+// }
   await db.disconnect();
-  res.send({ message: 'register successfully' });
-};
+  // res.send({ message: 'register successfully' });
+}
 export default handler;
 
