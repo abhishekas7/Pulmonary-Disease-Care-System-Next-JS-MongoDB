@@ -4,8 +4,10 @@ import Doctor from '@/models/Doctor';
 export default async function handler(req, res) {
     await db.connect();
     try {
-        const Doctors = await Doctor.find(); // Find all Doctors in the database
-        res.send(Doctors)
+      const doctors = await Doctor.find()
+      .populate('user')
+        // console.log(doctors);
+        res.send(doctors)
         // Render the Doctor list view and pass in the Doctors as a variable
       } catch (err) {
         console.error(err);

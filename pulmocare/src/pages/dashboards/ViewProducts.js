@@ -2,16 +2,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EditProduct from './EditProduct';
+import Modalc from '@/components/Modal';
 
-const ViewProduct = () => {
-  const [products, setProducts] = useState([]);
+const ViewProduct = ({productss}) => {
+  const [products, setProducts] = useState([productss]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(10);
-
+ const get=async ()=>{
+  const produ= await axios.get('/api/product/viewproduct').then((response) => {
+ 
+    setProducts(response.data);
+    
+  });
+ }
   useEffect(() => {
-    axios.get('/api/product/viewproduct').then((response) => {
-      setProducts(response.data);
-    });
+   get()
+   console.log(products);
   }, []);
 
   // Logic to calculate which products should be displayed on the current page
@@ -41,81 +47,64 @@ const ViewProduct = () => {
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet" />
   {/* Template Main CSS File */}
   <link href="assets/css/style.css" rel="stylesheet" />
-      <table className="table table-hover table-responsive" >
+    
+<div className="col-lg-12">
+  <div className="card">
+    <div className="card-body">
+      <h5 className="card-title">Product Table</h5>
+ 
+
+
+      <table className="table">
         <thead>
           <tr>
-            <th scope="col">id</th>
+            <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Description</th>
+            <th scope="col">Image</th>
             <th scope="col">Price</th>
             <th scope="col">Manufacturer</th>
-            <th scope="col">Prescription Required</th>
-            <th scope="col">Image</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Category</th>
-            <th scope="col" colSpan="2">
-              Action
-            </th>
+            <th scope="col">Prescription</th>
+            <th scope="col">quantity</th>
+            <th scope="col">category</th>
+            <th scope="col">status</th>
+            <th scope="col" colSpan={2}>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {currentProducts.map((product) => (
-            <tr key={product.id}>
-              <td>{product._id}</td>
-              <td>{product.name}</td>
-              <td>{product.description}</td>
-              <td>{product.price}</td>
-              <td>{product.manufacturer}</td>
-              <td>{product.prescription_required}</td>
-              <td>{product.image}</td>
-              <td>{product.quantity}</td>
-              <td>{product.category}</td>
-              <td>
 
-              <button
-    type="button"
-    className="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#ExtralargeModal"
-  >
-   Edit
-  </button>
-  <div className="modal fade" id="ExtralargeModal" tabIndex={-1}>
-    <div className="modal-dialog modal-xl">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title">Edit Your Product</h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          />
-        </div>
-        <div className="modal-body">
-   <EditProduct/>
-        </div>
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
+        {
 
-        </div>
-      </div>
-    </div>
-  </div>
-            </td>
-              <td>
-                <button>Delete</button>
-              </td>
-            </tr>
-          ))}
+products.map((item,i)=>(
+  <tr>
+  <th scope="row" key={i}>{i}</th>
+  <td>{item.name}</td>
+  <td>{item.description}</td>
+  <td><img src={`..//images/${item.image}`} className='img-fluid' width={'50px'}/></td>
+  <td>{item.price}</td>
+  <td>{item.manufacturer}</td>
+  <td>{item.prescription_required?('true'):('false')}</td>
+  <td>{item.quantity}</td>
+  <td>{item.category}</td>
+  <td>{item.status?('true'):('false')}</td>
+  <td><Modalc btnname={'Edit'} heading={'Edit Product'} savebtn={'OK'} content={<EditProduct/>}/></td>
+  <td><button>Delete</button></td>
+
+
+</tr>
+))
+
+}
+        
+
+   
+         
         </tbody>
       </table>
+      {/* End Default Table Example */}
+    </div>
+  </div>
+</div>
 
       {/* Render pagination buttons */}
       <nav>
@@ -137,3 +126,5 @@ const ViewProduct = () => {
 };
 
 export default ViewProduct;
+
+

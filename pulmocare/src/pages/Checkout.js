@@ -1,15 +1,12 @@
 
 import Footer from './Footer'
 import Header from './components/Header'
-
 import React, { useContext, useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Cookies from 'js-cookie';
-// import CheckoutWizard from '../components/CheckoutWizard';
-// import Layout from '../components/Layout';
 import { Store } from '@/util/Store';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 import { getError } from '@/util/error';
 import axios from 'axios';
 function Checkout() {
@@ -64,7 +61,7 @@ function Checkout() {
       console.log(data);
       var options = {
         key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
-        name: "pulmo Pvt Ltd",
+        name: "Pulmo Care Pvt Ltd",
         currency: "INR",
         amount: 500,
         order_id: data.id,
@@ -157,7 +154,6 @@ const paymentmethodHandler = (e) => {
   };
   const [loading,setLoading]=useState(true)
   const placeOrderHandler = async () => {
-   
     try {
       // setLoading(true);
       console.log(cartItems)
@@ -189,9 +185,6 @@ const paymentmethodHandler = (e) => {
 useEffect(() => {
   // console.log(cart)
 }, [])
-
-
-
   return (
     <div>
     <Header/>
@@ -199,7 +192,6 @@ useEffect(() => {
 <div className="ltn__checkout-single-content mt-50">
   <h4 className="title-2">Billing Details</h4>
   <div className="ltn__checkout-single-content-info">
-   
   <form
         className="mx-auto max-w-screen-md"
         onSubmit={handleSubmit(submitHandler)}
@@ -208,8 +200,8 @@ useEffect(() => {
       <div className="row">
         <div className="col-md-6">
           <div className="input-item input-item-name ltn__custom-icon">
-          <input
-            // className="w-full"
+          <input name="ltn__lastname" type="text"
+            className="w-full form-control"
             id="fullName"
             autoFocus
             {...register('fullName', {
@@ -221,39 +213,14 @@ useEffect(() => {
           )}
           </div>
         </div>
-        <div className="col-md-6">
-          <div className="input-item input-item-name ltn__custom-icon">
-            <input type="text" name="ltn__lastname" placeholder="Last name" />
-          </div>
-        </div>
-        <div className="col-md-6">
-          <div className="input-item input-item-email ltn__custom-icon">
-            <input type="email" name="ltn__email" placeholder="email address" />
-          </div>
-        </div>
+
         <div className="col-md-6">
           <div className="input-item input-item-phone ltn__custom-icon">
             <input type="text" name="ltn__phone" placeholder="phone number" />
           </div>
         </div>
-        <div className="col-md-6">
-          <div className="input-item input-item-website ltn__custom-icon">
-            <input
-              type="text"
-              name="ltn__company"
-              placeholder="Company name (optional)"
-            />
-          </div>
-        </div>
-        <div className="col-md-6">
-          <div className="input-item input-item-website ltn__custom-icon">
-            <input
-              type="text"
-              name="ltn__phone"
-              placeholder="Company address (optional)"
-            />
-          </div>
-        </div>
+     
+     
       </div>
       <div className="row">
    
@@ -262,7 +229,7 @@ useEffect(() => {
           <div className="row">
             <div className="col-md-6">
               <div className="input-item">
-              <input
+              <input type='text'
             className="w-full"
             id="address"
             {...register('address', {
@@ -275,20 +242,13 @@ useEffect(() => {
           )}
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="input-item">
-                <input
-                  type="text"
-                  placeholder="Apartment, suite, unit etc. (optional)"
-                />
-              </div>
-            </div>
+    
           </div>
         </div>
         <div className="col-lg-4 col-md-6">
           <h6>Town / City</h6>
           <div className="input-item">
-          <input
+          <input type='text'
             className="w-full"
             id="city"
             {...register('city', {
@@ -303,7 +263,7 @@ useEffect(() => {
         <div className="col-lg-4 col-md-6">
           <h6>Country</h6>
           <div className="input-item">
-          <input
+          <input type='text'
             // className="w-full"
             id="country"
             {...register('country', {
@@ -318,7 +278,7 @@ useEffect(() => {
         <div className="col-lg-4 col-md-6">
           <h6>Zip</h6>
           <div className="input-item">
-          <input
+          <input type='text'
             // className="w-full"
             id="postalCode"
             {...register('postalCode', {
@@ -333,7 +293,7 @@ useEffect(() => {
       </div>
       <p>
         <label className="input-info-save mb-0">
-          <input type="checkbox" name="agree" /> Create an account?
+          {/* <input type="checkbox" name="agree" /> Create an account? */}
         </label>
       </p>
       <h6>Order Notes (optional)</h6>
@@ -344,7 +304,7 @@ useEffect(() => {
           defaultValue={""}
         />
       </div>
-      <button type='submit'>submit</button>
+      <button type='submit'className='theme-btn-1 btn btn-effect-1' >submit</button>
     </form>
   </div>
 </div>
@@ -430,13 +390,16 @@ useEffect(() => {
         our privacy policy.
       </p>
     </div>
-    <button
+    <button className='theme-btn-1 btn btn-effect-1'
       // className="btn theme-btn-1 btn-effect-1 text-uppercase"
       type="button"
       onClick={()=>placeOrderHandler()}
     >
       {loading?'loading':'Place order'}
     </button>
+
+
+
   </div>
 </div>
 

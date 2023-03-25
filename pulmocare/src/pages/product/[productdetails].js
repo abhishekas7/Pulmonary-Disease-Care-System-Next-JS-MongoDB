@@ -133,10 +133,11 @@ const router=useRouter()
                   <div className="ltn__product-details-menu-2">
                     <ul>
                  
-                      <li>
-        
-                          <button className="theme-btn-1 btn btn-effect-1" onClick={addToCartHandler}><i className="fas fa-shopping-cart" /><span>ADD TO CART</span></button>
-                 
+                      <li>{product.quantity>0?(
+                      <button className="theme-btn-1 btn btn-effect-1" onClick={addToCartHandler}><i className="fas fa-shopping-cart" /><span>ADD TO CART</span></button>
+                      ):(
+                      <button className="theme-btn-1 btn btn-effect-1" disabled ><i className="fas fa-shopping-cart" /><span>OUT OF STOCK</span></button>
+                      )}
                       </li>
                     </ul>
                   </div>

@@ -2,8 +2,18 @@ import Link from 'next/link'
 import Script from 'next/script'
 import React from 'react'
 import { signOut, useSession } from 'next-auth/react'
+import { Store } from '@/util/Store'
+import { useContext } from 'react'
+
 
 const Header = () => {
+
+    
+  const { state, dispatch } = useContext(Store);
+
+  const {cart} = state;
+
+
   const sess=useSession()
   const logout=()=>{
        signOut({callbackUrl:'/login'})
@@ -231,7 +241,7 @@ const Header = () => {
                   >
                     <span className="mini-cart-icon">
                       <i className="icon-shopping-cart" />
-                      <sup>2</sup>
+                      <sup>{state.cart.cartItems.length}</sup>
                     </span>
                     <h6>
                       <span>Your Cart</span>{" "}

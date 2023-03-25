@@ -9,8 +9,13 @@ import { useRouter } from 'next/router'
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { signOut} from 'next-auth/react'
+import Product from "@/models/Product";
+import db from "@/util/db";
+import Viewusers from "./dashboards/Viewusers";
+import User from "@/models/User";
 
-const Admindash = () => {
+
+const Admindash = ({productss,allusers}) => {
 
   const logout=()=>{
     signOut({callbackUrl:'/login'})
@@ -45,9 +50,9 @@ const Admindash = () => {
       case "addproduct":
         return <AddProduct/>;
         case "viewproduct":
-          return <ViewProducts/>;
-          case "viewproduct":
-            return <ViewProducts/>;
+          return <ViewProducts productss={productss} />;
+          case "viewusers":
+            return <Viewusers allusers={allusers}/>;
             case "adddoctor":
               return <AddDoctor/>;
       default:
@@ -356,7 +361,7 @@ const Admindash = () => {
               href="#"
             >
               <i className="bi bi-layout-text-window-reverse" />
-              <span>Product Management</span>
+              <span>Products</span>
               <i className="bi bi-chevron-down ms-auto" />
             </a>
             <ul
@@ -383,7 +388,7 @@ const Admindash = () => {
               href="#"
             >
               <i className="bi bi-layout-text-window-reverse" />
-              <span>User Management</span>
+              <span>Users</span>
               <i className="bi bi-chevron-down ms-auto" />
             </a>
             <ul
@@ -395,7 +400,7 @@ const Admindash = () => {
                   <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('adduser')}}}>Add User</button>           
               </li>
               <li>
-                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('viewuser')}}}>View User</button>           
+                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('viewusers')}}}>View User</button>           
               </li>
 
             </ul>
@@ -463,3 +468,18 @@ const Admindash = () => {
 };
 
 export default Admindash;
+
+export async function getServerSideProps() {
+  await db.connect();
+  const products = await Product.find().lean();
+
+  const allusers = await User.find().lean();
+
+    console.log(allusers);
+  return {
+    props: {
+      allusers:JSON.parse(JSON.stringify(allusers.map(db.convertDocToObj))),
+      productss: products.map(db.convertDocToObj),
+    },
+  };
+}

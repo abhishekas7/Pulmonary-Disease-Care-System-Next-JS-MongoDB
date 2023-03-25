@@ -14,6 +14,7 @@ import axios from 'axios'
 import db from '@/util/db'
 import Product from '@/models/Product'
 import { useRouter } from 'next/router'
+import Loading from '@/components/Loading'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({products}) {
@@ -25,7 +26,8 @@ export default function Home({products}) {
       router.push('/login')
        
         console.log(status)
-    }else {
+    }
+    else {
       if(status!=='loading'){
         if(data.user.role==='doctor'){
           router.push('/doctorDash')
@@ -35,12 +37,11 @@ export default function Home({products}) {
         }
         
       }
-      
     }
   }, [data,status])
   
-console.log(products);
-console.log(data)
+// console.log(products);
+// console.log(data)
  
   return (
   <>
@@ -215,8 +216,8 @@ console.log(data)
             
                   {products.map((product,i) => (
             // eslint-disable-next-line react/jsx-key
-            <div className="col-lg-3--- col-md-4 col-sm-6 col-6">
-              <div className="ltn__product-item ltn__product-item-2 text-left" key={i}>
+            <div className="col-md-4" key={i}>
+              <div className="ltn__product-item ltn__product-item-2 text-left" >
                 <div className="product-img">
                 {/* <Link href='productdetails'> */}
                   <Link href={`/product/${product._id}`}>
@@ -302,8 +303,6 @@ console.log(data)
                 </div>
               </div>
             </div>
-
-
       ))}
 
             {/*  */}

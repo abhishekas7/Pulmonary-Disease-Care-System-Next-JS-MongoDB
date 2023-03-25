@@ -9,8 +9,6 @@ import db from '@/util/db'
 
 function Bookdoc({doctor}) {
   return (
- 
-
    <>
 <p></p>
    <Header/>
@@ -27,7 +25,6 @@ export async function getServerSideProps({ params }) {
   // const product =await Product.findbyId(params.productdetails
     db.connect()
   const doctor = await Doctor.findById(params.Bookdoc).populate('user').lean();
-
   // const product = await Product.findOne({ _id: params.productdetails});
   console.log(doctor);
   db.disconnect();

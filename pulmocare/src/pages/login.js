@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 export default function Home() {
   const router=useRouter()
   const data=useSession()
-  console.log(data)
+  console.log(data.role)
   useEffect(() => {
     if(data.status=='authenticated'){
       router.push('/')
@@ -28,14 +28,14 @@ export default function Home() {
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/responsive.css" />
 <div className="ltn__login-area pb-65">
-  {data.status}
+  Status : {data.status}
   <div className="container">
     <div className="row">
       <div className="col-lg-12">
         <div className="section-title-area text-center">
           <h6 className="section-title">
             Sign In <br />
-            To Your Account
+
           </h6>
           <p>
             Sign in to your Account<br />
@@ -100,7 +100,7 @@ if(result.error){
           <h4>DONT HAVE AN ACCOUNT?</h4>
           <p>
         Go to Register Page and Creat the Account First <br />
-            Happy Diagnosis 
+            Happy Diagnosis !!
           </p>
           <div className="btn-wrapper">
             <a href="register" className="theme-btn-1 btn black-btn">

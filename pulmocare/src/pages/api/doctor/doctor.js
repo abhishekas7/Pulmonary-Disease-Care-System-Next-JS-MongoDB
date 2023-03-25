@@ -3,6 +3,8 @@ import { join, resolve } from "path";
 import db from "@/util/db";
 import User from "@/models/User";
 import Doctor from "@/models/Doctor";
+import bcrypt from 'bcrypt'
+
 export const config = {
   api: {
     bodyParser: false,
@@ -28,10 +30,12 @@ export default async function Upload(req, res) {
     // console.log(fields);
     // console.log(files);
     db.connect();
+    const saltRounds = 10;
+    const hash = bcrypt.hashSync(fields.password, saltRounds);
     const newUser = new User({
       name: fields.name,
       email: fields.email,
-      password: fields.password,
+      password:hash,
       role:"doctor"
     });
     const doctor = await newUser.save();
