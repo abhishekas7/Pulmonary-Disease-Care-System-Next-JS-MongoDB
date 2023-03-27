@@ -27,7 +27,7 @@ function Calender({doctor}) {
       alert(date)
       // console.log(event);
       try{
-      await axios.post('/api/calender/create-booking',{'reason':reason,'phonenumber':phonenumber,'date':date,'doctor':doctor._id}).then((res=>alert(res.data.message)));
+      await axios.post('/api/calender/create-booking',{'reason':reason,'phonenumber':phonenumber,'date':date,'doctor':doctor._id,}).then((res=>alert(res.data.message)));
       }catch(e){
         alert(getError(e))
       }
@@ -54,7 +54,7 @@ function Calender({doctor}) {
       />
  <div>
    <form onSubmit={onSubmit}>
-     <input placeholder="Description" value={reason} onChange={e => setReson(e.target.value)}/>
+     <input type="text" placeholder="Description" value={reason} onChange={e => setReson(e.target.value)}/>
         <div>
             <label for="date">date</label>
         <Datetime value={date} onChange={date=>setDate(date)}/>

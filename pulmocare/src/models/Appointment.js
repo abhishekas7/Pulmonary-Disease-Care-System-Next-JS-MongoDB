@@ -17,11 +17,9 @@ const appointmentSchema = new Schema({
   },
   reason: {
     type: String,
-   
   },
   phonenumber: {
-    type: String,
-   
+    type: String, 
   },
   is_completed: {
     type: Boolean,

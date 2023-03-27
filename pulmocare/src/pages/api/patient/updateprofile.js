@@ -18,6 +18,7 @@ if(req.method === 'PUT'){
         const [patient] = us;
         patient.age = req.body.values.age;
         patient.gender = req.body.values.gender;
+        patient.mobile = req.body.values.mobile;
         patient.pincode = req.body.values.pincode;
         await patient.save();
         await db.disconnect();

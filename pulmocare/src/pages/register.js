@@ -122,8 +122,6 @@ const register = () => {
 
 
 
-<Script src="https://example.com/script.js" />
-<Script src="js/plugins.js"></Script>
     </div>
   )
 }

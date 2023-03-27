@@ -36,8 +36,8 @@ allusers.map((item,i)=>(
   <td>{item.status?('true'):('false')}</td>
   <td>{item.role}</td>
   <td>{item.created_at}</td>
-  <td><Modalc btnname={'Edit'}></Modalc></td>
-  <td><button>Delete</button></td>
+  <td><Modalc btnname={<i class="bi bi-pencil-square"></i>}></Modalc></td>
+  <td><button><i class="bi bi-trash"></i></button></td>
 
 
 </tr>

@@ -8,16 +8,20 @@ import Script from 'next/script'
 import Header from './components/Header'
 import Footer from './Footer'
 import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { signOut } from 'next-auth/react'
 import axios from 'axios'
 import db from '@/util/db'
 import Product from '@/models/Product'
 import { useRouter } from 'next/router'
 import Loading from '@/components/Loading'
+import Header2 from './components/Header2'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({products}) {
+
+
+
   const {data,status}=useSession()
   const router=useRouter()
 
@@ -47,20 +51,12 @@ export default function Home({products}) {
   <>
 
 
- <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
-
-  <link rel="stylesheet" href="css/font-icons.css" />
-
-  <link rel="stylesheet" href="css/plugins.css" />
-
-  <link rel="stylesheet" href="css/style.css" />
-
-  <link rel="stylesheet" href="css/responsive.css" />
 
 
   <div className="body-wrapper">
 
-<Header/>
+
+<Header2/>
 {/* <button onClick={signOut()}></button> */}
   <div className="ltn__utilize-overlay" />
   {/* SLIDER AREA START (slider-3) */}
@@ -216,7 +212,8 @@ export default function Home({products}) {
             
                   {products.map((product,i) => (
             // eslint-disable-next-line react/jsx-key
-            <div className="col-md-4" key={i}>
+            <div className="col-md-4" key={i} data-aos="fade-up"
+            data-aos-duration="2000">
               <div className="ltn__product-item ltn__product-item-2 text-left" >
                 <div className="product-img">
                 {/* <Link href='productdetails'> */}
@@ -228,7 +225,7 @@ export default function Home({products}) {
                       <li className="sale-badge">New</li>
                     </ul>
                   </div>
-                  <div className="product-hover-action">
+                  {/* <div className="product-hover-action">
                     <ul>
                       <li>
                         <Link
@@ -261,7 +258,7 @@ export default function Home({products}) {
                         </Link>
                       </li>
                     </ul>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="product-info">
                   <div className="product-ratting">

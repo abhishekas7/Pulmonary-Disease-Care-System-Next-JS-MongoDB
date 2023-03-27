@@ -6,16 +6,16 @@ const patientSchema = new Schema({
     },
     age: {
       type: Number,
-
     },
     pincode: {
       type: String,
-
+    },
+    mobile: {
+      type: String, 
     },
     gender: {
       type: String,
       enum: ['male', 'female', 'other'],
-
     },
      status: {
       type: Boolean,

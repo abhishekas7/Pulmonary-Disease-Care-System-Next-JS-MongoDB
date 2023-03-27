@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import Modalc from '@/components/Modal';
+const _ = require('lodash');
 
-function ViewAppoint() {
-  const [appointment,setAppointment] = useState([])
-const getAppointment=async ()=>{
-  const response = await axios
-  .get("/api/appointments/appointment")
-  .then(res => setAppointment(res.data) )
-  .catch(err => console.error(err))
-}
+
+function ViewAppoint({doctor,appointment}) {
+  // const [appointment,setAppointment] = useState([])
+  
+ 
 useEffect(() => {
-getAppointment()
-console.log(appointment);
+  
+console.log(appointment)
 }, [])
+
+const date = new Date('');
+const formattedDate = date.toLocaleString();
+
   return (
     <div>
         <div className='container'>
@@ -27,8 +29,9 @@ console.log(appointment);
           <tr>
             <th scope="col">#</th>
             <th scope="col">Image</th>
-            <th scope="col">Patient Name</th>
-            <th scope="col">Date & Time</th>
+            <th scope="col">Name</th>
+            <th scope="col">Scheduled</th>
+            <th scope="col">Date</th>
             <th scope="col">Email</th>
             <th scope="col">Mobile</th>
             <th scope="col">Reason</th>
@@ -36,12 +39,14 @@ console.log(appointment);
           </tr>
         </thead>
         <tbody>
+          
           {appointment.map((item,i)=>(
             <tr>
             <th scope="row" key={i}>{i}</th>
             <td>{item.patient.image}</td>
             <td>{item.patient.name}</td>
-            <td>{item.date}</td>
+            <td>{new Date(item.date).toLocaleString()}</td>
+            <td>{new Date(item.created_at).toLocaleString()}</td>
             <td>{item.patient.email}</td>
             <td>{item.phonenumber}</td>
             <td>{item.reason}</td>
@@ -49,8 +54,11 @@ console.log(appointment);
   <td><button>Delete</button></td>
           </tr>
           ))
-          }
-        
+          } 
+{/* {data.appointments.map((item,i)=>(
+  <p key={i}>{item.doctor.experience}</p>
+))} */}
+
         </tbody>
       </table>
       {/* End Default Table Example */}

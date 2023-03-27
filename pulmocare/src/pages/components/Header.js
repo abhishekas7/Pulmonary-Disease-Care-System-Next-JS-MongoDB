@@ -5,6 +5,12 @@ import { signOut, useSession } from 'next-auth/react'
 import { Store } from '@/util/Store'
 import { useContext } from 'react'
 
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const Header = () => {
 
@@ -21,73 +27,12 @@ const Header = () => {
   }
   return (
     <div>
+
+{/* new navbar */}
+
+
+
     <header className="ltn__header-area ltn__header-3">
-  {/* ltn__header-top-area start */}
-  <div className="ltn__header-top-area border-bottom">
-    <div className="container">
-      <div className="row">
-        <div className="col-md-7">
-          <div className="ltn__top-bar-menu">
-            <ul>
-              <li>
-                <Link href="mailto:info@webmail.com?Subject=Flower%20greetings%20to%20you">
-                  <i className="icon-mail" /> info@webmail.com
-                </Link>
-              </li>
-              <li>
-                <Link href="locations">
-                  <i className="icon-placeholder" /> 15/A, Nest Tower, NYC
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="col-md-5">
-          <div className="top-bar-right text-right text-end">
-            <div className="ltn__top-bar-menu">
-              <ul>
-                <li>
-                  {/* ltn__language-menu */}
-                  <div className="ltn__drop-menu ltn__currency-menu ltn__language-menu">
-              
-                  </div>
-                </li>
-                <li>
-                  {/* ltn__social-media */}
-                  <div className="ltn__social-media">
-                    <ul>
-                      <li>
-                        <Link href="#" title="Facebook">
-                          <i className="fab fa-facebook-f" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="#" title="Twitter">
-                          <i className="fab fa-twitter" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="#" title="Instagram">
-                          <i className="fab fa-instagram" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="#" title="Dribbble">
-                          <i className="fab fa-dribbble" />
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  {/* ltn__header-top-area end */}
-  {/* ltn__header-middle-area start */}
   <div className="ltn__header-middle-area">
     <div className="container">
       <div className="row">
@@ -256,8 +201,14 @@ const Header = () => {
       </div>
     </div>
   </div>
-  {/* ltn__header-middle-area end */}
-  {/* header-bottom-area start */}
+  <div className="ltn__header-middle-area">
+    <div className='container'>
+      <div className='row'>
+        
+      </div>
+    </div>
+  </div>
+
   <div className="header-bottom-area ltn__border-top ltn__header-sticky ltn__sticky-bg-white--- ltn__sticky-bg-secondary ltn__secondary-bg section-bg-1 menu-color-white d-none d-lg-block">
     <div className="container">
       <div className="row">
@@ -398,8 +349,7 @@ const Header = () => {
 </header>
 
 
-  <Script src="https://example.com/script.js" />
-<Script src="js/plugins.js"></Script>
+
 
     </div>
   )

@@ -66,16 +66,17 @@ const Addtocart = () => {
    
     const cartquantity = Number(qty);
     try{
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(`/api/product/${item._id}`);
     console.log(data)
     if (data.quantity < cartquantity) {
       return toast.error('Sorry. Product is out of stock');
     }
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, cartquantity } });
+    toast.success('Product updated in the cart');
   }catch(e){
     toast.error(getError(e))
   }
-    dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, cartquantity } });
-    toast.success('Product updated in the cart');
+
   };
 
     // fetchUserName();

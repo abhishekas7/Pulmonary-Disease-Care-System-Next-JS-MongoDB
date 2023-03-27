@@ -19,6 +19,19 @@ const index = () => {
   const [userdet,setUser]=useState()
   const router=useRouter()
   const [docData,setdocData] = useState([])
+
+  const [appointment,setAppointment]=useState()
+  const [doctor,setDoctor]=useState()
+  const [patient,setPatient]=useState()
+
+  const getdata=async ()=>{
+    const response= await axios.get("/api/appointments/appointment");
+    // console.log(response.data.appointments)
+    // console.log(response.data.patient)
+    setAppointment(response.data.appointments)
+    setDoctor(response.data.doctor)
+  }
+
   useEffect(() => {
     
     if(status==='unauthenticated'){
@@ -42,7 +55,10 @@ const index = () => {
       
     }
     getdocData()
-    console.log(docData)
+    getdata()
+    // console.log(appointment)
+    // console.log(doctor)
+    // console.log(docData)
   }, [status,data])
 
   const [option, setOption] = useState('/');
@@ -60,11 +76,11 @@ const index = () => {
   const page = () => {
     switch (option) {
       case "appointment":
-        return <ViewAppoint/>;
+        return <ViewAppoint doctor={doctor} appointment={appointment}/>;
         case "doctor":
           return <Viewdoctor/> ;
           case "patient":
-            return <Viewpatient/>;
+            return <Viewpatient appointment={appointment}/>;
             case "adddoctor":
               return ;
       default:

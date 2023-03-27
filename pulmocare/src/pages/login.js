@@ -50,8 +50,17 @@ export default function Home() {
         <Formik
   initialValues={{ email: '', password: '' }}
   validationSchema={Yup.object({
-    email: Yup.string().email('Invalid email address').required('Required'),
-    password: Yup.string().required('Required'),
+    email: Yup.string()
+      .email('Invalid email address')
+      .required('Required')
+      .min(6, 'Email must be at least 6 characters')
+      .max(50, 'Email cannot exceed 50 characters')
+      .matches(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z]{2,}$/i, 'Invalid email format'),
+    password: Yup.string()
+      .required('Required')
+      .min(8, 'Password must be at least 8 characters')
+      .max(50, 'Password cannot exceed 50 characters')
+      .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm, 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'),
   })}
   onSubmit={async (values, { setSubmitting, resetForm }) => {
     const result = await signIn('credentials', {
@@ -60,10 +69,10 @@ export default function Home() {
       password:values.password,
       });
 if(result.error){
-  toast.error(result.error)
+  toast.error('Invalid Email or Password')
 
 }else{
-  toast.success('Successfully logged')
+  toast.success('Login Sucessfully..')
   router.push('/')
 }
       resetForm();
