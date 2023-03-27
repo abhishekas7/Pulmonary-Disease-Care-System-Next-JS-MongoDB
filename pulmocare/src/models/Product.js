@@ -17,7 +17,9 @@ const productSchema = new Schema({
     type: Boolean,
     default: false
   },
-
+image:{
+type:String
+},
   quantity: {
     type: Number,
     default: 0

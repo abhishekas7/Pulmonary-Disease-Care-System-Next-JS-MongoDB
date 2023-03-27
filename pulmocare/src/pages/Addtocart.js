@@ -99,15 +99,13 @@ useEffect(() => {
       <div className="col-lg-12">
         <div className="shoping-cart-inner">
           <div className="shoping-cart-table table-responsive">
-            <table className="table">
+            <table className="table" border={1}>
  
               <tbody>
                 <tr>
-                  <td>s</td>
-                  <td>s</td>
-                  <td>s</td>
-                  <td>s</td>
-              
+                 
+                <th className='bg-light'>Product Name</th>
+                <th className='bg-light'>Product Name</th>
                 </tr>
               {cartItems.map((item,i)=>(
                 <div key={i}>
@@ -125,7 +123,7 @@ useEffect(() => {
                       <a href="product-details.html">{item.name}</a>
                     </h4>
                   </td>
-                  <td className="cart-product-price">{item.price}</td>
+                  <td className="cart-product-price">&#x20B9;{item.price}</td>
         
                   <td className="cart-product-price">
                   <td>
@@ -153,7 +151,7 @@ useEffect(() => {
                                                 <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box"/>
                                             <div class="inc qtybutton">+</div></div>
                                         </td> */}
-                  <td className="cart-product-subtotal">{item.cartquantity * item.price}</td>
+                  <td className="cart-product-subtotal">&#x20B9;{item.cartquantity * item.price}</td>
                 </tr>
 
                 {/* <tr className="cart-coupon-row">

@@ -9,3 +9,19 @@ body {
 h1 {
   font-size: 1.75rem;
 }
+
+.na{
+  background-color: #0A9A73;
+  color: rgb(255, 255, 255) !important;
+  font-weight: 400;
+}
+
+a.nav-link{
+  font-weight: 400;
+  color: aliceblue;
+  font-family: Poppins;
+}
+
+.margin-nav{
+  margin-left: auto;
+}

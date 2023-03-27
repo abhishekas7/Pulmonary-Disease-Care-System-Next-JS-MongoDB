@@ -7,7 +7,7 @@ useEffect(() => {
 
 
   return () => {
-    console.log(doctor);
+    // console.log(doctor);
   }
 },)
 
@@ -28,7 +28,7 @@ useEffect(() => {
       </div>
     </div>
     <div className="col-lg-8">
-      <div className="ltn__team-details-member-info-details">
+      <div className="ltn__team-details-member-info-details ">
       <h4>Profile</h4>
         <p>
           <strong>Description</strong><br></br>{doctor.description}

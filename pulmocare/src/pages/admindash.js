@@ -475,6 +475,8 @@ export async function getServerSideProps() {
 
   const allusers = await User.find().lean();
 
+  
+
     console.log(allusers);
   return {
     props: {

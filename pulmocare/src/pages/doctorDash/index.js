@@ -27,7 +27,7 @@ const index = () => {
   const getdata=async ()=>{
     const response= await axios.get("/api/appointments/appointment");
     // console.log(response.data.appointments)
-    // console.log(response.data.patient)
+    console.log(response.data.pa)
     setAppointment(response.data.appointments)
     setDoctor(response.data.doctor)
   }
@@ -80,7 +80,7 @@ const index = () => {
         case "doctor":
           return <Viewdoctor/> ;
           case "patient":
-            return <Viewpatient appointment={appointment}/>;
+            return <Viewpatient pat/>;
             case "adddoctor":
               return ;
       default:

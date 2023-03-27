@@ -4,7 +4,7 @@ import Appointment from "@/models/Appointment";
 import Doctor from "@/models/Doctor";
 import Patient from "@/models/Patient";
 import { getError } from "@/util/error";
-import User from "@/models/User";
+
 
 function sendsms(phonenumber,date,docname) {
   //ZOOM
@@ -32,8 +32,6 @@ link = `https://zoom.us/j/${link}`;
            to: '+91'+phonenumber  
            
          })
-
-         console.log(phonenumber)
         .then(message => console.log(message.sid)) 
 
 }

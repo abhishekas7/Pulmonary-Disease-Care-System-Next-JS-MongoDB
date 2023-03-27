@@ -16,11 +16,13 @@ import Product from '@/models/Product'
 import { useRouter } from 'next/router'
 import Loading from '@/components/Loading'
 import Header2 from './components/Header2'
+import Navbarr from './components/Navbar'
+import Navbar1 from './components/Navbar1'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({products}) {
 
-
+  const MAX_LENGTH = 25; 
 
   const {data,status}=useSession()
   const router=useRouter()
@@ -51,12 +53,12 @@ export default function Home({products}) {
   <>
 
 
-
-
+<Navbar1/>
+<Navbarr/>
   <div className="body-wrapper">
 
 
-<Header2/>
+
 {/* <button onClick={signOut()}></button> */}
   <div className="ltn__utilize-overlay" />
   {/* SLIDER AREA START (slider-3) */}
@@ -212,94 +214,94 @@ export default function Home({products}) {
             
                   {products.map((product,i) => (
             // eslint-disable-next-line react/jsx-key
-            <div className="col-md-4" key={i} data-aos="fade-up"
-            data-aos-duration="2000">
-              <div className="ltn__product-item ltn__product-item-2 text-left" >
-                <div className="product-img">
-                {/* <Link href='productdetails'> */}
-                  <Link href={`/product/${product._id}`}>
-                    <img src={`images/${product.image}`} alt="" />
-                  </Link>
-                  <div className="product-badge">
-                    <ul>
-                      <li className="sale-badge">New</li>
-                    </ul>
-                  </div>
-                  {/* <div className="product-hover-action">
-                    <ul>
-                      <li>
-                        <Link
-                   href='#'
-                          title="Quick View"
-                          data-bs-toggle="modal"
-                          data-bs-target="#quick_view_modal"
-                        >
-                          <i className="far fa-eye" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="#"
-                          title="Add to Cart"
-                          data-bs-toggle="modal"
-                          data-bs-target="#add_to_cart_modal"
-                        >
-                          <i className="fas fa-shopping-cart" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="#"
-                          title="Wishlist"
-                          data-bs-toggle="modal"
-                          data-bs-target="#liton_wishlist_modal"
-                        >
-                          <i className="far fa-heart" />
-                        </Link>
-                      </li>
-                    </ul>
-                  </div> */}
-                </div>
-                <div className="product-info">
-                  <div className="product-ratting">
-                    <ul>
-                      <li>
-                        <Link href="#">
-                          <i className="fas fa-star" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="#">
-                          <i className="fas fa-star" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="#">
-                          <i className="fas fa-star" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="#">
-                          <i className="fas fa-star-half-alt" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="#">
-                          <i className="far fa-star" />
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <h2 className="product-title">
-                    <Link href="productdetails">{product.name}</Link>
-                  </h2>
-                  <div className="product-price">
-                    <span style={{fontSize:20,color:'red'}}><span>&#8377;</span>{product.price}</span>
-                    {/* <del>$180.00</del> */}
-                  </div>
-                </div>
-              </div>
-            </div>
+       
+<div className="col-lg-3 col-md-4 col-sm-6 col-6" key={i} >
+<div className="ltn__product-item ltn__product-item-3 text-left" style={{ height: '350px' }}>
+  <div className="product-img">
+  <Link href={`/product/${product._id}`}>
+    <img src={`images/${product.image}`} alt="" />
+    </Link>
+    <div className="product-badge">
+      <ul>
+        <li className="sale-badge">New</li>
+      </ul>
+    </div>
+    <div className="product-hover-action">
+      <ul>
+        <li>
+          <Link
+            href="#"
+            title="Quick View"
+            data-bs-toggle="modal"
+            data-bs-target="#quick_view_modal"
+          >
+            <i className="far fa-eye" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="#"
+            title="Add to Cart"
+            data-bs-toggle="modal"
+            data-bs-target="#add_to_cart_modal"
+          >
+            <i className="fas fa-shopping-cart" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="#"
+            title="Wishlist"
+            data-bs-toggle="modal"
+            data-bs-target="#liton_wishlist_modal"
+          >
+            <i className="far fa-heart" />
+          </Link>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div className="product-info">
+    <div className="product-ratting">
+      <ul>
+        <li>
+          <Link href="#">
+            <i className="fas fa-star" />
+          </Link>
+        </li>
+        <li>
+          <Link href="#">
+            <i className="fas fa-star" />
+          </Link>
+        </li>
+        <li>
+          <Link href="#">
+            <i className="fas fa-star" />
+          </Link>
+        </li>
+        <li>
+          <Link href="#">
+            <i className="fas fa-star-half-alt" />
+          </Link>
+        </li>
+        <li>
+          <Link href="#">
+            <i className="far fa-star" />
+          </Link>
+        </li>
+      </ul>
+    </div>
+    <h2 className="product-title">
+      <Link href="product-details.html">{product.name.slice(0, MAX_LENGTH)}...</Link>
+    </h2>
+    <div className="product-price">
+ 
+      <span>Amount: &#x20B9;{product.price}</span>
+    </div>
+  </div>
+</div>
+</div>
+            
       ))}
 
             {/*  */}
@@ -317,187 +319,17 @@ export default function Home({products}) {
     <div className="container">
       <div className="row">
         <div className="col-lg-12">
-          <div className="section-title-area ltn__section-title-2 text-center">
+          {/* <div className="section-title-area ltn__section-title-2 text-center">
             <h1 className="">New Product</h1>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="row ltn__tab-product-slider-one-active--- slick-arrow-1">
         {/* ltn__product-item */}
-        <div className="col-lg-3 col-md-4 col-sm-6 col-6">
-          <div className="ltn__product-item ltn__product-item-3 text-left">
-            <div className="product-img">
-              <Link href="product-details.html">
-                <img src="img/product-2/1.png" alt="#" />
-              </Link>
-              <div className="product-badge">
-                <ul>
-                  <li className="sale-badge">New</li>
-                </ul>
-              </div>
-              <div className="product-hover-action">
-                <ul>
-                  <li>
-                    <Link
-                      href="#"
-                      title="Quick View"
-                      data-bs-toggle="modal"
-                      data-bs-target="#quick_view_modal"
-                    >
-                      <i className="far fa-eye" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="#"
-                      title="Add to Cart"
-                      data-bs-toggle="modal"
-                      data-bs-target="#add_to_cart_modal"
-                    >
-                      <i className="fas fa-shopping-cart" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="#"
-                      title="Wishlist"
-                      data-bs-toggle="modal"
-                      data-bs-target="#liton_wishlist_modal"
-                    >
-                      <i className="far fa-heart" />
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="product-info">
-              <div className="product-ratting">
-                <ul>
-                  <li>
-                    <Link href="#">
-                      <i className="fas fa-star" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#">
-                      <i className="fas fa-star" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#">
-                      <i className="fas fa-star" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#">
-                      <i className="fas fa-star-half-alt" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#">
-                      <i className="far fa-star" />
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <h2 className="product-title">
-                <Link href="product-details.html">Antiseptic Spray</Link>
-              </h2>
-              <div className="product-price">
-                <span>$32.00</span>
-                <del>$46.00</del>
-              </div>
-            </div>
-          </div>
-        </div>
+  
         {/* ltn__product-item */}
 
-        <div className="col-lg-3 col-md-4 col-sm-6 col-6">
-          <div className="ltn__product-item ltn__product-item-3 text-left">
-            <div className="product-img">
-              <Link href="product-details.html">
-                <img src="img/product-2/8.png" alt="#" />
-              </Link>
-              <div className="product-badge">
-                <ul>
-                  <li className="sale-badge">New</li>
-                </ul>
-              </div>
-              <div className="product-hover-action">
-                <ul>
-                  <li>
-                    <Link
-                      href="#"
-                      title="Quick View"
-                      data-bs-toggle="modal"
-                      data-bs-target="#quick_view_modal"
-                    >
-                      <i className="far fa-eye" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="#"
-                      title="Add to Cart"
-                      data-bs-toggle="modal"
-                      data-bs-target="#add_to_cart_modal"
-                    >
-                      <i className="fas fa-shopping-cart" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="#"
-                      title="Wishlist"
-                      data-bs-toggle="modal"
-                      data-bs-target="#liton_wishlist_modal"
-                    >
-                      <i className="far fa-heart" />
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="product-info">
-              <div className="product-ratting">
-                <ul>
-                  <li>
-                    <Link href="#">
-                      <i className="fas fa-star" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#">
-                      <i className="fas fa-star" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#">
-                      <i className="fas fa-star" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#">
-                      <i className="fas fa-star-half-alt" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#">
-                      <i className="far fa-star" />
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <h2 className="product-title">
-                <Link href="product-details.html">Cosmetic Containers</Link>
-              </h2>
-              <div className="product-price">
-                <span>$78.00</span>
-                <del>$85.00</del>
-              </div>
-            </div>
-          </div>
-        </div>
+     
         {/*  */}
       </div>
     </div>

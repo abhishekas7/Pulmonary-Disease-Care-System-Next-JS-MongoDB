@@ -87,7 +87,7 @@ products.map((item,i)=>(
   <td>{item.quantity}</td>
   <td>{item.category}</td>
   <td>{item.status?('true'):('false')}</td>
-  <td><Modalc btnname={'Edit'} heading={'Edit Product'} savebtn={'OK'} content={<EditProduct/>}/></td>
+  <td><Modalc btnname={'Edit'} heading={'Edit Product'} savebtn={'OK'} content={<EditProduct item={item}/>}/></td>
   <td><button>Delete</button></td>
 
 

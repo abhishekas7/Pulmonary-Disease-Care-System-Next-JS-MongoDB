@@ -12,6 +12,7 @@ import { useState } from 'react'
 import { Store } from '@/util/Store'
 import { useContext } from 'react'
 import axios from 'axios'
+import Header2 from '../components/Header2'
 
 
 export default function k({product}) {
@@ -38,7 +39,9 @@ const router=useRouter()
 
 {/* Place favicon.png in the root directory */}
 
-<Header/>
+
+
+<Header2/>
   <div className="body-wrapper mt-5">
   {/* SHOP DETAILS AREA START */}
 
@@ -48,7 +51,7 @@ const router=useRouter()
         <div className="col-lg-8 col-md-12">
           <div className="ltn__shop-details-inner mb-60">
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-md-6" >
                 <div className="ltn__shop-details-img-gallery">
                   <div className="ltn__shop-details-large-img">
                     <div className="single-small-img">

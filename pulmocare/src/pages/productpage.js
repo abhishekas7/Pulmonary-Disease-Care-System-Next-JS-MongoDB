@@ -4,6 +4,8 @@ import db from '@/util/db'
 import Script from 'next/script'
 import React from 'react'
 import Header from './components/Header'
+import Navbarr from './components/Navbar'
+import Navbar1 from './components/Navbar1'
 import Links from './Links'
 
 const productpage = ({products}) => {
@@ -11,7 +13,8 @@ const productpage = ({products}) => {
     
     <div>
 
-    <Header/>
+<Navbar1/>
+<Navbarr/>
 
         <div className="col-lg-12 mb-3">
         <h1 className="section-title text-center">Products</h1>
@@ -169,8 +172,8 @@ const productpage = ({products}) => {
                         </ul>
                       </div>
                       <div className="product-price">
-                        <span>$165.00</span>
-                        <del>$1720.00</del>
+                        <span>{item.price}</span>
+                        
                       </div>
                       <div className="product-brief">
                         <p>
@@ -183,8 +186,7 @@ const productpage = ({products}) => {
                             <a
                               href="#"
                               title="Quick View"
-                              data-bs-toggle="modal"
-                              data-bs-target="#quick_view_modal"
+                             
                             >
                               <i className="far fa-eye" />
                             </a>
@@ -193,8 +195,7 @@ const productpage = ({products}) => {
                             <a
                               href="#"
                               title="Add to Cart"
-                              data-bs-toggle="modal"
-                              data-bs-target="#add_to_cart_modal"
+                            
                             >
                               <i className="fas fa-shopping-cart" />
                             </a>
