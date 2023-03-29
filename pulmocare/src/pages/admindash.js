@@ -13,9 +13,14 @@ import Product from "@/models/Product";
 import db from "@/util/db";
 import Viewusers from "./dashboards/Viewusers";
 import User from "@/models/User";
+import ViewOrders from "./dashboards/ViewOrders";
+import Order from "@/models/Order";
+import AdminDefault from "./dashboards/AdminDefault";
 
 
-const Admindash = ({productss,allusers}) => {
+
+
+const Admindash = ({productss,allusers,order}) => {
 
   const logout=()=>{
     signOut({callbackUrl:'/login'})
@@ -41,6 +46,7 @@ const Admindash = ({productss,allusers}) => {
       }
       
     }
+    console.log(order);
   }, [data,status])
 
   const [option, setOption] = useState('/');
@@ -53,10 +59,12 @@ const Admindash = ({productss,allusers}) => {
           return <ViewProducts productss={productss} />;
           case "viewusers":
             return <Viewusers allusers={allusers}/>;
+            case "vieworders":
+              return <ViewOrders order={order}/>;
             case "adddoctor":
               return <AddDoctor/>;
       default:
-        return "e";
+        return <AdminDefault/>;
     }
   };
 
@@ -379,6 +387,30 @@ const Admindash = ({productss,allusers}) => {
             </ul>
           </li>
 
+          <li className="nav-item">
+            <a
+              className="nav-link collapsed"
+              data-bs-target="#tables-nav3"
+              data-bs-toggle="collapse"
+              href="#"
+            >
+              <i className="bi bi-layout-text-window-reverse" />
+              <span>Orders</span>
+              <i className="bi bi-chevron-down ms-auto" />
+            </a>
+            <ul
+              id="tables-nav3"
+              className="nav-content collapse "
+              data-bs-parent="#sidebar-nav"
+            >
+             
+              <li>
+                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('vieworders')}}}>Orders</button>           
+              </li>
+
+            </ul>
+          </li>
+
    <li className="nav-heading">User Pages</li>
           <li className="nav-item">
             <a
@@ -457,12 +489,6 @@ const Admindash = ({productss,allusers}) => {
 
 
       <Script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></Script>
-
-      <Script src="assets/js/main.js"></Script>
-
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/tinymce.min.js"></Script>
-      <Script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></Script>
-      <Script src="http://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/jquery.tinymce.min.js"></Script>
     </div>
   );
 };
@@ -471,17 +497,21 @@ export default Admindash;
 
 export async function getServerSideProps() {
   await db.connect();
-  const products = await Product.find().lean();
+  const products = await Product.find().lean()
 
-  const allusers = await User.find().lean();
+  const allusers = await User.find().lean()
+ 
+const order = await Order.find().populate("user")
+
+console.log(order);
 
   
-
-    console.log(allusers);
+console.log('ss');
   return {
     props: {
       allusers:JSON.parse(JSON.stringify(allusers.map(db.convertDocToObj))),
       productss: products.map(db.convertDocToObj),
+      order:JSON.parse(JSON.stringify(order.map(db.convertDocToObj))),
     },
   };
 }

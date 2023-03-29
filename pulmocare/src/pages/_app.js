@@ -18,6 +18,8 @@ import "popper.js/dist/umd/popper.min.js";
 import { useEffect, useState } from "react";
 import { Breakpoint, BreakpointProvider } from "react-socks";
 
+
+
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
@@ -35,6 +37,7 @@ export default function App({
   return (
     <>
       <BreakpointProvider>
+      
         <SessionProvider session={session}>
           <StoreProvider>
             <Component {...pageProps} />

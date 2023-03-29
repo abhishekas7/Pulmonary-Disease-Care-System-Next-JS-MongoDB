@@ -45,7 +45,7 @@ const Submit =async (values)=>{
 }
 
   return (
-<div className='col-md-6'>
+<div className='col-md-8'>
 
 <Formik
       initialValues={{
@@ -67,29 +67,36 @@ const Submit =async (values)=>{
     >
       {({ isSubmitting }) => (
         <Form>
-            <h4 className='mt-4'>Add Product</h4>
 
-          <div className="form-group">
+<div className="col-12 form-group">
+  <div className='row'>
+    <div className='col-12'>
+    <h4 className='mt-4'><strong>Add Product</strong></h4>
+    </div>
+    <div className='col-md-6'>
+      
+    <div className="form-group">
             <label htmlFor="name">Name</label>
             <Field type="text" name="name" className="form-control" />
             <ErrorMessage name="name" className="text-danger" component="div" />
           </div>
-          <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <Field type="text" name="description" className="form-control" />
-            <ErrorMessage name="description" className="text-danger" component="div" />
-          </div>
+    </div>
+    <div className='col-6'>
           <div className="form-group">
             <label htmlFor="price">Price</label>
             <Field type="number" name="price" className="form-control" />
             <ErrorMessage name="price" className="text-danger" component="div" />
           </div>
-          <div className="form-group">
+    </div>
+    <div className='col-6'>
+    <div className="form-group">
             <label htmlFor="manufacturer">Manufacturer</label>
             <Field type="text" name="manufacturer" className="form-control" />
             <ErrorMessage name="manufacturer" className="text-danger" component="div" />
           </div>
-          <div className="form-group">
+    </div>
+    <div className='col-6'>
+    <div className="form-group">
             <label htmlFor="prescription_required">Prescription Required</label>
                     <select class="form-select" multiple="" aria-label="multiple select example" name='prescription_required'>
                       <option selected="">Select</option>
@@ -99,24 +106,37 @@ const Submit =async (values)=>{
                     <ErrorMessage name="prescription_required" className="text-danger" component="div" />
 
           </div>
-          <div className="form-group">
+    </div>
+    <div className='col-12'>
+     
+    <div className="form-group">
                   <label for="inputNumber" class="col-sm-2 col-form-label" >Image Upload</label>
-                  <div class="col-sm-10">
+                  <div class="">
                     <input class="form-control" type="file" id="formFile" onChange={getImage } name='image'/>
                     <ErrorMessage name="image" className="text-danger" component="div" />
                   </div>
           </div>
-          <div className="form-group">
+    </div>
+    <div className='col-6 mt-4'>
+    <div className="form-group">
             <label htmlFor="quantity">Quantity</label>
             <Field type="number" name="quantity" className="form-control" />
             <ErrorMessage name="quantity" className="text-danger" component="div" />
           </div>
-          <div className="form-group">
+    </div>
+    <div className='col-6 mt-4'>
+    <div className="form-group">
             <label htmlFor="category">Category</label>
             <Field type="text" name="category" className="form-control" />
             <ErrorMessage name="category" className="text-danger" component="div" />
           </div>
-          <button type="submit" className="btn btn-primary mt-3" disabled={isSubmitting}>Submit</button>
+    </div>
+    <div className='col-12'>
+    <button type="submit" className="btn btn-primary mt-3" disabled={isSubmitting}>Submit</button>
+    </div>
+
+  </div>
+</div>
         </Form>
       )}
     </Formik>

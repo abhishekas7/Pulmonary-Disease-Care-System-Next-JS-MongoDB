@@ -104,7 +104,7 @@ const productpage = ({products}) => {
                 </h2>
                 <div className="product-price">
                   <span>${item.price}</span>
-                  <del>$162.00</del>
+                
                 </div>
               </div>
             </div>

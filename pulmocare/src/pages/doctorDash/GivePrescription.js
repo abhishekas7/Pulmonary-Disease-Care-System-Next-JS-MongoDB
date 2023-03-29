@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { createSpeechlySpeechRecognition } from '@speechly/speech-recognition-polyfill';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import { useEffect } from 'react';
 
 const appId = 'a28da191-2c7e-4bc9-9076-d0f2ff76a3b1';
 const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
@@ -9,6 +10,13 @@ SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 
 function GivePrescription() {
   const [isRecording, setIsRecording] = useState(false);
+
+  const [transcrip, setTranscript] = useState([]);
+
+
+
+  
+
   const {
     transcript,
     listening,
@@ -16,6 +24,11 @@ function GivePrescription() {
     resetTranscript,
     finalTranscript
   } = useSpeechRecognition();
+
+  useEffect(() => {
+    setTranscript(transcript)
+    console.log(transcript)
+   }, [])
 
   const handleRecord = () => {
     setIsRecording(true);

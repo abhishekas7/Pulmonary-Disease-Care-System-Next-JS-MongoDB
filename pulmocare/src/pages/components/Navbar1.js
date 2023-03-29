@@ -74,7 +74,9 @@ function Navbar1() {
                      
                     </span>
                     <h6>
-                      <span>Your Cart</span>{" "}
+                    <Link href={'/Addtocart'}>
+                    <span>Your Carts</span>{" "}
+                    </Link>
                       {/* <span className="ltn__secondary-color">$89.25</span> */}
                     </h6>
                   </Link>

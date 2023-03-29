@@ -1,6 +1,7 @@
 import Modalc from '@/components/Modal'
 import Prescription from '@/models/Prescription'
 import React from 'react'
+import Prescribe from './Demo'
 import GivePrescription from './GivePrescription'
 
 function Viewpatient() {
@@ -15,7 +16,7 @@ function Viewpatient() {
     <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width={'50px'}/>
     <h6>Kevin Anderson</h6>
     <h6>Web Designer</h6>
- <Modalc btnname={'Prescription'} content={<GivePrescription/>} heading={'Give Prescription'}/>
+ <Modalc btnname={'Prescription'} content={<Prescribe/>} heading={'Give Prescription'}/>
   </div>
 </div>
 

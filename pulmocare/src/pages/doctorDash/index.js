@@ -10,6 +10,7 @@ import ViewAppoint from "./ViewAppoint";
 import Viewdoctor from "./Viewdoctor";
 import Viewpatient from "./Viewpatient";
 import axios from "axios";
+
 const index = () => {
   
   const logout=()=>{
@@ -419,15 +420,10 @@ const index = () => {
       </a>
 
 
-      <Script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></Script>
-
-      <Script src="assets/js/main.js"></Script>
-
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/tinymce.min.js"></Script>
-      <Script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></Script>
-      <Script src="http://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/jquery.tinymce.min.js"></Script>
     </div>
   );
 };
 
 export default index;
+
+

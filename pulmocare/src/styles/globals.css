@@ -25,3 +25,9 @@ a.nav-link{
 .margin-nav{
   margin-left: auto;
 }
+.error-message{
+  margin-bottom: 10px;
+  display: block;
+  color: red;
+  font-weight: 500;
+}

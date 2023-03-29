@@ -4,10 +4,14 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import Link from 'next/link';
+import isEmail from 'validator/lib/isEmail';
+import disposableEmailDomains from 'disposable-email-domains';
 
 
 const register = () => {
-  
+  const validRoles = ['patient'];
+
+
   return (
     <div>
   <div className="ltn__login-area pb-110">
@@ -35,15 +39,44 @@ const register = () => {
         <Formik
   initialValues={{ name: '', password: '', email: '', confirmPassword: '', role: '' }}
   validationSchema={Yup.object({
-    name: Yup.string().required('Required'),
-    password: Yup.string()
-      .required('Required')
-      .min(8, 'Must be at least 8 characters'),
-    email: Yup.string().email('Invalid email address').required('Required'),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords must match')
-      .required('Required'),
-    role: Yup.string().required('Required')
+    name: Yup.string()
+  .required('Required')
+  .matches(/^[A-Za-z\s]+$/, 'Name can only contain alphabets and spaces')
+  .matches(/^\S+$/, 'Name cannot contain spaces'),
+  password: Yup.string()
+  .required('Required')
+  .min(8, 'Must be at least 8 characters')
+  .matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+    'Password must contain at least one uppercase letter, one lowercase letter, one number and one special character'
+  ),
+
+  
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Required')
+    .test(
+      'not-disposable-email',
+      'Please use a non-disposable email address',
+      (value) => {
+        if (!value) return false;
+        const [, domain] = value.split('@');
+        return isEmail(value) && !disposableEmailDomains.includes(domain);
+      }
+    )
+  ,
+  confirmPassword: Yup.string()
+  .oneOf([Yup.ref('password'), null], 'Passwords must match')
+  .required('Required'),
+  // .notOneOf([Yup.ref('password')], 'New password cannot be the same as previous password')
+
+role: Yup.string()
+.required('Required')
+.test(
+  'valid-role',
+  'Please select a valid role',
+  (value) => validRoles.includes(value)
+)
   })}
   onSubmit={async (values, { setSubmitting }) => {
     const response= await axios

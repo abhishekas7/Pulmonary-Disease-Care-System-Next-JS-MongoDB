@@ -52,7 +52,7 @@ export default async function Upload(req, res) {
 
     const doctor2 = await details.save();
     db.disconnect();
-    res.send("susessful");
+    res.send("successful");
 
   });
 }

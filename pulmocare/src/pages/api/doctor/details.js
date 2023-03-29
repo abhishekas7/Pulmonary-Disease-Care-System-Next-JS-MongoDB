@@ -7,9 +7,9 @@ export default async function handler(req, res) {
     await db.connect();
     try{
     const session =await getSession({req})
-    console.log(session.user._id)
+    // console.log(session.user._id)
     const doctor = await Doctor.find({user:session.user._id});
-    console.log(doctor)
+    // console.log(doctor)
     res.send(doctor)
     }catch(e){
     res.send(getError(e))

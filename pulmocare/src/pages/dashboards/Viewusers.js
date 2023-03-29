@@ -30,7 +30,7 @@ useEffect(() => {
 
 allusers.map((item,i)=>(
   <tr>
-  <th scope="row" key={i}>{i}</th>
+  <th scope="row" key={i}>{i+1}</th>
   <td>{item.name}</td>
   <td>{item.email}</td>
   <td>{item.status?('true'):('false')}</td>
