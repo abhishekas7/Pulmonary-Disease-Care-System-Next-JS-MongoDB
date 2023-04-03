@@ -1,28 +1,17 @@
 /* eslint-disable @next/next/no-css-tags */
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
 import Script from 'next/script'
 import Header from './components/Header'
 import Footer from './Footer'
 import { useSession } from 'next-auth/react'
-import React, { useEffect, useState } from 'react'
-import { signOut } from 'next-auth/react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
 import db from '@/util/db'
 import Product from '@/models/Product'
 import { useRouter } from 'next/router'
-import Loading from '@/components/Loading'
-import Header2 from './components/Header2'
-import Navbarr from './components/Navbar'
-import Navbar1 from './components/Navbar1'
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({products}) {
 
-  const MAX_LENGTH = 25; 
+  const MAX_LENGTH = 20; 
 
   const {data,status}=useSession()
   const router=useRouter()
@@ -53,22 +42,16 @@ export default function Home({products}) {
   <>
 
 
-<Navbar1/>
-<Navbarr/>
+
+<Header></Header>
   <div className="body-wrapper">
 
 
 
 {/* <button onClick={signOut()}></button> */}
   <div className="ltn__utilize-overlay" />
-  {/* SLIDER AREA START (slider-3) */}
-  {/* SLIDER AREA END */}
-  {/* CATEGORY AREA START */}
-  <div className="ltn__category-area section-bg-1-- pt-50 pb-90">
-    <div className="container">
 
-    </div>
-  </div>
+
 
   <div className="ltn__about-us-area pt-25 pb-120 ">
     <div className="container">
@@ -114,8 +97,8 @@ export default function Home({products}) {
                       <img src="img/blog/author.jpg" alt="#" />
                     </div>
                     <div className="author-name-designation">
-                      <h4 className="mb-0">Jerry Henson</h4>
-                      <small>Medical Specialist</small>
+                      <h4 className="mb-0">Dr. Solomon K P John</h4>
+                      <small>Senior Consultant - Pulmonary Medicine</small>
                     </div>
                   </div>
                 </li>
@@ -126,7 +109,7 @@ export default function Home({products}) {
                     </div>
                     <div className="about-author-info-2-contact-info">
                       <small>Get Support</small>
-                      <h6 className="mb-0">123-456-789-10</h6>
+                      <h6 className="mb-0">+91 8965741235</h6>
                     </div>
                   </div>
                 </li>
@@ -178,7 +161,7 @@ export default function Home({products}) {
     <div className="container">
       <div className="row">
         <div className="col-lg-12">
-        <h1 className="section-title text-center">Featured Products</h1>
+        <h1 className="section-title text-center">Our Products</h1>
         </div>
       </div>
       <div className="row">
@@ -208,15 +191,11 @@ export default function Home({products}) {
           <div className="row ltn__tab-product-slider-one-active--- slick-arrow-1">
   
             {/* ltn__product-item */}
-
-            
-            
-            
                   {products.map((product,i) => (
             // eslint-disable-next-line react/jsx-key
        
-<div className="col-lg-3 col-md-4 col-sm-6 col-6" key={i} >
-<div className="ltn__product-item ltn__product-item-3 text-left" style={{ height: '350px' }}>
+<div className="col-lg-4 col-md-4 col-sm-6 col-6" key={i} >
+<div className="ltn__product-item ltn__product-item-3 text-left" style={{ height: 'auto' }}>
   <div className="product-img">
   <Link href={`/product/${product._id}`}>
     <img src={`images/${product.image}`} alt="" />
@@ -315,25 +294,6 @@ export default function Home({products}) {
 
   {/* COUNTDOWN AREA END */}
   {/* PRODUCT AREA START (product-item-3) */}
-  <div className="ltn__product-area ltn__product-gutter pt-115 pb-70">
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-12">
-          {/* <div className="section-title-area ltn__section-title-2 text-center">
-            <h1 className="">New Product</h1>
-          </div> */}
-        </div>
-      </div>
-      <div className="row ltn__tab-product-slider-one-active--- slick-arrow-1">
-        {/* ltn__product-item */}
-  
-        {/* ltn__product-item */}
-
-     
-        {/*  */}
-      </div>
-    </div>
-  </div>
   {/* PRODUCT AREA END */}
   {/* ABOUT US AREA START */}
   <div className="ltn__about-us-area section-bg-1 bg-image-left-before pt-115 pb-115">
@@ -467,7 +427,7 @@ export default function Home({products}) {
         <div className="col-lg-4 col-sm-6">
           <div className="ltn__banner-item">
             <div className="ltn__banner-img">
-              <Link href="#">
+              <Link href="/productpage">
                 <img src="img/banner/23.jpg" alt="Banner Image" />
               </Link>
             </div>
@@ -476,7 +436,7 @@ export default function Home({products}) {
         <div className="col-lg-4 col-sm-6">
           <div className="ltn__banner-item">
             <div className="ltn__banner-img">
-              <Link href="#">
+            <Link href="/productpage">
                 <img src="img/banner/22.jpg" alt="Banner Image" />
               </Link>
             </div>
@@ -485,7 +445,7 @@ export default function Home({products}) {
         <div className="col-lg-4 col-sm-6">
           <div className="ltn__banner-item">
             <div className="ltn__banner-img">
-              <Link href="#">
+            <Link href="/productpage">
                 <img src="img/banner/21.jpg" alt="Banner Image" />
               </Link>
             </div>

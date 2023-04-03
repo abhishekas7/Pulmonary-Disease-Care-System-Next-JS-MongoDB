@@ -6,8 +6,7 @@ function Viewdoctor() {
   const getdoctors=async ()=>{
     const response = await axios
     .get("/api/doctor/viewdoctor")
-    .then(res => setdoctors(res.data))
-    .catch(err => console.error(err))
+    setdoctors(response.data)
   }
   useEffect(() => {
   getdoctors()
@@ -16,6 +15,13 @@ function Viewdoctor() {
 
   return (
     <div>
+
+<div className='col-12'>
+  <div className='row'>
+    
+  </div>
+</div>
+
       <div className='col-12'>
         <div className='row'>
     {doctors.map((item,i)=>(

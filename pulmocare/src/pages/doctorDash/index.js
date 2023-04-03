@@ -81,7 +81,7 @@ const index = () => {
         case "doctor":
           return <Viewdoctor/> ;
           case "patient":
-            return <Viewpatient pat/>;
+            return <Viewpatient/>;
             case "adddoctor":
               return ;
       default:

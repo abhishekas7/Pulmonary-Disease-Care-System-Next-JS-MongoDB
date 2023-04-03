@@ -189,7 +189,7 @@ const Header = () => {
                       <sup>{state.cart.cartItems.length}</sup>
                     </span>
                     <h6>
-                    <Link href={'/Addtocart'}>
+                    <Link href="/Addtocart">
                     <span>Your Carts</span>{" "}
                     </Link>
                       {/* <span className="ltn__secondary-color">$89.25</span> */}
@@ -203,17 +203,11 @@ const Header = () => {
       </div>
     </div>
   </div>
-  <div className="ltn__header-middle-area">
-    <div className='container'>
-      <div className='row'>
-        
-      </div>
-    </div>
-  </div>
 
-  <div className="header-bottom-area ltn__border-top ltn__header-sticky ltn__sticky-bg-white--- ltn__sticky-bg-secondary ltn__secondary-bg section-bg-1 menu-color-white d-none d-lg-block">
+
+  <div className="sticky-top header-bottom-area ltn__border-top ltn__header-sticky ltn__sticky-bg-white--- ltn__sticky-bg-secondary ltn__secondary-bg section-bg-1 menu-color-white d-block d-lg-block">
     <div className="container">
-      <div className="row">
+      <div className="row sticky-top">
         <div className="col header-menu-column justify-content-center">
           <div className="sticky-logo">
             <div className="site-logo">

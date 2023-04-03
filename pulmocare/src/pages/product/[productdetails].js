@@ -38,10 +38,7 @@ const router=useRouter()
   <>
 
 {/* Place favicon.png in the root directory */}
-
-
-
-<Header2/>
+<Header/>
   <div className="body-wrapper mt-5">
   {/* SHOP DETAILS AREA START */}
 

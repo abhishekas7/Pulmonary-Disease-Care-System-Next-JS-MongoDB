@@ -7,14 +7,14 @@ import Header from './components/Header'
 import Navbarr from './components/Navbar'
 import Navbar1 from './components/Navbar1'
 import Links from './Links'
+import Link from 'next/link'
 
 const productpage = ({products}) => {
   return (
     
     <div>
 
-<Navbar1/>
-<Navbarr/>
+<Header></Header>
 
         <div className="col-lg-12 mb-3">
         <h1 className="section-title text-center">Products</h1>
@@ -59,9 +59,9 @@ const productpage = ({products}) => {
             <div className="col-xl-4 col-sm-6 col-6" key={i}>
             <div className="ltn__product-item ltn__product-item-3 text-center">
               <div className="product-img">
-                <a href="productdetails">
+              <Link href={`/product/${item._id}`}>
                 <img src={`images/${item.image}`} alt="" />
-                </a>
+                </Link>
                 <div className="product-badge">
                   <ul>
                     <li className="sale-badge">New</li>

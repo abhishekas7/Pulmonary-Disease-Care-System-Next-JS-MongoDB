@@ -123,7 +123,7 @@ useEffect(() => {
                       <a href="product-details.html">{item.name}</a>
                     </h4>
                   </td>
-                  <td className="cart-product-price">&#x20B9;{item.price}</td>
+                  <td className="cart-product-price"><span>&#8377;</span>{item.price}</td>
         
                   <td className="cart-product-price">
                   <td>
@@ -151,7 +151,7 @@ useEffect(() => {
                                                 <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box"/>
                                             <div class="inc qtybutton">+</div></div>
                                         </td> */}
-                  <td className="cart-product-subtotal">&#x20B9;{item.cartquantity * item.price}</td>
+                  <td className="cart-product-subtotal"><span>&#8377;</span>{item.cartquantity * item.price}</td>
                 </tr>
 
                 {/* <tr className="cart-coupon-row">
@@ -189,7 +189,7 @@ useEffect(() => {
               <tbody>
                 <tr>
                   <td>Cart Subtotal</td>
-                  <td>({cartItems.reduce((a, c) => a + c.cartquantity, 0)}) : $
+                  <td>({cartItems.reduce((a, c) => a + c.cartquantity, 0)}) : <span>&#8377;</span>
                   {cartItems.reduce((a, c) => a + c.cartquantity * c.price, 0)}</td>
                 </tr>
               </tbody>

@@ -1,7 +1,6 @@
 import Script from "next/script";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -11,16 +10,14 @@ import ReCAPTCHA from "react-google-recaptcha";
 export default function Home() {
   const router = useRouter();
   const data = useSession();
-  console.log(data.role);
+  // console.log(data.role);
   useEffect(() => {
     if (data.status == "authenticated") {
       router.push("/");
     }
   }, []);
 
-  function onCapcha(value) {
-    console.log("Captcha value:", value);
-  }
+
 
   return (
     <>
@@ -34,7 +31,8 @@ export default function Home() {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="section-title-area text-center">
+              <div className="section-title-area text-center" data-aos="fade-down"
+                data-aos-duration="2000">
                 <h6 className="section-title">
                   Sign In <br />
                 </h6>
@@ -70,6 +68,9 @@ export default function Home() {
                         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
                         "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
                       ),
+                    password: Yup.string()
+                      .required("Required")
+
                   })}
                   onSubmit={async (values, { setSubmitting, resetForm }) => {
                     const result = await signIn("credentials", {
@@ -88,20 +89,21 @@ export default function Home() {
                   }}
                 >
                   {(formik) => (
-                    <Form className="ltn__form-box contact-form-box">
+                    <Form className="ltn__form-box contact-form-box" data-aos="fade-left"
+                      data-aos-duration="1800">
                       <Field type="text" name="email" placeholder="Email*" />
                       <ErrorMessage name="email" className="text-danger" />
-
                       <Field
                         type="password"
                         name="password"
                         placeholder="Password*"
                       />
                       <ErrorMessage name="password" className="text-danger" />
-                      <ReCAPTCHA
-    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-    onChange={onCapcha}
-  />,
+                      {/* <ReCAPTCHA
+                        sitekey="6LcojT4lAAAAABYNfpaKjCOAVYcabix_MP3fDXXZ"
+                        onChange={onCapcha}name="recapcha"
+                      /> */}
+                      ,
                       <div className="btn-wrapper mt-0">
                         <button
                           className="theme-btn-1 btn btn-block"
@@ -114,7 +116,7 @@ export default function Home() {
                       <div></div>
                       <div className="go-to-btn mt-20">
                         <a href="#">
-                          <small>FORGOTTEN YOUR PASSWORD?</small>
+                          {/* <small>FORGOTTEN YOUR PASSWORD?</small> */}
                         </a>
                       </div>
                     </Form>
@@ -123,7 +125,8 @@ export default function Home() {
               </div>
             </div>
             <div className="col-lg-6">
-              <div className="account-create text-center pt-50">
+              <div className="account-create text-center pt-50" data-aos="fade-right"
+                data-aos-duration="2000">
                 <h4>DONT HAVE AN ACCOUNT?</h4>
                 <p>
                   Go to Register Page and Creat the Account First <br />
@@ -140,9 +143,9 @@ export default function Home() {
         </div>
       </div>
 
-
-      <Script src="https://example.com/script.js" />
-      <Script src="js/plugins.js"></Script>
+      <Script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer>
+      </Script>
     </>
   );
 }

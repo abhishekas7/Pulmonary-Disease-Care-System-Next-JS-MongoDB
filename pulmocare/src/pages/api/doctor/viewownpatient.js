@@ -1,32 +1,19 @@
+import db from "@/util/db";
+import User from "@/models/User";
+import { getSession } from "next-auth/react";
+import Doctor from "@/models/Doctor";
+import Patient from "@/models/Patient";
+import Appointment from "@/models/Appointment";
+
 export default async function handler(req, res) {
+    await db.connect();
     const session = await getSession({ req });
-   
-  
-    if (!session) {
-      res.status(401).json({ message: 'Unauthorized' });
-      return;
-    }
-  
-    if (req.method === 'GET') {
-      const { doctorId } = req.query;
-       
-   
-      const doctor = await prisma.doctor.findUnique({
-        where: { id: Number(doctorId) },
-        include: { patients: true }
-      });
-   console.log('dd');
-  
-    //   if (!doctor) {
-    //     res.status(404).json({ message: 'Doctor not found' });
-    //     return;
-    //   }
-  
-    //   const patients = doctor.patients;
-  
-    //   res.status(200).json(patients);
-    // } else {
-    //   res.status(405).json({ message: 'Method not allowed' });
-    // }
-  }
-  
+    const { user } = session;
+    console.log(user._id);
+    const doc = await Doctor.findOne({ user: user._id });
+    const appointments = await Appointment.find({ doctor: doc._id }).populate('patient');
+    // const patientIds = appointments.map((appointment) => appointment.patient._id);
+    // const patients = await Patient.find({ _id: { $in: patientIds } }).populate('user', '_id name email role');
+    console.log(patients);
+    res.send(appointments);
+}

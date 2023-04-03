@@ -61,7 +61,8 @@ const Submit =async (values)=>{
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting }) => {
         
-        Submit(values)
+        Submit(values);
+        resetForm('');
         alert('product added')
       }}
     >
@@ -126,11 +127,19 @@ const Submit =async (values)=>{
     </div>
     <div className='col-6 mt-4'>
     <div className="form-group">
+            <label htmlFor="category">Description</label>
+            <Field type="text" name="description" className="form-control" />
+            <ErrorMessage name="description" className="text-danger" component="div" />
+          </div>
+    </div>
+    <div className='col-6 mt-4'>
+    <div className="form-group">
             <label htmlFor="category">Category</label>
             <Field type="text" name="category" className="form-control" />
             <ErrorMessage name="category" className="text-danger" component="div" />
           </div>
     </div>
+    
     <div className='col-12'>
     <button type="submit" className="btn btn-primary mt-3" disabled={isSubmitting}>Submit</button>
     </div>
