@@ -7,6 +7,7 @@ import db from '@/util/db';
 import Patient from '@/models/Patient';
 
 
+
 const handler = async (req, res) => {
   if (req.method !== 'POST') {
     return;

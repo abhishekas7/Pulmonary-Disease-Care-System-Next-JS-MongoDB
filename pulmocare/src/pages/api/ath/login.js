@@ -13,7 +13,7 @@ export default async function handler(req, res) {
           });
         }
         //check user
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).where('status').equals(true);
         console.log(user);
         if (!user) {
           return res.status(404).send({

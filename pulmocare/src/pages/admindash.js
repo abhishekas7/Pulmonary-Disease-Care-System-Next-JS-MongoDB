@@ -26,7 +26,7 @@ const Admindash = ({productss,allusers,order}) => {
     signOut({callbackUrl:'/login'})
 
 }
-
+const session =useSession()
   const {data,status}=useSession()
   const router=useRouter()
   useEffect(() => {
@@ -60,6 +60,8 @@ const Admindash = ({productss,allusers,order}) => {
           case "viewusers":
             return <Viewusers allusers={allusers}/>;
             case "vieworders":
+              return <ViewOrders order={order}/>;
+              case "viewpatients":
               return <ViewOrders order={order}/>;
             case "adddoctor":
               return <AddDoctor/>;
@@ -102,7 +104,7 @@ const Admindash = ({productss,allusers,order}) => {
           <i className="bi bi-list toggle-sidebar-btn" />
         </div>
         <div className="search-bar">
-          <form
+          {/* <form
             className="search-form d-flex align-items-center"
             method="POST"
             action="#"
@@ -116,7 +118,7 @@ const Admindash = ({productss,allusers,order}) => {
             <button type="submit" title="Search">
               <i className="bi bi-search" />
             </button>
-          </form>
+          </form> */}
         </div>
         <nav className="header-nav ms-auto">
           <ul className="d-flex align-items-center">
@@ -293,13 +295,13 @@ const Admindash = ({productss,allusers,order}) => {
                   className="rounded-circle"
                 />
                 <span className="d-none d-md-block dropdown-toggle ps-2">
-                  K. Anderson
+                  {data.user.name}
                 </span>
               </a>
               <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li className="dropdown-header">
-                  <h6>Kevin Anderson</h6>
-                  <span>Web Designer</span>
+                  <h6>{data.user.name}</h6>
+                  <span>{data.user.role}</span>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
@@ -429,7 +431,7 @@ const Admindash = ({productss,allusers,order}) => {
               data-bs-parent="#sidebar-nav"
             >
               <li>
-                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('adduser')}}}>Add User</button>           
+                  {/* <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('adduser')}}}>Add User</button>            */}
               </li>
               <li>
                   <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('viewusers')}}}>View User</button>           

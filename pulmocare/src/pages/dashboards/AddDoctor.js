@@ -5,14 +5,17 @@ import * as Yup from 'yup';
 const AddDoctor = () => {
 
 const[image,setImage] = useState('')
-
+const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
   const validationSchema = Yup.object().shape({
     name: Yup.string()
-    .required('Name is required'),
+    .matches(/^[A-Za-z ]*$/, 'Full name can only contain letters and spaces')
+    .required('Full name is required'),
     email: Yup.string()
     .required('Email is required'),
-    password: Yup.string()
-    .required('Password is required'),
+    password: Yup
+    .string()
+    .matches(passwordRules, { message: "Please create a stronger password" })
+    .required("Required"),
     specialty: Yup.string()
       .required('specialty is required'),
       description: Yup.string()
@@ -39,8 +42,10 @@ const Submit =async (values)=>{
     body.append('experience', values.experience);
     body.append('description', values.description);
     body.append('qualification', values.qualification);
-    alert(body)
+    alert("DOctor Added")
     const response = await fetch('/api/doctor/doctor', {method: 'POST', body})
+    console.log(response);
+    resetForm();
 }
   return (
 <div className='col-md-6'>

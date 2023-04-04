@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EditProduct from './EditProduct';
 import Modalc from '@/components/Modal';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const ViewProduct = ({productss}) => {
   const [products, setProducts] = useState([productss]);
@@ -89,6 +90,24 @@ products.map((item,i)=>(
   <td>{item.status?('true'):('false')}</td>
   <td><Modalc btnname={'Edit'} heading={'Edit Product'} savebtn={'OK'} content={<EditProduct item={item}/>}/></td>
   <td><button>Delete</button></td>
+  <td>
+  <Dropdown>
+        <Dropdown.Toggle variant="success">
+          Open Menu
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item href="#">
+            Home Page
+          </Dropdown.Item>
+          <Dropdown.Item href="#">
+            Settings
+          </Dropdown.Item>
+          <Dropdown.Item href="#">
+            Logout
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+  </td>
 
 
 </tr>

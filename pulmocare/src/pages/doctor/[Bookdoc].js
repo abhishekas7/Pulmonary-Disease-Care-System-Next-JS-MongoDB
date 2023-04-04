@@ -13,9 +13,9 @@ import Appointment from '@/models/Appointment'
 function Bookdoc({doctor}) {
   return (
    <>
-
-   <Navbar1/>
-   <Navbarr/>
+<Header/>
+   {/* <Navbar1/>
+   <Navbarr/> */}
    <Appointmentprofile doctor={doctor}/>
    <Footer/>
    </>

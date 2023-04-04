@@ -41,9 +41,7 @@ const index = () => {
         console.log(status)
     }else{
       if(status!=='loading'){
-        if(data.user.role==='doctor'){
-          router.push('/doctorDash')
-        }
+    
         if(data.user.role==='admin'){
           router.push('/admindash')
         }

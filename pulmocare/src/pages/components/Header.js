@@ -1,16 +1,10 @@
 import Link from 'next/link'
-import Script from 'next/script'
 import React from 'react'
 import { signOut, useSession } from 'next-auth/react'
 import { Store } from '@/util/Store'
 import { useContext } from 'react'
+import Image from '../../../public/img/logo.png'
 
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const Header = () => {
 
@@ -230,7 +224,7 @@ const Header = () => {
                     <Link href="/Doctorlist">Doctors</Link>
                   </li>
                   <li>
-                    <Link href="/news">News</Link>
+                    <Link href="http://localhost:3001/">Meditation</Link>
                   </li>
                 </ul>
               </div>
