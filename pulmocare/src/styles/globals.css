@@ -31,3 +31,7 @@ a.nav-link{
   color: red;
   font-weight: 500;
 }
+
+.blink {
+  animation: bounce 2s infinite;
+}

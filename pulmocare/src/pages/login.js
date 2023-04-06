@@ -17,8 +17,6 @@ export default function Home() {
     }
   }, []);
 
-
-
   return (
     <>
       <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />

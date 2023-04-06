@@ -18,6 +18,10 @@ const userSchema = new Schema({
       type: Boolean,
       default: true
     },
+    otp: {
+      type: Number,
+      required: true
+    },
     role: {
       type: String,
       enum: ['admin', 'doctor', 'patient'],

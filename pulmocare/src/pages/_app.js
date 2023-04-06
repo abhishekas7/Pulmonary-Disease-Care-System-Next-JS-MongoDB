@@ -10,7 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { StoreProvider } from "../util/Store";
 import Script from "next/script";
 import "react-datetime/css/react-datetime.css";
-
+import 'animate.css';
 import "jquery/dist/jquery.min.js";
 import "popper.js/dist/umd/popper.min.js";
 
@@ -47,20 +47,22 @@ export default function App({
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
       
     </link>
+    <SessionProvider session={session}>
       <BreakpointProvider>
-        <SessionProvider session={session}>
           <StoreProvider>
             <Component {...pageProps} />
             <ToastContainer />
-          </StoreProvider>
-        </SessionProvider>
+          </StoreProvider> 
       </BreakpointProvider>
-
+  </SessionProvider>
       <Script src="../../public/js/plugins.js" />
       
       <Script src="../../public/js/main.js" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/tinymce.min.js"></Script>
       <Script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></Script>
+
+
+
     </>
   );
 }

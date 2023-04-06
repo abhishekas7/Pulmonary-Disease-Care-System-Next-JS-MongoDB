@@ -20,7 +20,6 @@ export default function Home({products}) {
   useEffect(() => {
     if(status==='unauthenticated'){
       router.push('/login')
-       
         console.log(status)
     }
     else {

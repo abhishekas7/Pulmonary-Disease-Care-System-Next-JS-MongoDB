@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "animate.css": "^4.1.1",
     "css": "^3.0.0",
     "font-awesome": "^4.7.0",
     "js-cookie": "^3.0.1",

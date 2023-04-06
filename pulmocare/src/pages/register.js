@@ -88,10 +88,11 @@ const register = () => {
                         toast.error("User all ready Registered");
                       } else {
                         toast.success("Register Sucessfull");
-                        router.push("/");
+                        router.push('/Emailverify');
                       }
                       // If the user does not exist, redirect to the login page
-                      router.push('/login');
+                    
+                      // router.push('/login');
                   
                       setTimeout(() => {
                         alert(JSON.stringify(values, null, 2));
