@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { useRouter } from 'next/router'
 import { useSession, getSession } from "next-auth/react";
 import { useState } from "react";
 function VerifyOTP() {
@@ -8,13 +8,15 @@ function VerifyOTP() {
   const [message, setMessage] = useState("");
 
   const { data: session, status } = useSession();
+  const router=useRouter()
 
   if (status === "loading") {
     return <p>Loading...</p>;
   }
 
   if (status === "unauthenticated") {
-    return <p>Access Denied</p>;
+    router.push('/login')
+    return null
   }
 
   const handleSubmit = async (event) => {

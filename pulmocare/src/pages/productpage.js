@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-css-tags */
+
 import Product from '@/models/Product'
 import db from '@/util/db'
 import Script from 'next/script'
@@ -14,7 +14,8 @@ const productpage = ({products}) => {
     
     <div>
 
-<Header></Header>
+<Navbar1/>
+<Navbarr/>
 
         <div className="col-lg-12 mb-3">
         <h1 className="section-title text-center">Products</h1>
@@ -391,7 +392,7 @@ export default productpage
 export async function getServerSideProps() {
   await db.connect();
   const products = await Product.find().lean();
-  console.log(products);
+  // console.log(products);
   return {
     props: {
       products: products.map(db.convertDocToObj),

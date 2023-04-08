@@ -183,7 +183,7 @@ const Header = () => {
                       <sup>{state.cart.cartItems.length}</sup>
                     </span>
                     <h6>
-                    <Link href="/Addtocart">
+                    <Link href="/cart/Cartscreen">
                     <span>Your Carts</span>{" "}
                     </Link>
                       {/* <span className="ltn__secondary-color">$89.25</span> */}

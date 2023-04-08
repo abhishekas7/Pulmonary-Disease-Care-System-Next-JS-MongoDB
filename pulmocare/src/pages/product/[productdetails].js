@@ -1,43 +1,42 @@
 import Product from '@/models/Product'
 import db from '@/util/db'
-import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import Header from '../components/Header'
-import { useEffect } from 'react'
 import Footer from '../Footer'
-import IncDecCounter from '@/components/IncDecCounter'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
-import { Store } from '@/util/Store'
-import { useContext } from 'react'
 import axios from 'axios'
-import Header2 from '../components/Header2'
+
 
 
 export default function k({product}) {
 
-  const { state, dispatch } = useContext(Store);
+  const { _id: productId, price,name,quantity,image} = product;
 
   const addToCartHandler = async () => {
-    const existItem = state.cart.cartItems.find((x) => x._id === product._id);
-    const cartquantity = existItem ? existItem.cartquantity + 1 : 1;
-    const { data } = await axios.get(`/api/product/${product._id}`);
-    console.log(data)
+    try {
+      const response = await axios.post('/api/product/addtocart', {
+        productId,
+        name,
+        price,
+        quantity:1,
+        image
+      });
+      console.log(response.data); // success message
+    } catch (error) {
+      console.error(error.response.data.message); // error message
+    }
+  }
 
-    // if (data.countInStock < quantity) {
-    //   return toast.error('Sorry. Product is out of stock');
-    // }
-    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, cartquantity } });
-    router.push('/Addtocart');
-  }
+
+  
 
 
-const router=useRouter()
   return (
   <>
 
 {/* Place favicon.png in the root directory */}
+
+
+
 <Header/>
   <div className="body-wrapper mt-5">
   {/* SHOP DETAILS AREA START */}
@@ -61,37 +60,7 @@ const router=useRouter()
               <div className="col-md-6">
                 <div className="modal-product-info shop-details-info pl-0">
                   <div className="product-ratting">
-                    <ul>
-                      <li>
-                        <a href="#">
-                          <i className="fas fa-star" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fas fa-star" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fas fa-star" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fas fa-star-half-alt" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="far fa-star" />
-                        </a>
-                      </li>
-                      <li className="review-total">
-                        {" "}
-                        <a href="#"> ( 95 Reviews )</a>
-                      </li>
-                    </ul>
+                   
                   </div>
                   <h3>{product.name}</h3>
                   <div className="product-price">
@@ -358,12 +327,9 @@ const router=useRouter()
   )
 }
 export async function getServerSideProps({ params }) {
-  // const product =await Product.findbyId(params.productdetails
     db.connect()
   const product = await Product.findById(params.productdetails).lean();
 
-  // const product = await Product.findOne({ _id: params.productdetails});
-  console.log(product);
   db.disconnect();
   return {
     props: {
