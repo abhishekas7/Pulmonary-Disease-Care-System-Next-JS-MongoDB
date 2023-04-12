@@ -1,0 +1,41 @@
+import db from "@/util/db";
+import multer from 'multer';
+
+
+// configure multer to parse the form data
+const upload = multer();
+
+export default async function handler(req, res) {
+  if (req.method === 'PUT') {
+    try {
+      await db.connect()
+
+      const {formData } = req.body;
+      console.log(formData); // assuming you are sending a json object with these key-value pairs for the update
+
+      // do some validation on inputs before updating the user profile
+      // ...
+
+      // update the user profile in your database
+      // const result = await db
+      //   .collection('users')
+      //   .findOneAndUpdate(
+      //     { email: req.body.email },
+      //     { $set: { name: name, bio: bio } },
+      //     { returnOriginal: false }
+      //   );
+
+      // check if the user profile is successfully updated
+      // if (result.ok) {
+      //   res.status(200).json({ message: "Profile successfully updated." });
+      // } else {
+      //   res.status(500).json({ error: "Failed to update profile." });
+      // }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: "Internal server error." });
+    }
+  } else {
+    res.status(405).json({ error: "Invalid request method." });
+  }
+}

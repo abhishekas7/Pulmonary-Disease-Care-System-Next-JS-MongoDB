@@ -45,7 +45,7 @@ const Submit =async (values)=>{
 }
 
   return (
-<div className='col-md-8'>
+<div className='col-12'>
 
 <Formik
       initialValues={{

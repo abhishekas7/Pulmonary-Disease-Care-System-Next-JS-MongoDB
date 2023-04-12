@@ -19,7 +19,14 @@ export default async function handler(req, res) {
         return res.status(404).json({ message: 'Cart not found' });
       }
 
-      const updatedProducts = cart.products.filter((product) => product.productId !== productId);
+      const updatedProducts = cart.products.filter((product) =>
+      
+      
+      
+      
+      
+      
+      product.productId !== productId);
       console.log(updatedProducts);
       
       cart.products = updatedProducts;

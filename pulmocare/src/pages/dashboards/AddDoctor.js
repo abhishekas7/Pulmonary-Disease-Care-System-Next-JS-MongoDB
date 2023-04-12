@@ -44,8 +44,8 @@ const Submit =async (values)=>{
     body.append('qualification', values.qualification);
     alert("DOctor Added")
     const response = await fetch('/api/doctor/doctor', {method: 'POST', body})
-    console.log(response);
-    resetForm();
+
+  
 }
   return (
 <div className='col-md-6'>

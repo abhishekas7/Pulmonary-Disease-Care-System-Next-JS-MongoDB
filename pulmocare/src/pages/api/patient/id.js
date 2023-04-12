@@ -8,6 +8,6 @@ export default async function handler(req, res) {
     const session=getSession({req});
     const {user}=session
     const patients= await Patient.find({user:(await session).user._id});
-    console.log(patients)
+
     res.status(200).json(patients);
 }

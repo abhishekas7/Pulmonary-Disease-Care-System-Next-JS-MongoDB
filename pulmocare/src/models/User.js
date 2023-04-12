@@ -20,7 +20,7 @@ const userSchema = new Schema({
     },
     otp: {
       type: Number,
-      required: true
+
     },
     role: {
       type: String,

@@ -1,47 +1,124 @@
-// import Product from '../../../models/Product';
-import Patient from "@/models/Patient";
+import formidable from "formidable";
+import { join, resolve } from "path";
 import db from "@/util/db";
-import { getError } from "@/util/error";
+import Patient from "@/models/Patient";
 import { getSession } from "next-auth/react";
-export default async function handler (req, res){
+import moment from "moment";
 
-    const sess = getSession({ req });
-    //   console.log(user);
-    //   if (user) {
-   
-    // console.log((await sess).user);
-if(req.method === 'PUT'){
-    try {
-        await db.connect();
-        const us = await Patient.find({ user: (await sess).user._id });
-        console.log(us);
-        const [patient] = us;
-        patient.age = req.body.values.age;
-        patient.gender = req.body.values.gender;
-        patient.mobile = req.body.values.mobile;
-        patient.pincode = req.body.values.pincode;
-        await patient.save();
-        await db.disconnect();
-        res.send({ message: "Updated successfully", status: true });
-      } catch(e) {
-        res.send({ message: getError(e) });
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+export default async function Upload(req, res) {
+
+  const sess = await getSession({ req });
+  const userId = sess.user._id;
+
+  if (req.method === "PUT") {
+    const options = {
+      uploadDir: join(resolve(), "/public/images"),
+      keepExtensions: true,
+      maxFileSize: 10 * 1024 * 1024, // 10mb
+      maxFieldsSize: 10 * 1024 * 1024, // 10mb
+      filename: function (name, ext, part, form) {
+        return name + ext;
+      },
+    };
+
+    const form = new formidable.IncomingForm(options);
+    form.parse(req, async function (err, fields, files) {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error parsing form data.");
+        return;
       }
-}
-      
-    if (req.method == 'GET') {
-        try {
-      
+      // console.log(fields);
+      console.log(files.file.newFilename);
+
+      try {
+        console.log(userId);
         await db.connect();
-        const sess = await getSession({ req });
-        const userd = await Patient.findById({ user: sess.user._id });
-        res.send(sess)
-        } catch (error) {
-            console.log(error);
+
+        const patient = await Patient.findOne({ user: userId });
+        console.log(patient);
+        if (patient) {
+          // Update existing patient document
+          console.log('update');
+          // await Patient.updateOne({ user: userId }, { ...updateData });
+
+          await Patient.updateOne(
+            { user: userId },
+            {
+              $set: {
+                name: {
+                  first: fields['name.first'],
+                  last: fields['name.last']
+                },
+                address: {
+                  street: fields['address.street'],
+                  city: fields['address.city'],
+                  state: fields['address.state'],
+                  zip: fields['address.zip']
+                },
+                age: fields.age,
+                image: files.file.newFilename,
+                mobile: fields.mobile,
+                gender: fields.gender,
+                email: fields.email,
+                password: fields.password,
+                dateOfBirth:moment(fields.dateOfBirth).format("MMMM Do YYYY, h:mm:ss a"),
+                  }
+            }
+          );
+
+
+
+        } else {
+          // Create new patient document
+          const newPatient = new Patient({
+            user:userId,
+            image: files.file.newFilename,
+            age: fields.age,
+            mobile: fields.mobile,
+            gender: fields.gender,
+            name: {
+              first: fields['name.first'],
+              last: fields['name.last']
+            },
+            email: fields.email,
+            password: fields.password,
+            dateOfBirth:moment(fields.dateOfBirth).format("MMMM Do YYYY, h:mm:ss a"),
+            address: {
+              street: fields['address.street'],
+              city: fields['address.city'],
+              state: fields['address.state'],
+              zip: fields['address.zip']
+            }
+          });
+          await newPatient.save();
         }
-    }
+
+        // if(Patientdoc){
+        //   console.log('update')
+        // }
+        // else{
+        //   console.log('insert');
+        // }
+   
+        
+        // Add code here to save the uploaded file or any other data to the database
+        res.send("Successful");
+      } catch (error) {
+        console.log(error);
+        res.status(500).send("Error connecting to the database.");
+      } finally {
+        await db.disconnect();
+      }
+    });
+  } else {
+    res.status(405).send("Method not allowed.");
+  }
 }
-
-
-  //   res.send(user.name);
-
-
