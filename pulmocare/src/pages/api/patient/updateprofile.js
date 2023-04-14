@@ -17,6 +17,16 @@ export default async function Upload(req, res) {
   const sess = await getSession({ req });
   const userId = sess.user._id;
 
+  if (req.method === 'GET') {
+    try {
+      const patients = await Patient.find().populate('user');
+      res.status(200).json(patients);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Server error' });
+    }
+  } 
+
   if (req.method === "PUT") {
     const options = {
       uploadDir: join(resolve(), "/public/images"),
@@ -118,7 +128,10 @@ export default async function Upload(req, res) {
         await db.disconnect();
       }
     });
-  } else {
-    res.status(405).send("Method not allowed.");
-  }
+  } 
+
+
+
+
+
 }

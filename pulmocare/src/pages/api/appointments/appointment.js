@@ -23,8 +23,6 @@ export default async function handler(req, res) {
         .populate('user');
         const appointments = await Appointment.find({doctor:doctor._id})
         .populate('patient');
-
-
       res.send({appointments,doctor});
     
     } catch (err) {

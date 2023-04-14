@@ -4,9 +4,12 @@ import { useRouter } from 'next/router'
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { signOut} from 'next-auth/react'
-
+import $ from 'jquery'
 import axios from "axios";
 import UpdateProfile from "./UpdateProfile";
+import Patientprofile from "./Patientprofile";
+import Deafultpage from "./Deafultpage";
+import MedicalRecord from "./MedicalRecord";
 
 const index = () => {
   
@@ -24,6 +27,8 @@ const index = () => {
     const response= await axios.get("");
 
   }
+  
+
 
   useEffect(() => {
     
@@ -60,13 +65,14 @@ const index = () => {
 
   const page = () => {
     switch (option) {
-      case "profile":
-        return <ViewProfile/>;
-        case "updateprofile":
-          return <UpdateProfile/>;
-     
+      case "viewprofile":
+        return <Patientprofile/>;
+
+        case "medicalrecord":
+          return <MedicalRecord/>;
+ 
       default:
-        return "e";
+        return <Deafultpage/>;
     }
   };
 
@@ -340,6 +346,15 @@ const index = () => {
 
       <aside id="sidebar" className="sidebar">
         <ul className="sidebar-nav" id="sidebar-nav">
+
+
+       <li className="nav-item">
+            <div className="nav-link collapsed">
+              <i className="bi bi-grid" />
+              <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('default')}}}><span className="fw-bold">Dashboard</span></button>           
+            </div>
+          </li>
+
           <li className="nav-item">
             <div className="nav-link collapsed">
               <i className="bi bi-grid" />
@@ -350,9 +365,10 @@ const index = () => {
           <li className="nav-item">
             <div className="nav-link collapsed">
               <i className="bi bi-grid" />
-              <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('updateprofile')}}}><span className="fw-bold">Update Profile</span></button>           
+              <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('medicalrecord')}}}><span className="fw-bold">Medical Record</span></button>           
             </div>
           </li>
+   
 
         </ul>
       </aside>
@@ -375,6 +391,8 @@ const index = () => {
         <i className="bi bi-arrow-up-short" />
       </a>
 
+
+      <cript src="assets/js/main.js" />
 
     </div>
   );

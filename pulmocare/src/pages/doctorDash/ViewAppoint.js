@@ -62,27 +62,21 @@ function ViewAppoint({doctor,appointment}) {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentAppointments.map((item,i)=>(
-                    
-
-                    <tr key={i}>
-
-                      {item.reason==0?(''):(<div>
-                      <th scope="row">{i+1}</th>
-                      <td></td>
-                      <td>{item.patient.name}</td>
-                      <td>{new Date(item.date).toLocaleString()}</td>
-                      <td>{new Date(item.created_at).toLocaleString()}</td>
-                      <td>{item.patient.email}</td> 
-                      <td>{item.phonenumber}</td>
-                      <td>{item.reason}</td>
-                      <td><Modalc btnname={'Edit'} heading={'Edit Product'} savebtn={'OK'} content={''}/></td>
-                      <td><button>Delete</button></td></div>)}
-
-
-                    </tr>
-                  ))}
-
+                  
+ {currentAppointments.map((item,i)=>(
+<tr key={i}>
+                    <td>{i+1}</td>
+                    <td>Image</td>
+                    {/* <td>{item.patient.user.name}</td>
+                    <td>{new Date(item.date).toLocaleString()}</td>
+                    <td>{new Date(item.created_at).toLocaleString()}</td>
+                    <td>{item.patient.email}</td> 
+                    <td>{item.phonenumber}</td>
+                    <td>{item.reason}</td> */}
+                    <td>Actions</td>
+                    <td>Actions</td>
+                  </tr>
+ ))}
 
                 </tbody>
               </table>

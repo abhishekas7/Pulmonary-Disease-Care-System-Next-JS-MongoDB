@@ -28,7 +28,7 @@ const index = () => {
   const getdata=async ()=>{
     const response= await axios.get("/api/appointments/appointment");
     // console.log(response.data.appointments)
-    console.log(response.data.pa)
+    console.log(response.data)
     setAppointment(response.data.appointments)
     setDoctor(response.data.doctor)
   }

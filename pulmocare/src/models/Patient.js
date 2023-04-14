@@ -2,7 +2,7 @@ import { Schema, mongoose } from 'mongoose';
 
 const patientSchema = new Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'User',
   },
   age: {
@@ -102,6 +102,5 @@ const patientSchema = new Schema({
   ],
 });
 
-
-const Patient = mongoose.models.Patient || mongoose.model('Patient', patientSchema);
+const Patient = mongoose.models.Patient || mongoose.model("Patient", patientSchema);
 export default Patient;

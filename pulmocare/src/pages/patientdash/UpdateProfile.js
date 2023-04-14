@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Col, Row } from 'react-bootstrap';
@@ -6,6 +6,21 @@ import Swal from 'sweetalert2';
 
 const UpdateProfile = () => {
 
+ const [patientData, setPatientData] = useState([]);
+
+  const getData=async ()=>{
+    const response = await fetch('/api/patient/updateprofile', {method: 'GET'})
+    console.log(response);
+  }
+
+  useEffect(() => {
+    fetch('/api/patient/updateprofile')
+      .then(response => response.json())
+      .then(data => setPatientData(data))
+      .catch(error => console.error(error));
+  }, []);
+  
+ 
   const [file, setFile] = useState(null);
 
     const validationSchema = Yup.object().shape({
@@ -109,7 +124,14 @@ const Submit = async (values) => {
     >
       {({ isSubmitting }) => (
       <Form>
+
+{patientData && patientData.map((data,i)=>(
+  <p>{data.age}</p>
+))}
+
       <Row>
+        
+
               <Col md={6}>
                 <label htmlFor="name.first">First Name</label>
                 <Field type="text" name="name.first" />

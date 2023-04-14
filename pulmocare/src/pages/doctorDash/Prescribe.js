@@ -1,9 +1,12 @@
+import axios from "axios";
 import Script from "next/script";
 import React, { useEffect, useRef, useState } from "react";
 
 
 function Demo() {
 
+  const [text, setText] = useState('');
+  const [prescription, setPrescription] = useState({});
 
   var curr = new Date();
   curr.setDate(curr.getDate());
@@ -23,6 +26,7 @@ function Demo() {
       // Set the properties for the Speech Recognition object
       speechRecognition.continuous = true;
       speechRecognition.interimResults = true;
+      speechRecognition.lang = 'en-US';
 
       // Callback Function for the onStart Event
       speechRecognition.onstart = () => {
@@ -35,27 +39,24 @@ function Demo() {
       };
       speechRecognition.onend = () => {
         // Hide the Status Element
-        document.querySelector("#status").style.display = "none";
       };
 
       speechRecognition.onresult = (event) => {
         // Create the interim transcript string locally because we don't want it to persist like final transcript
-        let interim_transcript = "";
+ 
 
         // Loop through the results from the speech recognition object.
         for (let i = event.resultIndex; i < event.results.length; ++i) {
           // If the result item is Final, add it to Final Transcript, Else add it to Interim transcript
           if (event.results[i].isFinal) {
             final_transcript += event.results[i][0].transcript;
-          } else {
-            interim_transcript += event.results[i][0].transcript;
-          }
+          } 
         }
 
         // Set the Final transcript and Interim transcript.
         document.querySelector("#final").innerHTML = final_transcript;
         console.log(final_transcript)
-        document.querySelector("#interim").innerHTML = interim_transcript;
+        setText(final_transcript);
       };
 
       // Set the onClick property of the start button
@@ -73,31 +74,39 @@ function Demo() {
     }
   };
 
-  const [email,setEmail]=useState();
-  const [name,setName]=useState();
-  const [pateintID,setPateintID]=useState();
-  const [show, setShow] = useState(false);
-  const [currentRow, setCurrentRow] = useState(0);
-  const handleClose = () => setShow(false);
-  const sigCanvas = useRef({});
-  const [result, setResult] = useState('<h3>Please Give Some Input</h3>');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('/api/doctor/prescribe', { text });
+      setPrescription(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     webSpeech();
   }, []);
 
+
+
   return (
     <>
+        <form>
+            <h6 className="mt-4">Transcript</h6>
+
    
-      <h6 className="mt-4">Transcript</h6>
-      <div
-        className="p-3"
-        style={{ border: "1px solid gray", height: 300, borderRadius: 8 }}
-      >
-        <span id="final" />
-        <span id="interim" />
-      </div>
-      <div className="mt-4">
+   <div>
+   <textarea value={text} onChange={(e) => setText(e.target.value)}  id="final" style={{ border: "1px solid gray", height: 300, borderRadius: 8 }}/>
+
+   </div>
+
+  
+            <button className="btn btn-warning" type="submit" onClick={handleSubmit}>Extract medical terms</button>
+
+      
+        </form>
+    <div className="mt-4">
         <button className="btn btn-success" id="start">
           Start
         </button>
@@ -107,6 +116,12 @@ function Demo() {
         <p id="status" className="lead mt-3" style={{ display: "none" }}>
           Listening...
         </p>
+      </div>
+      <div>
+      <p>Dosage: {prescription.dosage}</p>
+      <p>Patient name: {prescription.patientName}</p>
+      <p>Medicine: {prescription.medicine}</p>
+      <p>Duration: {prescription.duration}</p>
       </div>
     </>
   );
