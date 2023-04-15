@@ -83,12 +83,18 @@ async def createPdf(payload: Payload = None):
 @app.post('/data')
 async def main(payload: Payload = None):
     print(payload)
+    print("hh")
     out = await check_name_entity_recognition(payload.data)
     data= {"item" : out }
     data=json.dumps(data)
     data = data.encode("utf-8")
     print(payload)
     return data;
+
+@app.post('/process_input')
+async def process_input(payload: dict):
+    print(payload)
+   
 
 """
 class User(BaseModel):

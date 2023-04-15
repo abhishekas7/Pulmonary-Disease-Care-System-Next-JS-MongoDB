@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function Su() {
-  const [text, setText] = useState('');
+  const [payload, setText] = useState('');
   const [prescription, setPrescription] = useState({});
   const [recognizing, setRecognizing] = useState(false);
   const recognition = new window.webkitSpeechRecognition();
@@ -50,8 +50,9 @@ function Su() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+console.log(payload);
     try {
-      const res = await axios.post('/api/prescribe', { text });
+      const res = await axios.post('http://localhost:8000/pdf', { payload });
       setPrescription(res.data);
     } catch (err) {
       console.error(err);
@@ -68,8 +69,8 @@ function Su() {
       </button>
       <form onSubmit={handleSubmit}>
         <label>
-          Enter prescription text:
-          <textarea value={text} onChange={(e) => setText(e.target.value)} />
+          Enter prescription payload:
+          <textarea value={payload} onChange={(e) => setText(e.target.value)} />
         </label>
         <button type="submit">Extract medical terms</button>
       </form>
