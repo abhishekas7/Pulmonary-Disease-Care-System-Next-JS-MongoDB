@@ -4,6 +4,7 @@ import Script from 'next/script'
 import Header from '../components/Header'
 import Footer from '../Footer'
 import axios from 'axios'
+import ProductRating from './ProductRating'
 
 
 
@@ -98,7 +99,12 @@ export default function k({product}) {
                         <span>{product.prescription_required==true ? 'Yes' : 'No'}</span>
                       </li>
                     </ul>
+                    
                   </div>
+
+                  <ProductRating productId={product._id}/>
+
+    
                   <div className="ltn__product-details-menu-2">
                     <ul>
                  

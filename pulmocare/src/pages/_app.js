@@ -56,14 +56,9 @@ export default function App({
       </BreakpointProvider>
   </SessionProvider>
       <Script src="../../public/js/plugins.js" />
-      
       <Script src="../../public/js/main.js" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/tinymce.min.js"></Script>
       <Script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></Script>
-
-
-
-
     </>
   );
 }

@@ -25,15 +25,12 @@ const UpdateProfile = () => {
 
     const validationSchema = Yup.object().shape({
       age: Yup.number().positive().required('Age is required'),
-    
       mobile: Yup.string().required('Mobile is required'),
       gender: Yup.string().oneOf(['male', 'female', 'other']).required('Gender is required'),
       name: Yup.object().shape({
         first: Yup.string().required('First name is required'),
         last: Yup.string().required('Last name is required'),
       }),
-      email: Yup.string().email().required('Email is required'),
-      password: Yup.string().min(8).required('Password is required'),
       dateOfBirth: Yup.date().required('Date of birth is required'),
       address: Yup.object().shape({
         street: Yup.string().required('Street is required'),
@@ -64,8 +61,6 @@ const Submit = async (values) => {
       formData.append('gender', values.gender);
       formData.append('name.first', values.name.first);
       formData.append('name.last', values.name.last);
-      formData.append('email', values.email);
-      formData.append('password', values.password);
       formData.append('dateOfBirth', values.dateOfBirth);
       formData.append('address.street', values.address.street);
       formData.append('address.city', values.address.city);
@@ -103,8 +98,6 @@ const Submit = async (values) => {
           first: '',
           last: '',
         },
-        email: '',
-        password: '',
         dateOfBirth: '',
         address: {
           street: '',
@@ -142,18 +135,7 @@ const Submit = async (values) => {
                 <Field type="text" name="name.last" />
                 <ErrorMessage name="name.last" />
               </Col>
-              <Col md={6}>
-                <label htmlFor="email">Email</label>
-                <Field type="email" name="email" />
-                <ErrorMessage name="email" />
-              </Col>
-              <Col md={6}>
-                <label htmlFor="password">Password</label>
-                <Field type="password" name="password" />
-                <ErrorMessage name="password" />
-              </Col>
-
-      
+           
               <Col md={6}>
               <label for="inputNumber" class="col-sm-2 col-form-label" >Image Upload</label>
                         <div class="">

@@ -14,6 +14,8 @@ const Doctorlist = ({ doctor }) => {
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
+  
+
   return (
     <div>
       {/* <Navbar1 />
@@ -36,6 +38,7 @@ const Doctorlist = ({ doctor }) => {
                       </h4>
                       <h6 className="ltn__secondary-color">
                        {doc.specialty}
+             
                       </h6>
 
                       <div className="ltn__social-media">
@@ -45,6 +48,7 @@ const Doctorlist = ({ doctor }) => {
                               Take Appointments
                             </button>
                           </Link>{" "}
+                          
                         </ul>
                       </div>
                     </div>

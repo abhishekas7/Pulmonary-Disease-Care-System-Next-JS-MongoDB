@@ -73,21 +73,28 @@ function sendsms(phonenumber, date, docname) {
 }
 
 export default async function handler(req, res) {
-  const session = getSession({ req });
+  const session = await getSession({ req });
+  const Id = session.user._id
   db.connect();
+  
   try {
-    const { doctor, patient, date, reason, phonenumber } = req.body;
-    //  console.log(doctor)
+    const { doctor, date, reason, phonenumber } = req.body;
+    
+   
     const doctordetails = await Doctor.findById(doctor).populate("user");
     const docname = doctordetails.user.name;
+
+    const pat = await Patient.findOne({user:Id})
     const appointment1 = await new Appointment({
       doctor: doctor,
-      patient: (await session).user._id,
+      patient:pat._id,
       date: date,
       phonenumber: phonenumber,
       reason: reason,
     });
-    console.log(appointment1);
+
+   
+
     sendsms(phonenumber, date, docname);
     const name = (await session).user.email;
     console.log(name);

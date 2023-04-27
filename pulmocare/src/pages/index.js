@@ -8,15 +8,10 @@ import React, { useEffect } from 'react'
 import db from '@/util/db'
 import Product from '@/models/Product'
 import { useRouter } from 'next/router'
-import ProductModal from './product/ProductModal'
-
 export default function Home({products}) {
-
   const MAX_LENGTH = 20; 
-
   const {data,status}=useSession()
   const router=useRouter()
-
   useEffect(() => {
     if(status==='unauthenticated'){
       router.push('/login')

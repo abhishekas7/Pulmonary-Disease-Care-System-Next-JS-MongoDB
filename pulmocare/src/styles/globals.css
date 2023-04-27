@@ -35,3 +35,7 @@ a.nav-link{
 .blink {
   animation: bounce 2s infinite;
 }
+
+.no-bullet {
+  list-style: none;
+}

@@ -19,7 +19,7 @@ export default async function Upload(req, res) {
 
   if (req.method === 'GET') {
     try {
-      const patients = await Patient.find().populate('user');
+      const patients = await Patient.find({user:userId}).populate('user');
       res.status(200).json(patients);
     } catch (err) {
       console.error(err);

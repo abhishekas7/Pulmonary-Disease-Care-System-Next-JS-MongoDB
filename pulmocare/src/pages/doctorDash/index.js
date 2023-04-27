@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-css-tags */
 import React, { useState } from "react";
-import Script from "next/Script";
+
 import { useRouter } from 'next/router'
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
@@ -75,7 +75,7 @@ const index = () => {
   const page = () => {
     switch (option) {
       case "appointment":
-        return <ViewAppoint doctor={doctor} appointment={appointment}/>;
+        return <ViewAppoint appointment={appointment}/>;
         case "doctor":
           return <Viewdoctor/> ;
           case "patient":

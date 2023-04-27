@@ -41,7 +41,7 @@ function Calender({doctor}) {
   
       })
       .catch((error) => {
-        alert(getError(error))
+       console.log(getError(error));
 
       });
 
@@ -54,7 +54,9 @@ const disablePastDt = current => {
   return current.isAfter(yesterday);
 };
 
-
+const events = [
+  { title: 'Meeting', start: new Date() }
+]
 
   return (
     <div>
@@ -73,7 +75,7 @@ const disablePastDt = current => {
         eventContent={renderEventContent}
       />
  <div>
-
+<p>{doctor._id}</p>
    <form onSubmit={onSubmit} className='mt-5'>
    <label for="date">Symptoms</label>
      <input type="text" placeholder="Shortness of breath" value={reason} onChange={e => setReason(e.target.value)}/>

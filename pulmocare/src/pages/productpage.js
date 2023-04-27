@@ -8,6 +8,7 @@ import Navbarr from './components/Navbar'
 import Navbar1 from './components/Navbar1'
 import Links from './Links'
 import Link from 'next/link'
+import Rating from 'react-rating'
 
 const productpage = ({products}) => {
   return (
@@ -58,7 +59,7 @@ const productpage = ({products}) => {
              
               {products.map((item,i) => (
             <div className="col-xl-4 col-sm-6 col-6" key={i}>
-            <div className="ltn__product-item ltn__product-item-3 text-center">
+            <div className="ltn__product-item ltn__product-item-3 text-left">
               <div className="product-img">
               <Link href={`/product/${item._id}`}>
                 <img src={`images/${item.image}`} alt="" />
@@ -100,13 +101,27 @@ const productpage = ({products}) => {
                     </li>
                   </ul>
                 </div> */}
-                <h2 className="product-title">
+             <h2 className="product-title" style={{ color: 'grey' }}>
+  <a href="product-details.html">{item.manufacturer}</a>
+</h2>
+                <h3 className="product-title">
                   <a href="product-details.html">{item.name}</a>
-                </h2>
+                </h3>
                 <div className="product-price">
-                  <span>${item.price}</span>
+                <span style={{fontSize:'20px',color:'balck'}}>&#x20B9;{item.price}</span>
+
                 
                 </div>
+                <div>
+  <ul className='no-bullet'>
+    <li>
+      <a href="#">
+        <i className="fas fa-star" />
+      </a>
+    </li>
+  </ul>
+</div>
+
               </div>
             </div>
           </div>

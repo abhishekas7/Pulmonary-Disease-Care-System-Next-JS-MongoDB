@@ -7,25 +7,17 @@ const _ = require('lodash');
 function ViewAppoint({doctor,appointment}) {
   const [currentPage, setCurrentPage] = useState(1);
   const [appointmentsPerPage, setAppointmentsPerPage] = useState(10);
-  
-  useEffect(() => {
-    console.log(appointment)
-  }, [])
 
+  const [Appointmt, setAppointmt] = useState(appointment);
+  
+useEffect(() => {
+  setAppointmt(appointment)
+}, [Appointmt])
+
+console.log(Appointmt);
   const date = new Date('');
   const formattedDate = date.toLocaleString();
 
-  // Pagination
-  const indexOfLastAppointment = currentPage * appointmentsPerPage;
-  const indexOfFirstAppointment = indexOfLastAppointment - appointmentsPerPage;
-  const currentAppointments = appointment.slice(indexOfFirstAppointment, indexOfLastAppointment);
-
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(appointment.length / appointmentsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Printing report
   const printReport = () => {
@@ -63,7 +55,11 @@ function ViewAppoint({doctor,appointment}) {
                 </thead>
                 <tbody>
                   
- {currentAppointments.map((item,i)=>(
+
+
+                </tbody>
+              </table>
+              {Appointmt.map((item,i)=>(
 <tr key={i}>
                     <td>{i+1}</td>
                     <td>Image</td>
@@ -77,19 +73,6 @@ function ViewAppoint({doctor,appointment}) {
                     <td>Actions</td>
                   </tr>
  ))}
-
-                </tbody>
-              </table>
-              Pagination
-              <nav aria-label="Page navigation">
-                <ul className="pagination">
-                  {pageNumbers.map(number => (
-                    <li className="page-item" key={number}>
-                      <button className="page-link" onClick={() => paginate(number)}>{number}</button>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
               {/* End Default Table Example
     </div>
   </div>

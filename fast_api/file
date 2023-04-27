@@ -1,0 +1,16 @@
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+nltk.download("stopwords")
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+
+
+example_string = """
+Chakko age 43 paracetamol 200 g 2 days twice"""
+sentence = sent_tokenize(example_string)
+
+word = word_tokenize(example_string)
+words_in_quote = word_tokenize(example_string)
+post_tag = nltk.pos_tag(words_in_quote)
+print(post_tag)

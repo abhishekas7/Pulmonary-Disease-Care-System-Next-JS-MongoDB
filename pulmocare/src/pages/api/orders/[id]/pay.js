@@ -23,7 +23,8 @@ const handler = async (req, res) => {
     };
     const paidOrder = await order.save();
     await db.disconnect();
-    res.send({ message: 'order paid successfully', order: paidOrder,status:true });
+    console.log(paidOrder)
+    res.send({ message: 'order paid successfully', order: order,status:true });
   } else {
     await db.disconnect();
     res.status(404).send({ message: 'Error: order not found',status:false });

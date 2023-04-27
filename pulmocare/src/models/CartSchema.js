@@ -48,5 +48,12 @@ const cartSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports =
-    mongoose.models.cart || mongoose.model('cart', cartSchema);
+cartSchema.virtual('cartSubtotal').get(function() {
+  return this.products.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
+});
+
+module.exports = mongoose.models.cart || mongoose.model('cart', cartSchema);
+

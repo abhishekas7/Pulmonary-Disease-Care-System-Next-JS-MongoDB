@@ -1,18 +1,20 @@
-import { Schema, mongoose } from 'mongoose';
+import mongoose from 'mongoose';
+
+const { Schema } = mongoose;
 
 const appointmentSchema = new Schema({
   doctor: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
- 
+    ref: 'Doctor',
+    required: true,
   },
   patient: {
     type: Schema.Types.ObjectId,
     ref: 'Patient',
+    required: true,
   },
   date: {
     type: Date,
-
   },
   reason: {
     type: String,
@@ -25,8 +27,9 @@ const appointmentSchema = new Schema({
     default: false
   },
   status: {
-    type: Boolean,
-    default: true
+    type: String,
+    enum: ['pending', 'confirmed', 'cancelled'],
+    default: 'pending'
   },
   created_at: {
     type: Date,
@@ -38,6 +41,6 @@ const appointmentSchema = new Schema({
   }
 });
 
-const Appointment = mongoose.models.appointment || mongoose.model("appointment", appointmentSchema);
-export default Appointment;
+const Appointment = mongoose.models.Appointment || mongoose.model('Appointment', appointmentSchema);
 
+export default Appointment;

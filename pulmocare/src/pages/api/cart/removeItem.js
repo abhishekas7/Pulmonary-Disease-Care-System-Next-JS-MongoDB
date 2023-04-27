@@ -9,7 +9,8 @@ export default async function handler(req, res) {
   await db.connect()
 
   if (req.method === 'DELETE') {
-    const productId = req.body.productId;
+  
+    const productId = req.body.itemId;
     const cartId = req.body.cartId;
 
     try {
@@ -18,20 +19,21 @@ export default async function handler(req, res) {
       if (!cart) {
         return res.status(404).json({ message: 'Cart not found' });
       }
+    
+      const updatedProducts = cart.products.filter((product) => product._id.toString() !== productId);
+    
+      const result = await CartSchema.updateOne(
+        { _id: cartId },
+        { $set: { products: updatedProducts } }
+      );
 
-      const updatedProducts = cart.products.filter((product) =>
-      
-      
-      
-      
-      
-      
-      product.productId !== productId);
-      console.log(updatedProducts);
-      
-      cart.products = updatedProducts;
-      await cart.save();
 
+    
+    
+      if (result.nModified === 0) {
+        return res.status(404).json({ message: 'Product not found in cart' });
+      }
+    
       res.status(200).json({ success: true });
     } catch (error) {
       console.error(error);

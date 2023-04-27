@@ -10,8 +10,12 @@ import UpdateProfile from "./UpdateProfile";
 import Patientprofile from "./Patientprofile";
 import Deafultpage from "./Deafultpage";
 import MedicalRecord from "./MedicalRecord";
+import Ordered from "./Ordered";
 
 const index = () => {
+
+
+  
   
   const logout=()=>{
     signOut({callbackUrl:'/login'})
@@ -22,45 +26,37 @@ const index = () => {
   const [patData,setpatData] = useState([])
 
 
-
-  const getdata=async ()=>{
-    const response= await axios.get("");
-
-  }
-  
-
-
   useEffect(() => {
     
     if(status==='unauthenticated'){
       router.push('/login')
-       
-        console.log(status)
-    }else{
+    }
+    
+    else{
       if(status!=='loading'){
     
 
         setUser({
           id:data.user._id,
           email:data.user.email,
-          name:data.name
+          name:data.user.name
         })
+      }
+      if(status==='authenticated'){
+        router.push('/patientdash')
+         
+        
       }
       
     }
-    getpatData()
+   
 
 
   }, [status,data])
 
   const [option, setOption] = useState('/');
 
-  const getpatData=async ()=>{
-    const response = await axios
-    .get('/api/doctor/details')
-    .then(res => setpatData(res.data))
-    .catch(err => console.error(err))
-  }
+
  
 
   const page = () => {
@@ -70,9 +66,12 @@ const index = () => {
 
         case "medicalrecord":
           return <MedicalRecord/>;
+
+          case "order":
+          return <Ordered/>;
  
       default:
-        return <Deafultpage/>;
+        return <Deafultpage userdet={userdet} />;
     }
   };
 
@@ -298,18 +297,7 @@ const index = () => {
                   <h6> {status==='authenticated'? data.user.name:'loading'}</h6>
                   <span> {status==='authenticated'? data.user.role:'loading'}</span>
                 </li>
-                {/* <li>
-                  <hr className="dropdown-divider" />
-                </li> */}
-                {/* <li>
-                  <a
-                    className="dropdown-item d-flex align-items-center"
-                    href="users-profile.html"
-                  >
-                    <i className="bi bi-person" />
-                    <span>My Profile</span>
-                  </a>
-                </li> */}
+   
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
@@ -366,6 +354,14 @@ const index = () => {
             <div className="nav-link collapsed">
               <i className="bi bi-grid" />
               <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('medicalrecord')}}}><span className="fw-bold">Medical Record</span></button>           
+            </div>
+          </li>
+
+          
+          <li className="nav-item">
+            <div className="nav-link collapsed">
+              <i className="bi bi-grid" />
+              <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('order')}}}><span className="fw-bold">My Orders</span></button>           
             </div>
           </li>
    

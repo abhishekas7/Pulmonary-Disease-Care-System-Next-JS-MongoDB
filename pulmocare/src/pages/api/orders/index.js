@@ -3,6 +3,7 @@ import Order from '@/models/Order';
 import Product from '@/models/Product';
 import db from '@/util/db';
 import { getError } from '@/util/error';
+import CartSchema from '@/models/CartSchema';
 
 const handler = async (req, res) => {
   const session = await getSession({ req });
@@ -20,11 +21,12 @@ const handler = async (req, res) => {
   });
   console.log(req.body)
   try{
-  for (const item of req.body.orderItems) {
-    const product = await Product.findById(item._id);
+  const cart= await   CartSchema.findById(req.body.cart)
+  for (const item of cart.products) {
+    const product = await Product.findById(item.productId);
     console.log(product.quantity)
     console.log(item)
-    product.quantity -= item.cartquantity;
+    product.quantity -= item.quantity;
     console.log(product)
     await product.save();
   }}catch(e){

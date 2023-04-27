@@ -31,12 +31,6 @@ const patientSchema = new Schema({
       type: String,
     },
   },
-  email: {
-    type: String,
-  },
-  password: {
-    type: String,
-  },
   dateOfBirth: {
     type: String,
   },

@@ -42,7 +42,7 @@ function Su() {
     recognition.start();
     setRecognizing(true);
   };
-
+  
   const stopRecognition = () => {
     recognition.stop();
     setRecognizing(false);
@@ -52,7 +52,7 @@ function Su() {
     e.preventDefault();
 console.log(payload);
     try {
-      const res = await axios.post('http://localhost:8000/pdf', { payload });
+      const res = await axios.post('http://127.0.0.1:8000/data', { payload });
       setPrescription(res.data);
     } catch (err) {
       console.error(err);
