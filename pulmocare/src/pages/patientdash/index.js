@@ -13,8 +13,10 @@ import MedicalRecord from "./MedicalRecord";
 import Ordered from "./Ordered";
 import Patient from "@/models/Patient";
 import db from "@/util/db";
+import Order from "@/models/Order";
+import Addaddress from "./Addaddress";
 
-const index = ({patientdetails}) => {
+const index = ({patientdetails,orderdetails}) => {
 
 
   
@@ -26,6 +28,7 @@ const index = ({patientdetails}) => {
   const [userdet,setUser]=useState()
   const router=useRouter()
   const [patData,setpatData] = useState([])
+  
 
 
   useEffect(() => {
@@ -69,8 +72,13 @@ const index = ({patientdetails}) => {
         case "medicalrecord":
           return <MedicalRecord/>;
 
+          case "updateprofile":
+            return <UpdateProfile/>;
+
+            case "addaddress":
+              return <Addaddress/>;
           case "order":
-          return <Ordered/>;
+          return <Ordered orderdetails={orderdetails}/>;
  
       default:
         return <Deafultpage userdet={userdet} />;
@@ -351,11 +359,24 @@ const index = ({patientdetails}) => {
               <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('viewprofile')}}}><span className="fw-bold">Profile</span></button>           
             </div>
           </li>
+          <li className="nav-item">
+            <div className="nav-link collapsed">
+              <i className="bi bi-grid" />
+              <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('updateprofile')}}}><span className="fw-bold">UpdateProfile</span></button>           
+            </div>
+          </li>
 
           <li className="nav-item">
             <div className="nav-link collapsed">
               <i className="bi bi-grid" />
               <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('medicalrecord')}}}><span className="fw-bold">Medical Record</span></button>           
+            </div>
+          </li>
+
+          <li className="nav-item">
+            <div className="nav-link collapsed">
+              <i className="bi bi-grid" />
+              <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('addaddress')}}}><span className="fw-bold">Add Address</span></button>           
             </div>
           </li>
 
@@ -390,7 +411,7 @@ const index = ({patientdetails}) => {
       </a>
 
 
-      <cript src="assets/js/main.js" />
+      {/* <cript src="assets/js/main.js" /> */}
 
     </div>
   );
@@ -406,15 +427,15 @@ export async function getServerSideProps(context) {
   const user_id = session.user._id;
   console.log(user_id);
 
-  const patientdetails = await Patient.find({user:user_id});
-  // const cartItem = await CartSchema.find()
-  //   .populate("products.productId")
-  //   .exec();
-console.log(patientdetails);
+  const patientdetails = await Patient.find({user:user_id}).populate('user');
+
+  const orderdetails = await Order.find();
+  
   return {
-    props: {
+    props:{
       patientdetails: JSON.parse(JSON.stringify(patientdetails)),
+      
     },
-  };
+  }
 }
 

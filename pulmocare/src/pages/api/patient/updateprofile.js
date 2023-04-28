@@ -4,6 +4,7 @@ import db from "@/util/db";
 import Patient from "@/models/Patient";
 import { getSession } from "next-auth/react";
 import moment from "moment";
+import User from "@/models/User";
 
 
 export const config = {
@@ -46,17 +47,19 @@ export default async function Upload(req, res) {
         return;
       }
       // console.log(fields);
-      console.log(files.file.newFilename);
+
 
       try {
         console.log(userId);
-        await db.connect();
 
+        await db.connect();
+        const user = await User.findById(userId);
+        console.log(user);
         const patient = await Patient.findOne({ user: userId });
-        console.log(patient);
+    
         if (patient) {
           // Update existing patient document
-          console.log('update');
+     
           // await Patient.updateOne({ user: userId }, { ...updateData });
 
           await Patient.updateOne(
@@ -67,6 +70,7 @@ export default async function Upload(req, res) {
                   first: fields['name.first'],
                   last: fields['name.last']
                 },
+                email:user.email,
                 address: {
                   street: fields['address.street'],
                   city: fields['address.city'],

@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
-mongoose.Promise = global.Promise;
 
-const cartSchema = new Schema(
-  {
+const cartSchema = new Schema({
+  
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
@@ -55,5 +54,5 @@ cartSchema.virtual('cartSubtotal').get(function() {
   );
 });
 
-module.exports = mongoose.models.cart || mongoose.model('cart', cartSchema);
-
+const cart = mongoose.models.cart || mongoose.model('cart', cartSchema);
+export default cart;

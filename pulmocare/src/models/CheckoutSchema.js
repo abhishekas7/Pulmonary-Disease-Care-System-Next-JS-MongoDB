@@ -1,29 +1,28 @@
 const mongoose = require('mongoose');
-
 const AddressSchema = new mongoose.Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-      },
-      address1: {
-        type: String,
-        required: true,
-      },
-      address2: {
-        type: String,
-      },
-      city: {
-        type: String,
-        required: true,
-      },
-      state: {
-        type: String,
-        required: true,
-      },
-      zip: {
-        type: String,
-        required: true,
-      },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  address1: {
+    type: String,
+    required: true,
+  },
+  address2: {
+    type: String,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  zip: {
+    type: String,
+    required: true,
+  },
 });
 
 const CheckoutSchema = new mongoose.Schema({
@@ -63,5 +62,7 @@ const CheckoutSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Checkout', CheckoutSchema);
-module.exports = mongoose.model('MyAddress', AddressSchema);
+const Checkout = mongoose.models.Checkout || mongoose.model('Checkout', CheckoutSchema);
+const MyAddress = mongoose.models.MyAddress || mongoose.model('MyAddress', AddressSchema);
+
+module.exports = { Checkout, MyAddress };

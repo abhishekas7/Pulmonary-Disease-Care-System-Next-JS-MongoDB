@@ -5,8 +5,6 @@ import { getSession } from "next-auth/react";
 import db from "@/util/db";
 import { useSession } from "next-auth/react";
 import CartSchema from "@/models/CartSchema";
-import Navbar1 from "../components/Navbar1";
-import Navbar from "../components/Navbar";
 import axios from "axios";
 import Link from "next/link";
 import Header from "../components/Header";

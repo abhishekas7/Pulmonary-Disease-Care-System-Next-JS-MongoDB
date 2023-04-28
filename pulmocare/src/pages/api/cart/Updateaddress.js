@@ -4,8 +4,6 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Modalc from "@/components/Modal";
-import Updateaddress from "../api/cart/Updateaddress";
 
 const validationSchema = yup.object().shape({
   address1: yup.string().required("Address 1 is required"),
@@ -15,39 +13,10 @@ const validationSchema = yup.object().shape({
   zip: yup.string().required("Zip is required"),
 });
 
-function Addaddress() {
-  const formik = useFormik({
-    initialValues: {
-      address1: "",
-      address2: "",
-      city: "",
-      state: "",
-      zip: "",
-    },
-    validationSchema,
-onSubmit: async (values) => {
-  try {
-    const response = await axios.post("/api/cart/Addaddress", values);
-    console.log(response.status);
-    if (response.status === 200 || response.status === 201) {
-      Swal.fire({
-        icon: "success",
-        text: "Address created successfully",
-      });
-     // Move the function call inside the `if` block
-    }  fetchAddresses();
-  } catch (error) {
-    Swal.fire({
-      icon: "error",
-      text: "Error Not Inserted",
-    });
-  }
-},
-
-  });
+function Updateaddress({ address }) {
+  const [editAddress, setEditAddress] = useState(address);
   const [addresses, setAddresses] = useState([]);
-  const [editAddress, setEditAddress] = useState({});
-  
+
 
   useEffect(() => {
     fetchAddresses();
@@ -57,38 +26,46 @@ onSubmit: async (values) => {
     setAddresses(response.data.data);
   };
 
-  const handleDelete = async (id) => {
-    try {
-      
-      const response = await axios.delete(`/api/cart/${id}`);
-      if (response.status === 200) {
-        setAddresses(addresses.filter((address) => address._id !== id));
+  const formik = useFormik({
+    initialValues: {
+      address1: address.address1,
+      address2: address.address2,
+      city: address.city,
+      state: address.state,
+      zip: address.zip,
+    },
+    validationSchema,
+    onSubmit: async () => {
+      try {
+        const response = await axios.put(
+          `/api/cart/${address._id}`,
+          editAddress  
+        );
+        console.log(response.status);
+        if (response.status === 200 || response.status === 201) {
+          Swal.fire({
+            icon: "success",
+            text: "Address Updated successfully",
+          });
+          fetchAddresses();
+        }
+      } catch (error) {
         Swal.fire({
-          icon: 'success',
-          text: 'Address deleted successfully',
+          icon: "error",
+          text: "Error Not Updated",
         });
       }
-    } catch (error) {
-      console.log(error);
-      Swal.fire({
-        icon: 'error',
-        text: 'Error deleting address',
-      });
-    }
+    },
+  });
+
+  useEffect(() => {
+    setEditAddress(address);
+  }, [address]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditAddress({ ...editAddress, [name]: value });
   };
-  
-
-  const handleEdit = async (id) => {
-    try {
-      const response = await axios.put(`/api/cart/${id}`);
-      setEditAddress(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  
-
-
 
   return (
     <div>
@@ -101,8 +78,8 @@ onSubmit: async (values) => {
                 <Form.Control
                   type="text"
                   name="address1"
-                  value={formik.values.address1}
-                  onChange={formik.handleChange}
+                  value={editAddress.address1}
+                  onChange={handleChange}
                   onBlur={formik.handleBlur}
                   isInvalid={
                     formik.touched.address1 && !!formik.errors.address1
@@ -119,8 +96,8 @@ onSubmit: async (values) => {
                 <Form.Control
                   type="text"
                   name="address2"
-                  value={formik.values.address2}
-                  onChange={formik.handleChange}
+                  value={editAddress.address2}
+                  onChange={handleChange}
                   onBlur={formik.handleBlur}
                   isInvalid={
                     formik.touched.address2 && !!formik.errors.address2
@@ -131,38 +108,45 @@ onSubmit: async (values) => {
                 </Form.Control.Feedback>
               </Form.Group>
             </div>
+
             <div className="col-6">
-              <Form.Group controlId="formCity">
+              <Form.Group controlId="formAddress1">
                 <Form.Label>City</Form.Label>
                 <Form.Control
                   type="text"
                   name="city"
-                  value={formik.values.city}
-                  onChange={formik.handleChange}
+                  value={editAddress.city}
+                  onChange={handleChange}
                   onBlur={formik.handleBlur}
-                  isInvalid={formik.touched.city && !!formik.errors.city}
+                  isInvalid={
+                    formik.touched.city && !!formik.errors.city
+                  }
                 />
                 <Form.Control.Feedback type="invalid">
-                  {formik.errors.city}
+                  {formik.errors.address1}
                 </Form.Control.Feedback>
               </Form.Group>
             </div>
+
             <div className="col-6">
               <Form.Group controlId="formState">
                 <Form.Label>State</Form.Label>
                 <Form.Control
                   type="text"
                   name="state"
-                  value={formik.values.state}
-                  onChange={formik.handleChange}
+                  value={editAddress.state}
+                  onChange={handleChange}
                   onBlur={formik.handleBlur}
-                  isInvalid={formik.touched.state && !!formik.errors.state}
+                  isInvalid={
+                    formik.touched.state && !!formik.errors.state
+                  }
                 />
                 <Form.Control.Feedback type="invalid">
-                  {formik.errors.state}
+                  {formik.errors.address1}
                 </Form.Control.Feedback>
               </Form.Group>
             </div>
+
             <div className="col-6">
               <Form.Group controlId="formZip">
                 <Form.Label>Zip</Form.Label>
@@ -187,33 +171,8 @@ onSubmit: async (values) => {
           </div>
         </div>
       </Form>
-
-      <div>
-<div className="col-12">
-    <div className="row">
-       {addresses.length>0?addresses.map((address) => (  <div className="col-md-3 m-3" style={{backgroundColor:'white',padding:'15px',borderRadius:'10px'}}>
-        <div>
-         
-            <div key={address._id}>
-              <p>{address.address1}</p>
-              <p>{address.address2}</p>
-              <p>
-                {address.city}, {address.state} {address.zip}
-              </p>
-              <button onClick={() => {handleDelete(address._id)}} className="btn">
-                <i className="fas fa-trash"></i>
-              </button>
-       
-              <Modalc btnname={<i className="fas fa-edit"></i>} content={<Updateaddress address={address}/>} heading={'UpdateAdress'} savebtn={null}/>
-            </div>
-         
-        </div>
-        </div> )):(<p className="mt-3">No Address Found</p>)}
-    </div>
-</div>
-      </div>
     </div>
   );
 }
 
-export default Addaddress;
+export default Updateaddress;

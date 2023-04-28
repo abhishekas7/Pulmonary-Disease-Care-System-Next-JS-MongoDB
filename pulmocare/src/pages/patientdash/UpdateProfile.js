@@ -93,7 +93,7 @@ const Submit = async (values) => {
 };
 
   return (
-<div className='col-'>
+<div className='container'>
 
 <Formik
       initialValues={{
@@ -126,10 +126,7 @@ const Submit = async (values) => {
 {patientData && patientData.map((data,i)=>(
   <p>{data.age}</p>
 ))}
-
       <Row>
-        
-
               <Col md={6}>
                 <label htmlFor="name.first">First Name</label>
                 <Field type="text" name="name.first" />

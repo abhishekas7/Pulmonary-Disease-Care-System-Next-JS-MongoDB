@@ -5,24 +5,24 @@ import { getSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react';
 
-function Ordered() {
+function Ordered({orderdetails}) {
 
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState(orderdetails);
 
     const { data: session, status } = useSession();
     const id = session.user._id;
     
-    useEffect(() => {
-      async function fetchOrders() {
-        const response = await axios.get(`/api/orders/${id}/singleorder`);
+    // useEffect(() => {
+    //   async function fetchOrders() {
+    //     const response = await axios.get(`/api/orders/${id}/singleorder`);
     
-        if (response.status === 200) {
-            setOrders([response.data]); // Convert orders to array and set state
-        }
-      }
+    //     if (response.status === 200) {
+    //         setOrders([response.data]); // Convert orders to array and set state
+    //     }
+    //   }
     
-      fetchOrders();
-    }, [status, session]);
+    //   fetchOrders();
+    // }, [status, session]);
     
     console.log(orders);
     
@@ -101,35 +101,17 @@ function Ordered() {
               </tr>
             </thead>
             <tbody>
-  {orders.length > 0 ? (
-    orders.map((item, i) => (
-      <tr key={i}>
-        {item.orders.map((value, j) => (
-          <React.Fragment key={j}>
-            <th scope="row">
-              <a href="#">
-                <p>{value._id}</p>
-              </a>
-            </th>
-            <td>sd</td>
-            <td>
-              <a href="#" className="text-primary">
-                Blanditiis dolor omnis similique
-              </a>
-            </td>
-            <td>$47</td>
-            <td>
-              <span className="badge bg-warning">Pending</span>
-            </td>
-          </React.Fragment>
-        ))}
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="5">No orders found</td>
-    </tr>
-  )}
+{orders.length>0?orders.map((item,i)=>(
+<tr>
+<td>{item._id}</td>
+ <td>{item._id}</td>
+ <td></td>
+ <td></td>
+ <td></td>
+</tr>
+)):(<p></p>)}
+
+
 </tbody>
 
 
