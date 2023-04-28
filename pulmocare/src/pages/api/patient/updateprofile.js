@@ -77,8 +77,6 @@ export default async function Upload(req, res) {
                 image: files.file.newFilename,
                 mobile: fields.mobile,
                 gender: fields.gender,
-                email: fields.email,
-                password: fields.password,
                 dateOfBirth:moment(fields.dateOfBirth).format("MMMM Do YYYY, h:mm:ss a"),
                   }
             }
@@ -98,8 +96,6 @@ export default async function Upload(req, res) {
               first: fields['name.first'],
               last: fields['name.last']
             },
-            email: fields.email,
-            password: fields.password,
             dateOfBirth:moment(fields.dateOfBirth).format("MMMM Do YYYY, h:mm:ss a"),
             address: {
               street: fields['address.street'],

@@ -4,11 +4,14 @@ import Script from 'next/script'
 import Header from './components/Header'
 import Footer from './Footer'
 import { useSession } from 'next-auth/react'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import db from '@/util/db'
 import Product from '@/models/Product'
 import { useRouter } from 'next/router'
+import Swal from 'sweetalert2'
 export default function Home({products}) {
+
+
   const MAX_LENGTH = 20; 
   const {data,status}=useSession()
   const router=useRouter()
@@ -24,6 +27,10 @@ export default function Home({products}) {
         }
         if(data.user.role==='admin'){
           router.push('/admindash')
+        }
+        if(data.user.role==='patient'){
+
+Swal.fire('Please Fill Your Deatils ')
         }
         
       }

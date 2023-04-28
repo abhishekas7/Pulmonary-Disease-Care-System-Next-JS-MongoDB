@@ -3,8 +3,11 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Col, Row } from 'react-bootstrap';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
 const UpdateProfile = () => {
+
+
 
  const [patientData, setPatientData] = useState([]);
 
@@ -75,6 +78,8 @@ const Submit = async (values) => {
           text: 'Form submitted successfully',
           icon: 'success',
         });
+        window.location.reload();
+
       } catch (error) {
         Swal.fire({
           title: 'Error',

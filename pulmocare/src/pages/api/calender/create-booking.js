@@ -2,8 +2,9 @@ import db from "@/util/db";
 import { getSession } from "next-auth/react";
 import Appointment from "@/models/Appointment";
 import Doctor from "@/models/Doctor";
-import Patient from "@/models/Patient";
+
 import { getError } from "@/util/error";
+import Patient from "@/models/Patient";
 
 //ZOOM
 const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -85,6 +86,7 @@ export default async function handler(req, res) {
     const docname = doctordetails.user.name;
 
     const pat = await Patient.findOne({user:Id})
+    console.log(pat._id);
     const appointment1 = await new Appointment({
       doctor: doctor,
       patient:pat._id,
@@ -113,5 +115,6 @@ export default async function handler(req, res) {
     res.send({ message: "Booking Sucessfull" });
   } catch (error) {
     res.send({ message: getError(error) });
+    console.log(getError(error) );
   }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 function Deafultpage({ userdet }) {
-  console.log('userdet:', userdet);
+
 
   const [user, setUser] = useState(userdet);
 

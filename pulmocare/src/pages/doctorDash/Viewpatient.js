@@ -14,12 +14,13 @@ function Viewpatient() {
 
   const [patients, setPatients] = useState([]);
 
-  const getPatients = async () => {
-    // const response = await axios.get('/api/doctor/viewownpatient');
-    // setPatients(response.data);
-  };
+
 
   useEffect(() => {
+    const getPatients = async () => {
+      const response = await axios.get('  ');
+      setPatients(response.data);
+    };
     getPatients();
   }, []);
 

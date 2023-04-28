@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import Modalc from '@/components/Modal';
-const _ = require('lodash');
+import Swal from 'sweetalert2';
 
 
-function ViewAppoint({doctor,appointment}) {
+function ViewAppoint({appointment}) {
   const [currentPage, setCurrentPage] = useState(1);
   const [appointmentsPerPage, setAppointmentsPerPage] = useState(10);
 
   const [Appointmt, setAppointmt] = useState(appointment);
   
-useEffect(() => {
-  setAppointmt(appointment)
-}, [Appointmt])
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-console.log(Appointmt);
+    async function fetchData() {
+      console.log('fetchdata');
+      const response = await axios.get('/api/appointments/appointment');
+      setAppointmt(response.data);
+    }
+
+
   const date = new Date('');
-  const formattedDate = date.toLocaleString();
-
 
   // Printing report
   const printReport = () => {
@@ -28,60 +31,109 @@ console.log(Appointmt);
     win.close();
   }
 
+  async function acceptHandler(id) {
+    const result = await Swal.fire({
+      title: 'Confirmation',
+      text: 'Are you sure you want to accept?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Accept'
+    });
+  
+    if (result.isConfirmed) {
+      try {
+        const response = await axios.put('/api/appointments/appointment', { status: 'confirmed', appId: id });
+        console.log(response.data);
+        fetchData()
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+  
+  async function rejectHandler(id) {
+    const result = await Swal.fire({
+      title: 'Confirmation',
+      text: 'Are you sure you want to reject?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Reject'
+    });
+  
+    if (result.isConfirmed) {
+      try {
+        const response = await axios.put('/api/appointments/appointment', { status: 'cancelled', appId: id });
+        console.log(response.data);
+        fetchData()
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+  
+
   return (
   
       <div className='container'>
         <div className="col-lg-12">
           <div className="card">
-            <div className="card-body">
+            <div className="card-body" style={{fontSize:14}}>
               <div className="d-flex justify-content-between align-items-center">
                 <h5 className="card-title">Appointment Table</h5>
                 <button className="btn btn-primary" onClick={printReport}>Print Report</button>
               </div>
               {/* Default Table */}
-              <table id="appointment-table" className="table">
+              <table id="appointment-table" className="table" border={1}>
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Image</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Scheduled</th>
-                    <th scope="col">Date</th>
+                    <th scope="col" colSpan={2}>Patient</th>
+                    <th scope="col">Appointment Date</th>
                     <th scope="col">Email</th>
                     <th scope="col">Mobile</th>
                     <th scope="col">Reason</th>
+                    <th scope="col">Status</th>
                     <th scope="col" colSpan={2}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  
 
+{Appointmt.data.length>0?Appointmt.data.map((item,i)=>(
+      <tr>
+
+
+      <td scope="col">#</td>
+                    <td scope="col"> <img src={`images/${item.image}`} alt="" width={50} /></td>
+                    <td scope="col">{item.name.first} {item.name.last} </td>
+                    <td scope="col">{item.date}</td>
+                    <td scope="col">{item.user.email }</td>
+                    <td scope="col">{item.phonenumber}</td>
+                    <td scope="col">{item.reason}</td>
+                    <td scope="col">{item.status=='confirmed'?(<button type="button" className="btn btn-success"><i className="bi bi-check-circle" /></button>
+):(<button type="button" className="btn btn-danger"><i className="bi bi-x-circle" />
+</button>
+)}</td>
+                    <td scope="col" colSpan={2}>
+                      
+            <div className="btn-group" role="group" aria-label="Basic mixed styles example">
+<button variant="success" onClick={()=>{acceptHandler(item._id)}}  className='btn btn-success '>Accept</button>
+      <button variant="danger" onClick={()=>rejectHandler(item._id)} className='btn btn-danger'>Reject</button></div>
+
+
+                    </td>
+    </tr>
+)):(<p>No Appointment</p>)}
 
                 </tbody>
               </table>
-              {Appointmt.map((item,i)=>(
-<tr key={i}>
-                    <td>{i+1}</td>
-                    <td>Image</td>
-                    {/* <td>{item.patient.user.name}</td>
-                    <td>{new Date(item.date).toLocaleString()}</td>
-                    <td>{new Date(item.created_at).toLocaleString()}</td>
-                    <td>{item.patient.email}</td> 
-                    <td>{item.phonenumber}</td>
-                    <td>{item.reason}</td> */}
-                    <td>Actions</td>
-                    <td>Actions</td>
-                  </tr>
- ))}
-              {/* End Default Table Example
-    </div>
-  </div>
-</div>
+        
 
-<div className="container mt-5">
-  <div className="row">
-    <div className="col-6">
-      {/* Add Report Printing Functionality */}
+
+
       <button className="btn btn-primary" onClick={() => window.print()}>Print Report</button>
     </div>
     <div className="col-6">

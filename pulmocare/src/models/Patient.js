@@ -1,4 +1,6 @@
-import { Schema, mongoose } from 'mongoose';
+import mongoose from 'mongoose';
+
+const { Schema } = mongoose;
 
 const patientSchema = new Schema({
   user: {
@@ -34,6 +36,14 @@ const patientSchema = new Schema({
   dateOfBirth: {
     type: String,
   },
+
+  email: {
+    type: String,
+  },
+  username: {
+    type: String,
+  },
+
 
   address: {
     street: {
@@ -95,6 +105,6 @@ const patientSchema = new Schema({
     },
   ],
 });
+const Patient = mongoose.models.Patient || mongoose.model('Patient', patientSchema);
+export default Patient;
 
-const Patient = mongoose.models.Patient || mongoose.model("Patient", patientSchema);
-export default Patient;

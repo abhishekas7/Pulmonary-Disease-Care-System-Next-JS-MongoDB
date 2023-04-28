@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from 'next/router'
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { signOut} from 'next-auth/react'
 import $ from 'jquery'
@@ -11,8 +11,10 @@ import Patientprofile from "./Patientprofile";
 import Deafultpage from "./Deafultpage";
 import MedicalRecord from "./MedicalRecord";
 import Ordered from "./Ordered";
+import Patient from "@/models/Patient";
+import db from "@/util/db";
 
-const index = () => {
+const index = ({patientdetails}) => {
 
 
   
@@ -62,7 +64,7 @@ const index = () => {
   const page = () => {
     switch (option) {
       case "viewprofile":
-        return <Patientprofile/>;
+        return <Patientprofile patientdetails={patientdetails}/>;
 
         case "medicalrecord":
           return <MedicalRecord/>;
@@ -396,4 +398,23 @@ const index = () => {
 
 export default index;
 
+
+export async function getServerSideProps(context) {
+  db.connect();
+  const session = await getSession(context);
+
+  const user_id = session.user._id;
+  console.log(user_id);
+
+  const patientdetails = await Patient.find({user:user_id});
+  // const cartItem = await CartSchema.find()
+  //   .populate("products.productId")
+  //   .exec();
+console.log(patientdetails);
+  return {
+    props: {
+      patientdetails: JSON.parse(JSON.stringify(patientdetails)),
+    },
+  };
+}
 

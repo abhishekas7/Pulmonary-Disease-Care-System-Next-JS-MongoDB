@@ -5,7 +5,7 @@ import UpdateProfile from './UpdateProfile';
 import ViewProfile from './ViewProfile';
 
 
-function Patientprofile() {
+function Patientprofile({patientdetails}) {
 
 
     const [patientData, setPatientData] = useState([]);
@@ -13,10 +13,9 @@ function Patientprofile() {
 
   
     useEffect(() => {
-      fetch('/api/patient/updateprofile')
-        .then(response => response.json())
-        .then(data => setPatientData(data))
-        .catch(error => console.error(error));
+
+
+        console.log(patientdetails);
       
     }, []);
 
@@ -32,7 +31,7 @@ function Patientprofile() {
       <div className="card">
         <div className="card-body profile-card pt-4 d-flex flex-column align-items-center">
         <img className='rounded' src={`/images/${data.image}`} alt='person image'/>
-
+<p>{data.name}</p>
           <h2>{data.user.name}</h2>
           <h6>Age : {data.age}</h6>
 

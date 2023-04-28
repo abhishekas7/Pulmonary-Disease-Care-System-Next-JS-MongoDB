@@ -22,17 +22,13 @@ function Checkout({ carts, addressget }) {
     email: "abhi@gmail",
   });
   const {
-    handleSubmit,
-    register,
-    formState: { errors },
     setValue,
   } = useForm();
   const [carts1, setcarts] = useState(carts);
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
-  const { cartItems, shippingAddress, paymentMethod } = cart;
+  const { shippingAddress, paymentMethod } = cart;
   // const { shippingAddress } = cart;
-  const router = useRouter();
 
   useEffect(() => {
     setValue("fullName", shippingAddress.fullName);
@@ -68,7 +64,7 @@ function Checkout({ carts, addressget }) {
     }
 
     // Make API call to the serverless API
-    const { data, message } = await axios.put("/api/keys/razorpay", {
+    const { data } = await axios.put("/api/keys/razorpay", {
       amount: totalPrice,
     });
 
@@ -153,7 +149,7 @@ function Checkout({ carts, addressget }) {
 
           toast.error(getError(err));
         }
-        console.log(message);
+
       } else {
         toast.error(message);
       }
@@ -194,71 +190,7 @@ function Checkout({ carts, addressget }) {
 
     console.log(e);
   };
-  const submitHandler = ({ fullName, address, city, postalCode, country }) => {
-    dispatch({
-      type: "SAVE_SHIPPING_ADDRESS",
-      payload: { fullName, address, city, postalCode, country },
-    });
-    Cookies.set(
-      "cart",
-      JSON.stringify({
-        ...cart,
-        shippingAddress: {
-          fullName,
-          address,
-          city,
-          postalCode,
-          country,
-        },
-      })
-    );
-
-    // router.push('/checkout');
-    console.log(cart);
-  };
   const [loading, setLoading] = useState(true);
-  const placeOrderHandler = async (data1) => {
-    try {
-      // setLoading(true);
-      console.log(data1);
-      console.log(carts);
-      const address = await axios
-        .get("/api/cart/Address")
-        .catch((err) => console.error(err));
-      console.log(address.data.data[0]._id);
-
-      const cart1 = await axios
-        .get("/api/cart/getCartitems")
-        .catch((err) => console.error(err));
-
-      console.log(cart1.data.cartItems[0]._id);
-      const { data } = await axios.post(`/api/orders/${data1._id}/ordered`, {
-        cart: cart1.data.cartItems[0]._id,
-        shippingAddress: address.data.data[0]._id,
-        paymentMethod,
-        itemsPrice,
-        shippingPrice,
-        taxPrice,
-        totalPrice,
-      });
-      console.log(data.message);
-      alert("order placed")
-      setLoading(false);
-      dispatch({ type: "CART_CLEAR_ITEMS" });
-      Cookies.set(
-        "cart",
-        JSON.stringify({
-          ...cart,
-          cartItems: [],
-        })
-      );
-    } catch (err) {
-      setLoading(false);
-      // handlepayment(data.data)
-
-      toast.error(getError(err));
-    }
-  };
   useEffect(() => {
     // console.log(cart)
   }, []);

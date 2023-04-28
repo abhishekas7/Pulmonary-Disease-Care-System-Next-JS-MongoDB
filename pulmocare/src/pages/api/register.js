@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt'
 import db from '@/util/db';
 import Otp from '@/models/Userverify';
 import { getError } from '@/util/error';
+import Patient from '@/models/Patient';
 
 function mailer(email,otpnumber,verifylink) {
   var nodemailer = require("nodemailer");
@@ -108,6 +109,12 @@ try {
    status:false,
  });
  const savedUser = await newUser.save(); 
+
+ const newPatient = new Patient({
+  email:email,
+  username:name,
+});
+await newPatient.save(); 
  
  if(savedUser){
   mailer(email,otpnumber,verifylink);

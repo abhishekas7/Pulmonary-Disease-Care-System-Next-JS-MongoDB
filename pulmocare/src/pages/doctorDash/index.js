@@ -21,17 +21,21 @@ const index = () => {
   const router=useRouter()
   const [docData,setdocData] = useState([])
 
-  const [appointment,setAppointment]=useState()
+
   const [doctor,setDoctor]=useState()
   const [patient,setPatient]=useState()
 
-  const getdata=async ()=>{
-    const response= await axios.get("/api/appointments/appointment");
-    // console.log(response.data.appointments)
-    console.log(response.data)
-    setAppointment(response.data.appointments)
-    setDoctor(response.data.doctor)
-  }
+  const [appointment, setAppointment] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get('/api/appointments/appointment');
+      setAppointment(response.data);
+    }
+    fetchData();
+  }, []);
+
+
 
   useEffect(() => {
     
@@ -54,10 +58,8 @@ const index = () => {
       
     }
     getdocData()
-    getdata()
-    // console.log(appointment)
-    // console.log(doctor)
-    // console.log(docData)
+
+
   }, [status,data])
 
   const [option, setOption] = useState('/');
@@ -65,10 +67,6 @@ const index = () => {
 
   
   const getdocData=async ()=>{
-    const response = await axios
-    .get('/api/doctor/details')
-    .then(res => setdocData(res.data))
-    .catch(err => console.error(err))
   }
  
 
@@ -79,7 +77,7 @@ const index = () => {
         case "doctor":
           return <Viewdoctor/> ;
           case "patient":
-            return <Viewpatient/>;
+            return <Viewpatient viewpatient={appointment}/>;
             case "adddoctor":
               return ;
       default:
@@ -307,7 +305,7 @@ const index = () => {
                 data-bs-toggle="dropdown"
               >
 
-{docData.map((data,i)=>(
+{docData.map((data)=>(
  <img
  src={`..//images/${data.image}`}
                   alt="Profile"
@@ -423,5 +421,4 @@ const index = () => {
 };
 
 export default index;
-
 
