@@ -54,14 +54,10 @@ export default async function handler(req, res) {
       break;
       case "PUT":
         try {
-        
           await db.connect();
-
           const { status,appId } = req.body
           console.log(status,appId);
-  
           const appointment = await Appointment.findById(appId);
-          
           if (appointment) {
            if(status==='confirmed')
             {
@@ -86,10 +82,6 @@ export default async function handler(req, res) {
                 console.log(getError(error));
               }
             }
-
-  
-  
-  
           }
           res.send("Successful");
         } catch (error) {

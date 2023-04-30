@@ -74,10 +74,10 @@ console.log(payload);
         </label>
         <button type="submit">Extract medical terms</button>
       </form>
-      <p>Dosage: {prescription.dosage}</p>
+      {/* <p>Dosage: {prescription.dosage}</p>
       <p>Patient name: {prescription.patientName}</p>
       <p>Medicine: {prescription.medicine}</p>
-      <p>Duration: {prescription.duration}</p>
+      <p>Duration: {prescription.duration}</p> */}
     </div>
   );
 }

@@ -12,7 +12,8 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
         await db.connect()
-        const cartItems = await CartSchema.find({ userId: Id }).populate('products');
+        const cartItems = await CartSchema.find({ userId: Id, active: true }).populate('products');
+
         
         res.status(200).json({ cartItems });
     } catch (err) {

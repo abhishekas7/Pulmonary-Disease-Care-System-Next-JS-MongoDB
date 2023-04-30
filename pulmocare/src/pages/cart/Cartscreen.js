@@ -208,7 +208,10 @@ const cartSubtotal = cart.reduce((total, item) => {
 </table>
 
 <div className="btn-wrapper btn-success text-right mt-1">
-  <Link href="/Checkout" className="btn btn-green">
+  <Link href="/Checkout" className="btn btn-success">
+    Proceed to checkout
+  </Link>
+  <Link href="/Checkout2" className="btn btn-danger">
     Proceed to checkout
   </Link>
 </div>

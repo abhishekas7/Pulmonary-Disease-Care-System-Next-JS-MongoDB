@@ -3,7 +3,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Updateaddress from '../api/cart/Updateaddress';
 
-function AddressForm() {
+function AddressForm(props) {
+
+  const getAddress=(e)=>{
+    props.onOptionChange(e.target.value);
+  }
 
   const [addresses, setAddresses] = useState([]);
   const [editAddress, setEditAddress] = useState({});
@@ -19,22 +23,45 @@ function AddressForm() {
   return (
     <div>
       <div className="col-12">
-    <div className="row">
-       {addresses.length>0?addresses.map((address) => (  <div className="col-6 m-3" style={{backgroundColor:'white',padding:'15px',borderRadius:'10px'}}>
-        <div>
-         
+
+
+<div className='col-12'>
+  <div className='row'>
+  <div className='col-12' style={{backgroundColor:'#f2f25f2',color:'black',borderRadius:'15px',padding:'15px'}}>
+  {addresses.length>0?addresses.map((address) => (  
+        <div className='pt-4' style={{position: 'relative', borderBottom: '1px solid #ccc'}}>
+
+
+          <div className='row'>
+            <div className='col-md-6'>
+            <input type="radio" name="address" value={address._id} onChange={getAddress} style={{position: 'absolute', left: '10px', top: '10px'}} />
+          
+          
+          <label htmlFor={`address_${address._id}`} style={{paddingLeft: '40px'}}>
             <div key={address._id}>
               <p>{address.address1}</p>
               <p>{address.address2}</p>
               <p>
                 {address.city}, {address.state} {address.zip}
               </p>
-              <Modalc btnname={<i className="fas fa-edit"></i>} content={<Updateaddress address={address}/>} heading={'UpdateAdress'} />
             </div>
-         
+          </label>
+
+            </div>
+            <di className='col-md-6'>
+            <Modalc btnname={'Change'} content={<Updateaddress address={address}/>} heading={'UpdateAdress'} style={{padding: '10px' ,marginLeft: '100px'}} />
+            </di>
+          </div>
+
         </div>
-        </div> )):(<p className="mt-3">No Address Found</p>)}
-    </div>
+     
+        )):(<p className="mt-3">No Address Found</p>)}
+</div>
+
+  </div>
+</div>
+
+
 </div>
 
 

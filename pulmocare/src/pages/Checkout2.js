@@ -6,10 +6,10 @@ import Accolite from './components/Accolite'
 import Modalc from '@/components/Modal'
 import Address from './cart/AddressView'
 import AddressForm from './checkout/AddressForm'
-import axios from 'axios'
 import { getSession } from 'next-auth/react'
 import db from '@/util/db'
 import CartSchema from "@/models/CartSchema";
+import Payment from './order/Payment'
 
 
 
@@ -23,6 +23,18 @@ const cartSubtotal = cartitems.reduce((total, item) => {
     return subtotal + product.price * product.quantity;
   }, 0);
 }, 0);
+
+const [addId,setAddressId]=useState('')
+
+
+
+
+const getAddress=(value)=>{
+  setAddressId(value)
+}
+
+console.log(addId);
+
 
   return (
     <div>
@@ -40,13 +52,16 @@ const cartSubtotal = cartitems.reduce((total, item) => {
         
     <ul>
       <li className="ltn__blog-category">
-        <a href="#">Checkout</a>
+        <a href="#" ltn__blog-category>Checkout</a>
       </li>
     </ul>
 
     <div>
-<Accolite header={'Address'} body={<AddressForm/>}/>
-<Accolite header={'Address'} body={'dd'}/>
+<Accolite header={<h6>SHIPPING ADDRESS</h6>} body={<AddressForm  onOptionChange={getAddress}/>}/>
+
+<Accolite header={<h6>PAYMENT</h6>} body={<Payment  cartItem={cartItem} addressId={addId}/>}/>
+
+
     </div>
   </div>
 
@@ -76,7 +91,7 @@ const cartSubtotal = cartitems.reduce((total, item) => {
         <li key={i} className='mt-3'>
          {data.products.map((item)=>(
 
-           <div className="popular-post-widget-item clearfix mt-4">
+           <div className="popular-post-widget-item clearfix mt-4" style={{border:'2px'}}>
           <div className="popular-post-widget-img">
           <img
                                 src={`..//images/${item.image}`}
@@ -94,7 +109,7 @@ const cartSubtotal = cartitems.reduce((total, item) => {
               <ul>
                 <li className="ltn__blog-date">
                   <a href="#">
-                    <i className="far fa-money-bill-alt" />
+                    <i className="far fa-money-bill-alt" style={{fontSize:'25px'}}/>
                     {item.price} x {item.quantity} =  {item.price * item.quantity}
                   </a>
                 </li>
@@ -102,12 +117,21 @@ const cartSubtotal = cartitems.reduce((total, item) => {
             </div>
             <hr/>
 
-            
+      
           </div>
           
         </div>
          ))}
-     
+    <div className='col-12'>
+      <div className='row'>
+        <div className='col-6'>
+        <span><h5>Total</h5></span>
+        </div>
+        <div className='col-6'>
+        <span><h5>{cartSubtotal.toFixed(2)}</h5></span>
+        </div>
+      </div>
+    </div>
       </li>
       
   )):(<p>Empty Cart</p>)}
