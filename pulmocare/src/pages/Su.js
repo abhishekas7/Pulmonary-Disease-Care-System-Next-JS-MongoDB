@@ -7,6 +7,10 @@ function Su() {
   const [recognizing, setRecognizing] = useState(false);
   const recognition = new window.webkitSpeechRecognition();
 
+
+  const [showPayload, setShowPayload] = useState(false);
+  const [response, setResponse] = useState([]);
+
   useEffect(() => {
     recognition.continuous = true;
     recognition.interimResults = true;
@@ -50,35 +54,50 @@ function Su() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-console.log(payload);
+    setShowPayload(true);
+
     try {
-      const res = await axios.post('http://127.0.0.1:8000/data', { payload });
+   
+
+      const res = await axios.post('/api/ttest', { payload:payload });
       setPrescription(res.data);
+      setTimeout(() => {
+        setResponse(prescription);
+      }, 100);
+      
+      console.log(res.data);
     } catch (err) {
       console.error(err);
     }
   };
 
   return (
-    <div>
-      <button onClick={startRecognition} disabled={recognizing}>
-        Start
-      </button>
-      <button onClick={stopRecognition} disabled={!recognizing}>
-        Stop
-      </button>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Enter prescription payload:
-          <textarea value={payload} onChange={(e) => setText(e.target.value)} />
-        </label>
-        <button type="submit">Extract medical terms</button>
-      </form>
-      {/* <p>Dosage: {prescription.dosage}</p>
-      <p>Patient name: {prescription.patientName}</p>
-      <p>Medicine: {prescription.medicine}</p>
-      <p>Duration: {prescription.duration}</p> */}
-    </div>
+<div>
+    <button onClick={startRecognition} disabled={recognizing}>
+      Start
+    </button>
+    <button onClick={stopRecognition} disabled={!recognizing}>
+      Stop
+    </button>
+    <form onSubmit={handleSubmit}>
+      <label>
+        Enter prescription payload:
+        <textarea value={payload} onChange={(e) => setText(e.target.value)} />
+      </label>
+      <button type="submit">Extract medical terms</button>
+    </form>
+
+    {response.length > 0 && (
+      <ul>
+        {response.map((term, index) => (
+          <li key={index}>
+            {index + 1}: {JSON.stringify(term)}
+          </li>
+        ))}
+      </ul>
+    )}
+
+  </div>
   );
 }
 

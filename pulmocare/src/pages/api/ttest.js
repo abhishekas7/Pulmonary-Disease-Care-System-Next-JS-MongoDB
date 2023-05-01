@@ -1,8 +1,14 @@
 import fetch from 'node-fetch';
 
+
 export default async function handler(req, res) {
+
+  const { payload } = req.body;
+  console.log(payload);
+  
+
   const data = {
-    "inputs": "John doe age 23 paracetamol 20g ,dolo 1  two days twic"
+    "inputs": payload
   };
 
   try {
@@ -18,6 +24,7 @@ export default async function handler(req, res) {
       }
     );
     const result = await response.json();
+    console.log(result);
     res.status(200).json(result);
   } catch (error) {
     console.error(error);

@@ -1,112 +1,124 @@
 import axios from "axios";
 import Script from "next/script";
-import React, { useEffect, useRef, useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 function Demo() {
-
   const [text, setText] = useState('');
   const [prescription, setPrescription] = useState({});
+  const [entities, setEntities] = useState([]);
+  const [showPayload, setShowPayload] = useState(false);
 
-  var curr = new Date();
-  curr.setDate(curr.getDate());
-  var date = curr.toISOString().substr(0,10);
-  console.log(date);
+  useEffect(() => {
+    webSpeech();
+  }, []);
 
   const webSpeech = () => {
     if ("webkitSpeechRecognition" in window) {
-      // Initialize webkitSpeechRecognition
       let speechRecognition = new webkitSpeechRecognition();
-
-
-
-      // String for the Final Transcript
       let final_transcript = "";
-
-      // Set the properties for the Speech Recognition object
+  
       speechRecognition.continuous = true;
       speechRecognition.interimResults = true;
       speechRecognition.lang = 'en-US';
-
-      // Callback Function for the onStart Event
+  
       speechRecognition.onstart = () => {
-        // Show the Status Element
         document.querySelector("#status").style.display = "block";
       };
+  
       speechRecognition.onerror = () => {
-        // Hide the Status Element
         document.querySelector("#status").style.display = "none";
       };
+  
       speechRecognition.onend = () => {
-        // Hide the Status Element
+        document.querySelector("#status").style.display = "none";
       };
-
+  
       speechRecognition.onresult = (event) => {
-        // Create the interim transcript string locally because we don't want it to persist like final transcript
- 
-
-        // Loop through the results from the speech recognition object.
         for (let i = event.resultIndex; i < event.results.length; ++i) {
-          // If the result item is Final, add it to Final Transcript, Else add it to Interim transcript
           if (event.results[i].isFinal) {
             final_transcript += event.results[i][0].transcript;
-          } 
+          }
         }
-
-        // Set the Final transcript and Interim transcript.
+  
         document.querySelector("#final").innerHTML = final_transcript;
-        console.log(final_transcript)
         setText(final_transcript);
       };
-
-      // Set the onClick property of the start button
+  
       document.querySelector("#start").onclick = () => {
-        // Start the Speech Recognition
         speechRecognition.start();
       };
-      // Set the onClick property of the stop button
+  
       document.querySelector("#stop").onclick = () => {
-        // Stop the Speech Recognition
         speechRecognition.stop();
       };
     } else {
       console.log("Speech Recognition Not Available");
     }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await axios.post('/api/doctor/prescribe', { text });
+      const res = await axios.post('/api/ttest', { payload: text });
       setPrescription(res.data);
+      setEntities(res.data);
     } catch (err) {
       console.error(err);
     }
   };
 
-  useEffect(() => {
-    webSpeech();
-  }, []);
+  const generatePrescriptionPDF = () => {
+    const doc = new jsPDF();
+    const headers = [["Entity Group", "Word"]];
+    const data = entities.map((entity) => [entity.entity_group, entity.word]);
 
+    doc.autoTable({
+      head: headers,
+      body: data,
+      startY: 40,
+      theme: "grid",
+      styles: {
+        halign: "center",
+        valign: "middle",
+        fontSize: 14,
+        fillColor: "#FFFFFF",
+        textColor: "#444444",
+        lineWidth: 0.5,
+      },
+    });
 
+    doc.save("prescription.pdf");
+  };
 
   return (
     <>
-        <form>
-            <h6 className="mt-4">Transcript</h6>
-
-   
-   <div>
-   <textarea value={text} onChange={(e) => setText(e.target.value)}  id="final" style={{ border: "1px solid gray", height: 300, borderRadius: 8 }}/>
-
-   </div>
-
-  
-            <button className="btn btn-warning" type="submit" onClick={handleSubmit}>Extract medical terms</button>
-
-      
-        </form>
-    <div className="mt-4">
+      <form>
+        <h6 className="mt-4">Transcript</h6>
+        <div>
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            id="final"
+            style={{
+              border: "1px solid gray",
+              height: 300,
+              borderRadius: 8,
+            }}
+          />
+        </div>
+        <button
+          className="btn btn-warning"
+          type="submit"
+          onClick={handleSubmit}
+        >
+          Extract medical terms
+        </button>
+      </form>
+      <div className="mt-4">
         <button className="btn btn-success" id="start">
           Start
         </button>
@@ -114,17 +126,40 @@ function Demo() {
           Stop
         </button>
         <p id="status" className="lead mt-3" style={{ display: "none" }}>
-          Listening...
-        </p>
-      </div>
-      <div>
-      <p>Dosage: {prescription.dosage}</p>
-      <p>Patient name: {prescription.patientName}</p>
-      <p>Medicine: {prescription.medicine}</p>
-      <p>Duration: {prescription.duration}</p>
-      </div>
-    </>
-  );
+Listening...
+</p>
+</div>
+<div>
+{entities.length > 0 && (
+<div>
+<h2>Extracted entities:</h2>
+<ul>
+{entities.map((entity, index) => (
+<li key={index}>
+{entity.entity_group}:{" "}
+<span style={{ color: entity.color }}>{entity.word}</span>
+</li>
+))}
+</ul>
+<button
+           className="btn btn-primary"
+           onClick={generatePrescriptionPDF}
+         >
+Generate PDF
+</button>
+</div>
+)}
+    {showPayload && (
+      <>
+        <h2>Payload:</h2>
+        <p>{text}</p>
+        <h2>Response:</h2>
+        <p>{JSON.stringify(prescription)}</p>
+      </>
+    )}
+  </div>
+</>
+);
 }
 
 export default Demo;

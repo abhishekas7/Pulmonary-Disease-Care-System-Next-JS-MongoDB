@@ -1,137 +1,102 @@
-
-import db from '@/util/db';
+import React, { useState, useEffect } from 'react';
+import { Table, Pagination, Button } from 'react-bootstrap';
+import { FaPrint } from 'react-icons/fa';
+import ReactToPrint from 'react-to-print';
 import axios from 'axios';
-import { getSession } from 'next-auth/react';
-import React, { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react';
 
-function Ordered({orderdetails}) {
+const OrdersTable = () => {
+  const [orders, setOrders] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ordersPerPage] = useState(10);
+  
 
-    const [orders, setOrders] = useState(orderdetails);
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const res = await axios.get('/api/orders'); // replace with your API endpoint for fetching orders
+      setOrders(res.data);
+    };
+    fetchOrders();
+  }, []);
 
-    const { data: session, status } = useSession();
-    const id = session.user._id;
-    
-    // useEffect(() => {
-    //   async function fetchOrders() {
-    //     const response = await axios.get(`/api/orders/${id}/singleorder`);
-    
-    //     if (response.status === 200) {
-    //         setOrders([response.data]); // Convert orders to array and set state
-    //     }
-    //   }
-    
-    //   fetchOrders();
-    // }, [status, session]);
-    
-    console.log(orders);
-    
+  // Get current orders
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = Array.isArray(orders) ? orders.slice(indexOfFirstOrder, indexOfLastOrder) : [];
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Component to print the order table
+  const OrderTableToPrint = () => {
+    return (
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer Name</th>
+            <th>Order Date</th>
+            <th>Order Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentOrders.map((order) => (
+            <tr key={order.id}>
+              <td>{order.id}</td>
+              <td>{order.customerName}</td>
+              <td>{order.orderDate}</td>
+              <td>{order.orderTotal}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    );
+  };
+
   return (
-    <div>
-        <div className="col-12">
-  <div className="card recent-sales overflow-auto">
-
-    <div className="card-body">
-      <h5 className="card-title">
-        Orders<span></span>
-      </h5>
-
-
-      <div className="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
-        <div className="dataTable-top">
-          <div className="dataTable-dropdown">
-            <label>
-              <select className="dataTable-selector">
-                <option value={5}>5</option>
-                <option value={10} selected="">
-                  10
-                </option>
-                <option value={15}>15</option>
-                <option value={20}>20</option>
-                <option value={25}>25</option>
-              </select>{" "}
-              entries per page
-            </label>
-          </div>
-          <div className="dataTable-search">
-            <input
-              className="dataTable-input"
-              placeholder="Search..."
-              type="text"
-            />
-          </div>
-        </div>
-        <div className="dataTable-container">
-          <table className="table table-borderless datatable dataTable-table">
-            <thead>
-
-     
-              <tr>
-                <th scope="col" data-sortable="" style={{ width: "10.9116%" }}>
-                  <a href="#" className="dataTable-sorter">
-                   Order ID
-                  </a>
-                </th>
-                <th scope="col" data-sortable="" style={{ width: "24.0331%" }}>
-                  <a href="#" className="dataTable-sorter">
-                    Order
-                  </a>
-                </th>
-                <th scope="col" data-sortable="" style={{ width: "40.1934%" }}>
-                  <a href="#" className="dataTable-sorter">
-                    Product
-                  </a>
-                </th>
-                <th
-                  scope="col"
-                  data-sortable=""
-                  style={{ width: "9.80663%" }}
-                  className="asc"
-                  aria-sort="ascending"
-                >
-                  <a href="#" className="dataTable-sorter">
-                    Price
-                  </a>
-                </th>
-                <th scope="col" data-sortable="" style={{ width: "15.0552%" }}>
-                  <a href="#" className="dataTable-sorter">
-                    Status
-                  </a>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-{orders.length>0?orders.map((item,i)=>(
-<tr>
-<td>{item._id}</td>
- <td>{item._id}</td>
- <td></td>
- <td></td>
- <td></td>
-</tr>
-)):(<p></p>)}
-
-
-</tbody>
-
-
-          </table>
-        </div>
-        <div className="dataTable-bottom">
-          <div className="dataTable-info">Showing 1 to 5 of 5 entries</div>
-          <nav className="dataTable-pagination">
-            <ul className="dataTable-pagination-list" />
-          </nav>
-        </div>
+    <>
+      <Table striped bordered hover className="bg-white">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer Name</th>
+            <th>Order Date</th>
+            <th>Order Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentOrders.map((order) => (
+            <tr key={order.id}>
+              <td>{order.id}</td>
+              <td>{order.customerName}</td>
+              <td>{order.orderDate}</td>
+              <td>{order.orderTotal}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      <div className="d-flex justify-content-between align-items-center">
+        <Pagination>
+          {Array.from({ length: Math.ceil(orders.length / ordersPerPage) }, (_, i) => (
+            <Pagination.Item key={i} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
+              {i + 1}
+            </Pagination.Item>
+          ))}
+        </Pagination>
+        <ReactToPrint
+          trigger={() => (
+            <Button variant="outline-primary">
+              <FaPrint /> Print
+            </Button>
+          )}
+          content={() => this.OrderTableRef}
+        />
       </div>
-    </div>
-  </div>
-</div>
+      <div style={{ display: 'none' }}>
+        <OrderTableToPrint ref={(el) => (this.OrderTableRef = el)} />
+      </div>
+    </>
+  );
+};
 
-    </div>
-  )
-}
-
-export default Ordered
-
-
+          
+export default OrdersTable;
