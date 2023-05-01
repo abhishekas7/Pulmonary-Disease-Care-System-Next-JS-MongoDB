@@ -239,10 +239,6 @@ export async function getServerSideProps(context) {
   // const cartItem = await CartSchema.find()
   //   .populate("products.productId")
   //   .exec();
-
-
-
-
   return {
     props: {
       cartItem: JSON.parse(JSON.stringify(cartItem)),

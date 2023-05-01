@@ -1,24 +1,34 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { signOut, useSession } from 'next-auth/react'
 import { Store } from '@/util/Store'
 import { useContext } from 'react'
 import Image from '../../../public/img/logo.png'
+import axios from 'axios'
 
 
 const Header = () => {
-
-    
-  const { state, dispatch } = useContext(Store);
-
-  const {cart} = state;
-
+  const [cart, setCart] = useState([]);
+  useEffect(() => {
+    fetchCart();
+  }, []);
+  const fetchCart = async () => {
+    const response = await axios.get("/api/cart/getCartitems");
+    setCart(response.data);
+  };
 
   const sess=useSession()
   const logout=()=>{
        signOut({callbackUrl:'/login'})
-
   }
+
+  let cartItemsLength = 0;
+  if (cart && cart.cartItems && cart.cartItems.length > 0 && cart.cartItems[0].products) {
+    cartItemsLength = cart.cartItems[0].products.length;
+    console.log(cartItemsLength);
+  }
+
+
   return (
     <div>
 
@@ -180,7 +190,14 @@ const Header = () => {
                   >
                     <span className="mini-cart-icon">
                       <i className="icon-shopping-cart" />
-                      <sup>{state.cart.cartItems.length}</sup>
+
+
+                           <sup>{
+                           
+                           cartItemsLength
+                           
+                           }</sup>
+                      
                     </span>
                     <h6>
                     <Link href="/cart/Cartscreen">
@@ -236,10 +253,6 @@ const Header = () => {
   </div>
   {/* header-bottom-area end */}
 </header>
-
-
-
-
     </div>
   )
 }

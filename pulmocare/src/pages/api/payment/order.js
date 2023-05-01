@@ -31,6 +31,8 @@ const handler = async (req, res) => {
       status:'pending'
     });
     await order.save();
+
+    
     await db.disconnect();
     res.status(200).json({ data:order, message: 'Order created successfully' });
   } catch (err) {
