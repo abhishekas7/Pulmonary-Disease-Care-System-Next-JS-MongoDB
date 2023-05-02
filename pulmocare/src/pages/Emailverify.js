@@ -29,10 +29,9 @@ function VerifyOTP() {
     try {
       const response = await axios.post("/api/user/verify", { email, otp });
       setMessage(response.data.message);
-      redirect('/login')
+      router.push('/login')
     } catch (error) {
       console.error(error);
-      setMessage(error.response.data.message);
     }
   };
 

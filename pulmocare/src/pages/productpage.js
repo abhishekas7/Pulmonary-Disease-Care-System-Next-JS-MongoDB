@@ -4,8 +4,7 @@ import db from '@/util/db'
 import Script from 'next/script'
 import React from 'react'
 import Header from './components/Header'
-import Navbarr from './components/Navbar'
-import Navbar1 from './components/Navbar1'
+
 import Links from './Links'
 import Link from 'next/link'
 import Rating from 'react-rating'
@@ -15,8 +14,7 @@ const productpage = ({products}) => {
     
     <div>
 
-<Navbar1/>
-<Navbarr/>
+<Header/>
 
         <div className="col-lg-12 mb-3">
         <h1 className="section-title text-center">Products</h1>

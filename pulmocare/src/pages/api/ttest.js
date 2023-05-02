@@ -1,12 +1,8 @@
 import fetch from 'node-fetch';
 
-
 export default async function handler(req, res) {
-
   const { payload } = req.body;
   console.log(payload);
-  
-
   const data = {
     "inputs": payload
   };

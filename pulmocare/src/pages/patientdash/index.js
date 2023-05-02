@@ -15,6 +15,7 @@ import Patient from "@/models/Patient";
 import db from "@/util/db";
 import Order from "@/models/Order";
 import Addaddress from "./Addaddress";
+import Link from "next/link";
 
 const index = ({patientdetails,orderdetails}) => {
 
@@ -117,15 +118,30 @@ const index = ({patientdetails,orderdetails}) => {
             <span className="d-none d-lg-block">Patient</span>
           </a>
           <i className="bi bi-list toggle-sidebar-btn" />
+        
+          <Link
+    className="nav-link nav-icon"
+    href="/"
+    data-bs-toggle="dropdown"
+  >
+  
+  <i class="bi bi-house"></i>
+   
+  </Link>
         </div>
 
         <nav className="header-nav ms-auto">
+          
           <ul className="d-flex align-items-center">
             <li className="nav-item d-block d-lg-none">
               <a className="nav-link nav-icon search-bar-toggle " href="#">
                 <i className="bi bi-search" />
               </a>
             </li>
+
+          
+
+  
             <li className="nav-item dropdown">
               <a
                 className="nav-link nav-icon"
@@ -197,11 +213,13 @@ const index = ({patientdetails,orderdetails}) => {
               </ul>
             </li>
             <li className="nav-item dropdown">
+  
               <a
                 className="nav-link nav-icon"
                 href="#"
                 data-bs-toggle="dropdown"
               >
+              
                 <i className="bi bi-chat-left-text" />
                 <span className="badge bg-success badge-number">3</span>
               </a>
@@ -282,6 +300,14 @@ const index = ({patientdetails,orderdetails}) => {
                 </li>
               </ul>
             </li>
+            
+            <li className="nav-item dropdown">
+  
+
+
+</li>
+
+
             <li className="nav-item dropdown pe-3">
               <a
                 className="nav-link nav-profile d-flex align-items-center pe-0"

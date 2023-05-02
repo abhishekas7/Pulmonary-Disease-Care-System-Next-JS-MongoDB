@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
+
 function Demo() {
   const [text, setText] = useState('');
   const [prescription, setPrescription] = useState({});
@@ -70,7 +71,24 @@ function Demo() {
       console.error(err);
     }
   };
-
+  function getBadgeColor(entityGroup) {
+    switch (entityGroup) {
+      case "DOSAGE":
+        return "bg-primary";
+      case "FORM":
+        return "bg-secondary";
+      case "DRUG":
+        return "bg-success";
+      case "ROUTE":
+        return "bg-info";
+      case "FREQUENCY":
+        return "bg-warning";
+      case "DURATION":
+        return "bg-danger";
+      default:
+        return "bg-dark";
+    }
+  }
   const generatePrescriptionPDF = () => {
     const doc = new jsPDF();
     const headers = [["Entity Group", "Word"]];
@@ -92,63 +110,66 @@ function Demo() {
     });
 
     doc.save("prescription.pdf");
+
+    
+    
   };
 
   return (
-    <>
-      <form>
-        <h6 className="mt-4">Transcript</h6>
-        <div>
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            id="final"
-            style={{
-              border: "1px solid gray",
-              height: 300,
-              borderRadius: 8,
-            }}
-          />
-        </div>
+<>
+  <form>
+    <h6 className="mt-4">Transcript</h6>
+    <div>
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        id="final"
+        style={{
+          border: "1px solid gray",
+          height: 300,
+          borderRadius: 8,
+        }}
+      />
+    </div>
+    <button
+      className="btn btn-warning"
+      type="submit"
+      onClick={handleSubmit}
+    >
+      Extract medical terms
+    </button>
+  </form>
+  <div className="mt-4">
+    <button className="btn btn-success" id="start">
+      Start
+    </button>
+    <button className="btn btn-danger" id="stop">
+      Stop
+    </button>
+    <p id="status" className="lead mt-3" style={{ display: "none" }}>
+      Listening...
+    </p>
+  </div>
+  <div>
+    {entities.length > 0 && (
+      <div>
+        <h4>Medicines and Dosage</h4>
+        <ul>
+          {entities.map((entity, index) => (
+            <li key={index}>
+              {entity.entity_group}:{" "}
+              <span className={`badge rounded-pill ${getBadgeColor(entity.entity_group)}`}>{entity.word}</span>
+            </li>
+          ))}
+        </ul>
         <button
-          className="btn btn-warning"
-          type="submit"
-          onClick={handleSubmit}
-        >
-          Extract medical terms
-        </button>
-      </form>
-      <div className="mt-4">
-        <button className="btn btn-success" id="start">
-          Start
-        </button>
-        <button className="btn btn-danger" id="stop">
-          Stop
-        </button>
-        <p id="status" className="lead mt-3" style={{ display: "none" }}>
-Listening...
-</p>
-</div>
-<div>
-{entities.length > 0 && (
-<div>
-<h2>Extracted entities:</h2>
-<ul>
-{entities.map((entity, index) => (
-<li key={index}>
-{entity.entity_group}:{" "}
-<span style={{ color: entity.color }}>{entity.word}</span>
-</li>
-))}
-</ul>
-<button
            className="btn btn-primary"
            onClick={generatePrescriptionPDF}
          >
-Generate PDF
-</button>
-</div>
-)}
+         Generate PDF
+        </button>
+      </div>
+    )}
     {showPayload && (
       <>
         <h2>Payload:</h2>
