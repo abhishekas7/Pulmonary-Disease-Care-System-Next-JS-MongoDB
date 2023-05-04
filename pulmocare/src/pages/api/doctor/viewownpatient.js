@@ -20,19 +20,22 @@ export default async function handler(req, res) {
   const { user } = session;
   console.log(user._id);
 
+
   const doctorsappointment = await Doctor.findOne({ user: user._id })
   .populate({
     path: 'appointments',
     match: { status: 'confirmed' },
     populate: {
-      path: 'patient',
+      path: 'patient doctor',
+      populate: {
+        path: 'user'
+      }
     },
-  });
+  })
+  .populate('user');
 
   res.send(doctorsappointment);
-      
-      break;
-    
+  break;
     case "POST":
       try {
         const appointment = await Appointment.create(req.body);

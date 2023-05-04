@@ -5,15 +5,25 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 
 
-function Demo() {
+
+function Demo({Data}) {
   const [text, setText] = useState('');
   const [prescription, setPrescription] = useState({});
   const [entities, setEntities] = useState([]);
   const [showPayload, setShowPayload] = useState(false);
 
+
+
+
+
   useEffect(() => {
     webSpeech();
+    
+
   }, []);
+
+ 
+
 
   const webSpeech = () => {
     if ("webkitSpeechRecognition" in window) {
@@ -69,6 +79,9 @@ function Demo() {
       setEntities(res.data);
     } catch (err) {
       console.error(err);
+      if(err){
+        alert('model is loading')
+      }
     }
   };
   function getBadgeColor(entityGroup) {
@@ -89,11 +102,34 @@ function Demo() {
         return "bg-dark";
     }
   }
+
+
   const generatePrescriptionPDF = () => {
     const doc = new jsPDF();
-    const headers = [["Entity Group", "Word"]];
-    const data = entities.map((entity) => [entity.entity_group, entity.word]);
-
+   
+    // Add doctor and patient details
+    doc.setFontSize(14);
+    doc.text(`Doctor's Name: '${Data.doctor.user.name}'}`, 20, 20);
+    doc.text(`Patient's Name: ${Data.patient.name.first} ${Data.patient.name.last}`, 20, 27);
+   
+    // Create the table headers and data
+    const headers = [["Medicine Name", "Dosage", "Duration", "Frequency"]];
+    const data = entities.map((entity) => {
+      const drug = entity.entity_group === "DRUG" ? entity.word : "";
+      const dosage = entity.entity_group === "DOSAGE" ? entity.word : "";
+      const duration = entity.entity_group === "DURATION" ? entity.word : "";
+      const frequency = entity.entity_group === "FREQUENCY" ? entity.word : "";
+      return [drug, dosage, duration, frequency];
+    });
+  
+    // Customize empty cells with a hyphen
+    const didParseCell = (data) => {
+      if (data.section === "body" && data.cell.text === "") {
+        data.cell.text = "-";
+      }
+    };
+  
+    // Generate the table
     doc.autoTable({
       head: headers,
       body: data,
@@ -102,21 +138,33 @@ function Demo() {
       styles: {
         halign: "center",
         valign: "middle",
-        fontSize: 14,
+        fontSize: 12,
         fillColor: "#FFFFFF",
         textColor: "#444444",
         lineWidth: 0.5,
       },
+      didParseCell,
     });
-
+  
+    // Add space for diagnosis reason
+    doc.setFontSize(12);
+    doc.text("Diagnosis Reason: ______________________", 20, doc.autoTable.previous.finalY + 20);
+  
+    // Add signature and date lines
+    doc.setFontSize(10);
+    doc.text("Doctor's Signature: ______________________", 20, doc.autoTable.previous.finalY + 40);
+    doc.text("Date: ______________________", 20, doc.autoTable.previous.finalY + 47);
+  
+    // Save the PDF
     doc.save("prescription.pdf");
-
-    
-    
   };
+  
+
+  
 
   return (
 <>
+<p><b>Name :</b>{Data.patient.name.first} {Data.patient.name.last}</p>
   <form>
     <h6 className="mt-4">Transcript</h6>
     <div>
@@ -168,6 +216,7 @@ function Demo() {
          >
          Generate PDF
         </button>
+        
       </div>
     )}
     {showPayload && (
