@@ -3,42 +3,26 @@ import { Table, Pagination, Button } from 'react-bootstrap';
 import { FaPrint } from 'react-icons/fa';
 import ReactToPrint from 'react-to-print';
 import axios from 'axios';
-import { getError } from '@/util/error';
 
 const OrdersTable = () => {
   const [orders, setOrders] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage] = useState(10);
+  
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const res = await axios.get('/api/orders'); // replace with your API endpoint for fetching orders
+      setOrders(res.data);
+    };
+    fetchOrders();
+  }, []);
+
+  // Get current orders
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
   const currentOrders = Array.isArray(orders) ? orders.slice(indexOfFirstOrder, indexOfLastOrder) : [];
 
-  useEffect(() => {
-    const fetchOrders = async () => {
- try {
-  const res = await axios.get('/api/patient/vieworders'); // replace with your API endpoint for fetching orders
-  setOrders(res.data.data);
- } catch (error) {
-  getError(error)
- }
-    };
-    fetchOrders();
-    // [currentOrders[0].cartitems[0].products].map((product)=>console.log(product))
-    
-  }, []);
-
-  // Get current orders
- 
-  {currentOrders.map((item)=>{
-    [item.cartitems].map((prod)=>{
-      [prod.products].map((it)=>{
-       it.map((j)=><div key={j.productId}>{j.name}</div>)
-      })
-    })
-  })}
-  // const products = currentOrders[0].cartitems.products;
-  // console.log(products)
-  // console.log(currentOrders[0].cartitems);
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -55,12 +39,14 @@ const OrdersTable = () => {
           </tr>
         </thead>
         <tbody>
-      <tr>
-        <td>d</td>
-        <td>d</td>
-        <td>d</td>
-        
-      </tr>
+          {currentOrders.map((order) => (
+            <tr key={order.id}>
+              <td>{order.id}</td>
+              <td>{order.customerName}</td>
+              <td>{order.orderDate}</td>
+              <td>{order.orderTotal}</td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     );
@@ -72,39 +58,21 @@ const OrdersTable = () => {
         <thead>
           <tr>
             <th>Order ID</th>
+            <th>Customer Name</th>
             <th>Order Date</th>
-            <th>Username</th>
-            <th>Order Date</th>
-            <th>Products</th>
-
-
             <th>Order Total</th>
-            
           </tr>
         </thead>
-<tbody>
-  { currentOrders.length > 0 ? (
-    currentOrders.map((order) => (
-      <tr key={order._id}>
-        <td>{order._id}</td>
-        <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-        <td>{order.user.name}</td>
-        <td>
-        {order.cartitems.map((cartItem) => (
-  <div key={cartItem.productId}>{cartItem.productId}</div>
-))}
-</td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="4">No orders found.</td>
-    </tr>
-  )}
-</tbody>
-
-
-     
+        <tbody>
+          {currentOrders.map((order) => (
+            <tr key={order.id}>
+              <td>{order.id}</td>
+              <td>{order.customerName}</td>
+              <td>{order.orderDate}</td>
+              <td>{order.orderTotal}</td>
+            </tr>
+          ))}
+        </tbody>
       </Table>
       <div className="d-flex justify-content-between align-items-center">
         <Pagination>

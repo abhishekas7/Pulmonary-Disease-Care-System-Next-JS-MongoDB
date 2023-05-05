@@ -52,6 +52,13 @@ const Addtocart = () => {
   //     return router.push('/auth/login');
   //   }
    
+
+     {currentOrders.map((item)=>{
+    [item.cartitems].map((prod)=>{
+      [prod.products].map((it)=>{
+       it.map((j)=><div key={j.productId}>{j.name}</div>)
+      })
+    })
     
 
   const router = useRouter();
