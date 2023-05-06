@@ -1,1 +1,1 @@
-# Pulmonary-Disease-Care-System-MERN-Stack-Project
+# Pulmonary-Disease-Care-System-Next-JS-MongoDB
