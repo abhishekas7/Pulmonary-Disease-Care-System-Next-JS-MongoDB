@@ -6,8 +6,6 @@ import Footer from '../Footer'
 import axios from 'axios'
 import ProductRating from './ProductRating'
 
-
-
 export default function k({product}) {
 
   const { _id: productId, price,name,quantity,image} = product;
@@ -60,9 +58,16 @@ export default function k({product}) {
               </div>
               <div className="col-md-6">
                 <div className="modal-product-info shop-details-info pl-0">
-                  <div className="product-ratting">
-                   
-                  </div>
+                <div class="product-ratting">
+                                        <ul>
+                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
+                                            <li><a href="#"><i class="far fa-star"></i></a></li>
+                                            <li class="review-total"> <a href="#"> ( {product.rating} Rating )</a></li>
+                                        </ul>
+                                    </div>
                   <h3>{product.name}</h3>
                   <div className="product-price">
                     <span><span>&#8377;</span>{product.price}</span>
@@ -332,10 +337,11 @@ export default function k({product}) {
   </>
   )
 }
+
+
 export async function getServerSideProps({ params }) {
     db.connect()
   const product = await Product.findById(params.productdetails).lean();
-
   db.disconnect();
   return {
     props: {

@@ -41,7 +41,7 @@ console.log(patientData);
                 <ViewProfile/>
               </Tab>
               <Tab eventKey="editprofile" title="EditProfile">
-                <UpdateProfile />
+                <UpdateProfile data={data}/>
               </Tab>
               <Tab eventKey="contact" title="Contact" disabled>
               </Tab>

@@ -5,10 +5,10 @@ import Script from "next/Script";
 import AddProduct from "./dashboards/AddProduct";
 import ViewProducts from "./dashboards/ViewProducts";
 import AddDoctor from "./dashboards/AddDoctor";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
-import { signOut} from 'next-auth/react'
+import { signOut } from "next-auth/react";
 import Product from "@/models/Product";
 import db from "@/util/db";
 import Viewusers from "./dashboards/Viewusers";
@@ -17,60 +17,51 @@ import ViewOrders from "./dashboards/ViewOrders";
 import Order from "@/models/Order";
 import AdminDefault from "./dashboards/AdminDefault";
 
-
-
-
-const Admindash = ({productss,allusers,order}) => {
-
-  const logout=()=>{
-    signOut({callbackUrl:'/login'})
-
-}
-const session =useSession()
-  const {data,status}=useSession()
-  const router=useRouter()
+const Admindash = ({ productss, allusers, order }) => {
+  const logout = () => {
+    signOut({ callbackUrl: "/login" });
+  };
+  const session = useSession();
+  const { data, status } = useSession();
+  const router = useRouter();
   useEffect(() => {
-    if(status==='unauthenticated'){
-      router.push('/login')
-       
-        console.log(status)
-    }else {
-      if(status!=='loading'){
-        if(data.user.role==='doctor'){
-          router.push('/doctorDash')
+    if (status === "unauthenticated") {
+      router.push("/login");
+
+      console.log(status);
+    } else {
+      if (status !== "loading") {
+        if (data.user.role === "doctor") {
+          router.push("/doctorDash");
         }
-        if(data.user.role==='admin'){
-          router.push('/admindash')
+        if (data.user.role === "admin") {
+          router.push("/admindash");
         }
-       
       }
-      
     }
     console.log(order);
-  }, [data,status])
+  }, [data, status]);
 
-  const [option, setOption] = useState('/');
+  const [option, setOption] = useState("/");
 
   const page = () => {
     switch (option) {
       case "addproduct":
-        return <AddProduct/>;
-        case "viewproduct":
-          return <ViewProducts productss={productss} />;
-          case "viewusers":
-            return <Viewusers allusers={allusers}/>;
-            case "vieworders":
-              return <ViewOrders order={order}/>;
-              case "viewpatients":
-              return <ViewOrders order={order}/>;
-            case "adddoctor":
-              return <AddDoctor/>;
+        return <AddProduct />;
+      case "viewproduct":
+        return <ViewProducts productss={productss} />;
+      case "viewusers":
+        return <Viewusers allusers={allusers} />;
+      case "vieworders":
+        return <ViewOrders order={order} />;
+      case "viewpatients":
+        return <ViewOrders order={order} />;
+      case "adddoctor":
+        return <AddDoctor />;
       default:
-        return <AdminDefault/>;
+        return <AdminDefault />;
     }
   };
-
-
 
   return (
     <div>
@@ -88,9 +79,9 @@ const session =useSession()
       />
       <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet" />
       <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
-      <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet"/>
-      <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet"/>
-      <link href="assets/css/style.css" rel="stylesheet"/>
+      <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+      <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet" />
+      <link href="assets/css/style.css" rel="stylesheet" />
 
       <header
         id="header"
@@ -295,13 +286,13 @@ const session =useSession()
                   className="rounded-circle"
                 />
                 <span className="d-none d-md-block dropdown-toggle ps-2">
-                  {data.user.name}
+                  Name
                 </span>
               </a>
               <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li className="dropdown-header">
-                  <h6>{data.user.name}</h6>
-                  <span>{data.user.role}</span>
+                  <h6>Name</h6>
+                  <span>Name</span>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
@@ -343,10 +334,7 @@ const session =useSession()
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                
-                   
-                   <button onClick={logout}>logout</button>
-                  
+                  <button onClick={logout}>logout</button>
                 </li>
               </ul>
             </li>
@@ -380,12 +368,29 @@ const session =useSession()
               data-bs-parent="#sidebar-nav"
             >
               <li>
-                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('addproduct')}}}>Add Product</button>           
+                <button
+                  class="btn bg-transparent font-weight-light"
+                  onClick={() => {
+                    {
+                      setOption("addproduct");
+                    }
+                  }}
+                >
+                  Add Product
+                </button>
               </li>
               <li>
-                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('viewproduct')}}}>View Product</button>           
+                <button
+                  class="btn bg-transparent font-weight-light"
+                  onClick={() => {
+                    {
+                      setOption("viewproduct");
+                    }
+                  }}
+                >
+                  View Product
+                </button>
               </li>
-
             </ul>
           </li>
 
@@ -405,15 +410,22 @@ const session =useSession()
               className="nav-content collapse "
               data-bs-parent="#sidebar-nav"
             >
-             
               <li>
-                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('vieworders')}}}>Orders</button>           
+                <button
+                  class="btn bg-transparent font-weight-light"
+                  onClick={() => {
+                    {
+                      setOption("vieworders");
+                    }
+                  }}
+                >
+                  Orders
+                </button>
               </li>
-
             </ul>
           </li>
 
-   <li className="nav-heading">User Pages</li>
+          <li className="nav-heading">User Pages</li>
           <li className="nav-item">
             <a
               className="nav-link collapsed"
@@ -431,17 +443,24 @@ const session =useSession()
               data-bs-parent="#sidebar-nav"
             >
               <li>
-                  {/* <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('adduser')}}}>Add User</button>            */}
+                {/* <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('adduser')}}}>Add User</button>            */}
               </li>
               <li>
-                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('viewusers')}}}>View User</button>           
+                <button
+                  class="btn bg-transparent font-weight-light"
+                  onClick={() => {
+                    {
+                      setOption("viewusers");
+                    }
+                  }}
+                >
+                  View User
+                </button>
               </li>
-
             </ul>
           </li>
-    
-    
-   <li className="nav-heading">Doctor Pages</li>
+
+          <li className="nav-heading">Doctor Pages</li>
           <li className="nav-item">
             <a
               className="nav-link collapsed"
@@ -459,15 +478,31 @@ const session =useSession()
               data-bs-parent="#sidebar-nav"
             >
               <li>
-                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('adddoctor')}}}>Add Doctor</button>           
+                <button
+                  class="btn bg-transparent font-weight-light"
+                  onClick={() => {
+                    {
+                      setOption("adddoctor");
+                    }
+                  }}
+                >
+                  Add Doctor
+                </button>
               </li>
               <li>
-                  <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('viewdoctor')}}}>View Doctor</button>           
+                <button
+                  class="btn bg-transparent font-weight-light"
+                  onClick={() => {
+                    {
+                      setOption("viewdoctor");
+                    }
+                  }}
+                >
+                  View Doctor
+                </button>
               </li>
-
             </ul>
           </li>
-
         </ul>
       </aside>
 
@@ -475,10 +510,7 @@ const session =useSession()
         <div className="pagetitle">
           <h1>DASHBOARD</h1>
           <button onClick={logout}>logout</button>
-<div>
-{page()}
-</div>
-
+          <div>{page()}</div>
         </div>
       </main>
 
@@ -489,7 +521,6 @@ const session =useSession()
         <i className="bi bi-arrow-up-short" />
       </a>
 
-
       <Script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></Script>
     </div>
   );
@@ -499,21 +530,18 @@ export default Admindash;
 
 export async function getServerSideProps() {
   await db.connect();
-  const products = await Product.find().lean()
+  const products = await Product.find().lean();
+  const allusers = await User.find().lean();
+  const order = await Order.find().populate("user");
 
-  const allusers = await User.find().lean()
- 
-const order = await Order.find().populate("user")
+  console.log(order);
 
-console.log(order);
-
-  
-console.log('ss');
+  console.log("ss");
   return {
     props: {
-      allusers:JSON.parse(JSON.stringify(allusers.map(db.convertDocToObj))),
+      allusers: JSON.parse(JSON.stringify(allusers.map(db.convertDocToObj))),
       productss: products.map(db.convertDocToObj),
-      order:JSON.parse(JSON.stringify(order.map(db.convertDocToObj))),
-    },
-  };
+      order: JSON.parse(JSON.stringify(order.map(db.convertDocToObj))),
+    },
+  };
 }

@@ -47,21 +47,7 @@ function ViewProfile() {
               <div className="col-lg-3 col-md-4 label">Phone</div>
               <div className="col-lg-9 col-md-8">{data.mobile}</div>
             </div>
-
-            <div className="row">
-              <div className="col-lg-3 col-md-4 label">City</div>
-              <div className="col-lg-9 col-md-8">{data.address.city}</div>
-            </div>
-
-            <div className="row">
-              <div className="col-lg-3 col-md-4 label">State</div>
-              <div className="col-lg-9 col-md-8">{data.address.state}</div>
-            </div>
-
-            <div className="row">
-              <div className="col-lg-3 col-md-4 label">Street</div>
-              <div className="col-lg-9 col-md-8">{data.address.street}</div>
-            </div>
+            
           </div>
 
           <div className="col-6">

@@ -5,7 +5,7 @@ import { Col, Row } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 
-const UpdateProfile = () => {
+const UpdateProfile = ({data}) => {
 
 
 
@@ -22,7 +22,8 @@ const UpdateProfile = () => {
       .then(data => setPatientData(data))
       .catch(error => console.error(error));
   }, []);
-  
+    console.log(data);
+
  
   const [file, setFile] = useState(null);
 
@@ -124,7 +125,7 @@ const Submit = async (values) => {
       <Form>
 
 {patientData && patientData.map((data,i)=>(
-  <p>{data.age}</p>
+  <p></p>
 ))}
       <Row>
               <Col md={6}>
