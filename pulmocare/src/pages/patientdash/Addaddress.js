@@ -8,7 +8,7 @@ import Modalc from "@/components/Modal";
 import Updateaddress from "../api/cart/Updateaddress";
 
 const validationSchema = yup.object().shape({
-  address1: yup.string().required("Address 1 is required"),
+  address1: yup.string().required("House Name is required"),
   address2: yup.string().required("Address 2 is required"),
   city: yup.string().required("City is required"),
   state: yup.string().required("State is required"),
@@ -47,15 +47,33 @@ onSubmit: async (values) => {
   });
   const [addresses, setAddresses] = useState([]);
   const [editAddress, setEditAddress] = useState({});
+  const [pin, setPin] = useState({});
   
 
   useEffect(() => {
+
     fetchAddresses();
   }, []);
   const fetchAddresses = async () => {
     const response = await axios.get("/api/cart/Addaddress");
     setAddresses(response.data.data);
   };
+
+  const fetchPincode = async (pin) => {
+    const response = await axios.get(`https://api.postalpincode.in/pincode/${pin}`);
+    const postOffices = response.data[0].PostOffice;
+    if (postOffices && postOffices.length > 0) {
+      const address2 = postOffices[0].Name;
+      const city = postOffices[0].Division;
+      const state = postOffices[0].State;
+      
+      formik.setFieldValue('address2', address2);
+      formik.setFieldValue('city', city);
+      formik.setFieldValue('state', state);
+    }
+  };
+
+  
 
   const handleDelete = async (id) => {
     try {
@@ -94,10 +112,11 @@ onSubmit: async (values) => {
     <div>
       <Form onSubmit={formik.handleSubmit}>
         <div className="col-12">
+          <h6><b className="text-danger">Enter the Pincode and Search</b></h6>
           <div className="row">
             <div className="col-6">
               <Form.Group controlId="formAddress1">
-                <Form.Label>Address 1</Form.Label>
+                <Form.Label>House Name</Form.Label>
                 <Form.Control
                   type="text"
                   name="address1"
@@ -165,10 +184,12 @@ onSubmit: async (values) => {
             </div>
             <div className="col-6">
               <Form.Group controlId="formZip">
-                <Form.Label>Zip</Form.Label>
+                <Form.Label>Pincode</Form.Label>
                 <Form.Control
                   type="text"
                   name="zip"
+                  minLength={1}
+                  min={7}
                   value={formik.values.zip}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -177,13 +198,19 @@ onSubmit: async (values) => {
                 <Form.Control.Feedback type="invalid">
                   {formik.errors.zip}
                 </Form.Control.Feedback>
+
               </Form.Group>
-              <div className="col-6">
+         
+            </div>
+            <div className="col-6">
                 <Button variant="primary" type="submit">
                   Submit
                 </Button>
               </div>
-            </div>
+              <div className="col-6">
+              <button type="button" variant="success" onClick={()=>{fetchPincode(formik.values.zip)}}  className='btn btn-success '>Get Details</button>
+
+              </div>
           </div>
         </div>
       </Form>

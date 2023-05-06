@@ -1,95 +1,47 @@
 import React from 'react'
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
-
+import 'react-vertical-timeline-component/style.min.css';
 
 function MedicalRecord() {
   return (
     <div>
-       <div className='col-12'>
-       <div className="card-body">
-  <h5 className="card-title">
-    Recent Activity <span>| Today</span>
-  </h5>
-  <div className="col-12">
-  {/* Recent Activity */}
-  <div className="card">
-    <div className="card-body">
-      <h5 className="card-title">
-        Recent Activity <span>| Today</span>
-      </h5>
-      <div className="activity">
-        <div className="activity-item d-flex">
-          <div className="activite-label">32 min</div>
-          <i className="bi bi-circle-fill activity-badge text-success align-self-start" />
-          <div className="activity-content">
-            Quia quae rerum{" "}
-            <a href="#" className="fw-bold text-dark">
-              explicabo officiis
-            </a>{" "}
-            beatae
-          </div>
-        </div>
-        {/* End activity item*/}
-        <div className="activity-item d-flex">
-          <div className="activite-label">56 min</div>
-          <i className="bi bi-circle-fill activity-badge text-danger align-self-start" />
-          <div className="activity-content">
-            Voluptatem blanditiis blanditiis eveniet
-          </div>
-        </div>
-        {/* End activity item*/}
-        <div className="activity-item d-flex">
-          <div className="activite-label">2 hrs</div>
-          <i className="bi bi-circle-fill activity-badge text-primary align-self-start" />
-          <div className="activity-content">
-            Voluptates corrupti molestias voluptatem
-          </div>
-        </div>
-        {/* End activity item*/}
-        <div className="activity-item d-flex">
-          <div className="activite-label">1 day</div>
-          <i className="bi bi-circle-fill activity-badge text-info align-self-start" />
-          <div className="activity-content">
-            Tempore autem saepe{" "}
-            <a href="#" className="fw-bold text-dark">
-              occaecati voluptatem
-            </a>{" "}
-            tempore
-          </div>
-        </div>
-        {/* End activity item*/}
-        <div className="activity-item d-flex">
-          <div className="activite-label">2 days</div>
-          <i className="bi bi-circle-fill activity-badge text-warning align-self-start" />
-          <div className="activity-content">
-            Est sit eum reiciendis exercitationem
-          </div>
-        </div>
-        {/* End activity item*/}
-        <div className="activity-item d-flex">
-          <div className="activite-label">4 weeks</div>
-          <i className="bi bi-circle-fill activity-badge text-muted align-self-start" />
-          <div className="activity-content">
-            Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-          </div>
-        </div>
-        {/* End activity item*/}
-      </div>
-    </div>
-  </div>
-  {/* End Recent Activity */}
-  {/* Budget Report */}
+
+<VerticalTimeline>
+  <VerticalTimelineElement
+    className="vertical-timeline-element--work"
+    contentStyle={{ background: '#bee2ff', color: '#fff' }}
+    contentArrowStyle={{ borderRight: '7px solid  #bee2ff' }}
+    date="2011 - present"
+    iconStyle={{ background: '#bee2ff', color: '#fff' }}
+
+  >
+    <h6 className="vertical-timeline-element-title">Creative Director</h6>
+    <h5 className="vertical-timeline-element-subtitle">Miami, FL</h5>
+    <p>
+      Creative Direction, User Experience, Visual Design, Project Management, Team Leading
+    </p>
+  </VerticalTimelineElement>
+  
+  <VerticalTimelineElement
+    className="vertical-timeline-element--work"
+    contentStyle={{ background: '#bee2ff', color: '#fff' }}
+    contentArrowStyle={{ borderRight: '7px solid  #bee2ff' }}
+    date="2011 - present"
+    iconStyle={{ background: '#bee2ff', color: '#fff' }}
+
+  >
+    <h6 className="vertical-timeline-element-title">Creative Director</h6>
+    <h5 className="vertical-timeline-element-subtitle">Miami, FL</h5>
+    <p>
+      Creative Direction, User Experience, Visual Design, Project Management, Team Leading
+    </p>
+  </VerticalTimelineElement>
 
 
-  {/* End Website Traffic */}
-  {/* News & Updates Traffic */}
+
  
-  {/* End News & Updates */}
-</div>
 
-</div>
-
-       </div>
+</VerticalTimeline>
     </div>
   )
 }
