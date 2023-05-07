@@ -41,4 +41,6 @@ export default NextAuth({
       },
     }),
   ],
+  debug: true,
+
 });

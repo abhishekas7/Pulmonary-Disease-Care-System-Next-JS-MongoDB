@@ -1,8 +1,9 @@
 import db from '@/util/db';
-import cart from '@/models/CartSchema';
+import CartSchema from '@/models/CartSchema';
+import { getSession } from 'next-auth/react';
 
-  const sess =await getSession({req})
-  console.log(sess)
+export default async function handler(req, res) {
+  const sess = await getSession({ req });
   const userId = sess.user._id;
  
   await db.connect()
@@ -13,9 +14,9 @@ import cart from '@/models/CartSchema';
     const cartId = req.body.cartId;
 
     try {
-      const cart1 = await cart.findOne({ userId: userId, active: true });
+      const cart = await CartSchema.findOne({ userId: userId, active: true });
 
-      if (!cart1) {
+      if (!cart) {
         return res.status(404).json({ message: 'Cart not found' });
       }
     
@@ -41,4 +42,4 @@ import cart from '@/models/CartSchema';
   } else {
     res.status(405).json({ message: 'Method Not Allowed' });
   }
-
+}

@@ -117,8 +117,8 @@ const Submit = async (values) => {
       onSubmit={async (values, { setSubmitting }) => {
         console.log(values);
         Submit(values);
-        resetForm('');
-        alert('product added')
+         resetForm('');
+        alert('Profile Updated')
       }}
     >
       {({ isSubmitting }) => (

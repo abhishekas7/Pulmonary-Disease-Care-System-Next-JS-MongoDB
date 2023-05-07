@@ -25,7 +25,6 @@ const Header = () => {
   let cartItemsLength = 0;
   if (cart && cart.cartItems && cart.cartItems.length > 0 && cart.cartItems[0].products) {
     cartItemsLength = cart.cartItems[0].products.length;
-    console.log(cartItemsLength);
   }
 
 

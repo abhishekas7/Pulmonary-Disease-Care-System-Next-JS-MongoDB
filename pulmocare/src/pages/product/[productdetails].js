@@ -7,23 +7,41 @@ import axios from 'axios'
 import ProductRating from './ProductRating'
 
 export default function k({product}) {
+  
 
   const { _id: productId, price,name,quantity,image} = product;
 
+  // const addToCartHandler = async () => {
+  //   try {
+  //     const response = await axios.post('/api/cartoperation/add', {
+  //       productId,
+  //       name,
+  //       price,
+  //       quantity: 1,
+  //       image,
+  //     });
+      
+  //     if (response.status === 200) {
+  //       alert('Product Added');
+  //     } else {
+  //       alert('Product Add Fails');
+  //     }
+  //   } catch (error) {
+  //     console.error(error.response.data.message); // error message
+  //   }
+  // };
+  
   const addToCartHandler = async () => {
     try {
-      const response = await axios.post('/api/product/addtocart', {
-        productId,
-        name,
-        price,
-        quantity:1,
-        image
-      });
-      console.log(response.data); // success message
+      const response = await axios.post(`/api/cartoperation/cartoperation?productId=${productId}&name=${name}&price=${price}&quantity=${1}&image=${image}`);
+      if (response.status === 200) {
+        fetchCartData();
+        // console.log(cart);
+      }
     } catch (error) {
-      console.error(error.response.data.message); // error message
+      console.error(error);
     }
-  }
+  };
 
 
   
@@ -61,11 +79,7 @@ export default function k({product}) {
                 <div class="product-ratting">
                                         <ul>
                                             <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                            <li class="review-total"> <a href="#"> ( {product.rating} Rating )</a></li>
+                                            <li class="review-total pl-5"> <a href="#"> ( {product.rating} Rating )</a></li>
                                         </ul>
                                     </div>
                   <h3>{product.name}</h3>
@@ -114,7 +128,7 @@ export default function k({product}) {
                     <ul>
                  
                       <li>{product.quantity>0?(
-                      <button className="theme-btn-1 btn btn-effect-1" onClick={addToCartHandler}><i className="fas fa-shopping-cart" /><span>ADD TO CART</span></button>
+                        <button className="theme-btn-1 btn btn-effect-1" onClick={addToCartHandler}><i className="fas fa-shopping-cart" /><span>ADD TO CART</span></button>
                       ):(
                       <button className="theme-btn-1 btn btn-effect-1" disabled ><i className="fas fa-shopping-cart" /><span>OUT OF STOCK</span></button>
                       )}

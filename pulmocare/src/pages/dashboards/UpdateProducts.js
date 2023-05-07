@@ -3,8 +3,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 
-const ProductForm = () => {
+const UpdateProducts = ({Item}) => {
   const [image, setImage] = useState("");
+ 
+
+  
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
@@ -60,27 +63,30 @@ const ProductForm = () => {
     body.append("manufacturer", values.manufacturer);
     body.append("description", values.description);
     body.append("prescription_required", values.prescription_required);
-    const response = await fetch("/api/product/addproduct", {
-      method: "POST",
-      body,
-    });
-    if (response.ok) {
-      Swal.fire({
-        icon: "success",
-        text: "Address created successfully",
-      });    
-    }
-    {
-      Swal.fire({
-        icon: "error",
-        text: "Error Not Inserted",
-      });
-    }
+    try {
+        
+        const response = await fetch(`/api/product/editproduct/${Item._id}`, {method: 'PUT', body: body})
+ 
+         Swal.fire({
+           title: 'Success!',
+           text: 'Form submitted successfully',
+           icon: 'success',
+         });
+         window.location.reload();
+ 
+       } catch (error) {
+         Swal.fire({
+           title: 'Error',
+           text: 'Form submission failed',
+           icon: 'error',
+         });
+       }
 
   };
 
   return (
     <div className="col-12">
+        <p>{Item._id}</p>
       <Formik
         initialValues={{
           name: "",
@@ -105,7 +111,7 @@ const ProductForm = () => {
               <div className="row">
                 <div className="col-12">
                   <h4 className="mt-4">
-                    <strong>Add Product</strong>
+                    <strong>Product</strong>
                   </h4>
                 </div>
                 <div className="col-md-6">
@@ -268,4 +274,4 @@ const ProductForm = () => {
   );
 };
 
-export default ProductForm;
+export default UpdateProducts;

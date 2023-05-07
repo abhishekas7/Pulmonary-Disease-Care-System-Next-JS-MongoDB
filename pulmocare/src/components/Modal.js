@@ -24,9 +24,7 @@ function Modalc({heading,content,savebtn,btnname}) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            {savebtn}
-          </Button>
+     
         </Modal.Footer>
       </Modal>
     </>

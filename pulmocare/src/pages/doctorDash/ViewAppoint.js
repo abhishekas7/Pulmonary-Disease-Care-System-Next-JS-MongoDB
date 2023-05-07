@@ -20,7 +20,6 @@ function ViewAppoint({appointment}) {
     }
 
 
-  const date = new Date('');
 
   // Printing report
   const printReport = () => {
@@ -102,7 +101,7 @@ function ViewAppoint({appointment}) {
                 </thead>
                 <tbody>
 
-{Appointmt.data.length>0?Appointmt.data.map((item,i)=>(
+{Appointmt.data.length>0?Appointmt.data.map((item)=>(
       <tr>
 
 

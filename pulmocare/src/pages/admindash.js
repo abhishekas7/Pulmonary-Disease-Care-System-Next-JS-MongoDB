@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-css-tags */
 import React, { useState } from "react";
-import Script from "next/Script";
 import AddProduct from "./dashboards/AddProduct";
 import ViewProducts from "./dashboards/ViewProducts";
 import AddDoctor from "./dashboards/AddDoctor";
@@ -16,6 +15,8 @@ import User from "@/models/User";
 import ViewOrders from "./dashboards/ViewOrders";
 import Order from "@/models/Order";
 import AdminDefault from "./dashboards/AdminDefault";
+import Script from "next/script";
+import dynamic from "next/dynamic";
 
 const Admindash = ({ productss, allusers, order }) => {
   const logout = () => {
@@ -25,20 +26,20 @@ const Admindash = ({ productss, allusers, order }) => {
   const { data, status } = useSession();
   const router = useRouter();
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
+    // if (status === "unauthenticated") {
+    //   router.push("/login");
 
-      console.log(status);
-    } else {
-      if (status !== "loading") {
-        if (data.user.role === "doctor") {
-          router.push("/doctorDash");
-        }
-        if (data.user.role === "admin") {
-          router.push("/admindash");
-        }
-      }
-    }
+    //   console.log(status);
+    // } else {
+    //   if (status !== "loading") {
+    //     if (data.user.role === "doctor") {
+    //       router.push("/doctorDash");
+    //     }
+    //     if (data.user.role === "admin") {
+    //       router.push("/admindash");
+    //     }
+    //   }
+    // }
     console.log(order);
   }, [data, status]);
 
@@ -525,8 +526,9 @@ const Admindash = ({ productss, allusers, order }) => {
     </div>
   );
 };
-
+Admindash.auth = { role: 'admin' }
 export default Admindash;
+
 
 export async function getServerSideProps() {
   await db.connect();
@@ -534,9 +536,6 @@ export async function getServerSideProps() {
   const allusers = await User.find().lean();
   const order = await Order.find().populate("user");
 
-  console.log(order);
-
-  console.log("ss");
   return {
     props: {
       allusers: JSON.parse(JSON.stringify(allusers.map(db.convertDocToObj))),

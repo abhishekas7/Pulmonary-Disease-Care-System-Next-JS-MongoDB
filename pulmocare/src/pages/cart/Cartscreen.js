@@ -14,6 +14,13 @@ function CartScreen({ cartItem }) {
   const session = useSession();
 const [cart, setCart] = useState(cartItem);
 
+function shortenProductName(name) {
+  if (name.length > 10) {
+    return name.substring(0, 20) + '...';
+  } else {
+    return name;
+  }
+}
 
 
   // alert(session.data.user._id);
@@ -73,24 +80,18 @@ const incrementQuantity = async (productId,cartItemId) => {
 };
 
 
-const removeItemFromCart = async (cartId,itemId) => {
+const removeItemFromCart = async (productId,cartItemId) => {
   try {
-   console.log('hi');
-    const response = await axios.delete('/api/cart/removeItem', {
-      data: { cartId,itemId },
-    });
-    
-    
+    const response = await axios.delete(`/api/cartoperation/cartoperation?cartId=${cartItemId}&itemId=${productId}`);
     if (response.status === 200) {
       fetchCartData();
       // console.log(cart);
-      
-      
     }
   } catch (error) {
     console.error(error);
   }
 };
+
 
 
 
@@ -134,21 +135,23 @@ const cartSubtotal = cart.reduce((total, item) => {
                 <tr>
                
                     <td  className="cart-product-remove">
-                        <button onClick={() => removeItemFromCart(item._id,items._id)}>x</button>
+                        <button onClick={() => removeItemFromCart(items.productId, items._id)}>x</button>
                     </td>
                     <td className="cart-product-image">
-                        <a href="product-details.html">
+                    <Link href={`/product/${items.productId}`}>
                             <img
                                 src={`..//images/${items.image}`}
                                 className="img-fluid img-thumbnail"
                                 width={"150px"}
                             />
-                        </a>
+                        </Link>
                     </td>
                     <td className="cart-product-info">
                         <h4>
                             <a href="#" className="">
-                                {items.name}
+
+                              {shortenProductName(items.name)}
+                           
                             </a>
                         </h4>
                     </td>

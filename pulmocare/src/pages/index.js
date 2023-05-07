@@ -1397,7 +1397,7 @@ Swal.fire('Please Fill Your Deatils ')
 export async function getServerSideProps() {
   await db.connect();
   const products = await Product.find().lean();
-  console.log(products);
+
   return {
     props: {
       products: products.map(db.convertDocToObj),
