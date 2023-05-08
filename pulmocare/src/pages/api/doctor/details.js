@@ -6,9 +6,9 @@ import { getError } from "@/util/error";
 export default async function handler(req, res) {
     await db.connect();
     try{
-    const session =await getSession({req})
+    const session = await getToken({ req: req, secret: process.env.SECRET });
     // console.log(session.user._id)
-    const doctor = await Doctor.find({user:session.user._id});
+    const doctor = await Doctor.find({user:session._id});
     // console.log(doctor)
     res.send(doctor)
     }catch(e){

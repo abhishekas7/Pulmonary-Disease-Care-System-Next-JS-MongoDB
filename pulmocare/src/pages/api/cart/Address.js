@@ -1,5 +1,3 @@
-import formidable from 'formidable'
-import {join, resolve} from 'path'
 import { getSession } from 'next-auth/react';
 import db from '@/util/db';
 // import Product from 'models/Product';
@@ -14,7 +12,8 @@ import { getError } from '@/util/error';
 
 export default async function Upload(req, res) {
 
-  const session = await getSession({ req });
+  const session = await getToken({ req: req, secret: process.env.SECRET });
+
     if (!session) {
       return res.status(401).send({message:'Please login to continue',status:true});
     }
@@ -41,7 +40,7 @@ export default async function Upload(req, res) {
   }else if( req.method === 'GET'){
       try{
         db.connect()
-        console.log(req.method)
+       
         const address = await Address.find({user:user._id,status:true});
         db.disconnect()
         res.send({message:'Address added Successfully',status:true,data:address})

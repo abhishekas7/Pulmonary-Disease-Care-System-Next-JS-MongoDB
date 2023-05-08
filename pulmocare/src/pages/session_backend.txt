@@ -1,0 +1,15 @@
+import { getToken } from 'next-auth/jwt';
+import { NextResponse } from 'next/server';
+
+async function middleware(req, ev) {
+  const session = await getToken({ req: req, secret: process.env.SECRET });
+  console.log(session);
+
+  if (!session) {
+    return <NextResponse.Redirect url="/" />;
+  }
+
+  return <NextResponse.Next />;
+}
+
+export default middleware;

@@ -31,7 +31,7 @@ export default async function handler(req, res) {
           console.log(productId, price, name, quantity, image);
       
           let addtocart = await cart.findOne({ userId });
-          console.log(addtocart);
+     
           if (!addtocart) {
             // create new cart if none exists for user
             addtocart = new cart({ userId, products: [] });
@@ -75,10 +75,10 @@ res.status(200).json({ success: true, data: addtocart });
       case 'DELETE':
         try {
           const { cartId, itemId } = req.query;
-          console.log(cartId, itemId);
+        
         
           const cartDoc = await cart.findOne({ userId: userId, active: true });
-          console.log(cartDoc);
+    
         
           if (!cartDoc) {
             return res.status(404).json({ message: 'Cart not found' });
@@ -92,8 +92,7 @@ res.status(200).json({ success: true, data: addtocart });
             { $pull: { products: { productId: itemId } } },
             { new: true }
           );
-    
-          console.log(result);
+
     
         
         

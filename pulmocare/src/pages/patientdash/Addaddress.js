@@ -81,6 +81,7 @@ onSubmit: async (values) => {
       const response = await axios.delete(`/api/cart/${id}`);
       if (response.status === 200) {
         setAddresses(addresses.filter((address) => address._id !== id));
+        fetchAddresses();
         Swal.fire({
           icon: 'success',
           text: 'Address deleted successfully',
@@ -100,6 +101,7 @@ onSubmit: async (values) => {
     try {
       const response = await axios.put(`/api/cart/${id}`);
       setEditAddress(response.data);
+      fetchAddresses();
     } catch (error) {
       console.log(error);
     }

@@ -2,7 +2,7 @@ import db from '@/util/db';
 import cart from '@/models/CartSchema';
 
   const sess =await getSession({req})
-  console.log(sess)
+
   const userId = sess.user._id;
  
   await db.connect()
@@ -16,7 +16,7 @@ import cart from '@/models/CartSchema';
       const cart1 = await cart.findOne({ userId: userId, active: true });
 
       if (!cart1) {
-        return res.status(404).json({ message: 'Cart not found' });
+        res.status(404).json({ message: 'Cart not found' });
       }
     
       const updatedProducts = cart.products.filter((product) => product._id.toString() !== productId);
@@ -30,7 +30,7 @@ import cart from '@/models/CartSchema';
     
     
       if (result.nModified === 0) {
-        return res.status(404).json({ message: 'Product not found in cart' });
+        res.status(404).json({ message: 'Product not found in cart' });
       }
     
       res.status(200).json({ success: true });

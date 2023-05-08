@@ -47,8 +47,8 @@ function Updateaddress({ address }) {
             icon: "success",
             text: "Address Updated successfully",
           });
-          fetchAddresses();
-        }
+          
+        }fetchAddresses();
       } catch (error) {
         Swal.fire({
           icon: "error",

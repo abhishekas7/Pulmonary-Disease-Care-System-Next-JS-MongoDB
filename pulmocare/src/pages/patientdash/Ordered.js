@@ -4,6 +4,8 @@ import { FaPrint } from 'react-icons/fa';
 import ReactToPrint from 'react-to-print';
 import axios from 'axios';
 import { getError } from '@/util/error';
+import _ from 'lodash';
+
 
 const OrdersTable = () => {
   const [orders, setOrders] = useState([]);
@@ -18,12 +20,13 @@ const OrdersTable = () => {
  try {
   const res = await axios.get('/api/patient/vieworders'); // replace with your API endpoint for fetching orders
   setOrders(res.data.data);
+
  } catch (error) {
   getError(error)
  }
     };
     fetchOrders();
-    // [currentOrders[0].cartitems[0].products].map((product)=>console.log(product))
+
     
   }, []);
 
@@ -41,6 +44,9 @@ const OrdersTable = () => {
   // console.log(currentOrders[0].cartitems);
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  console.log(orders.length);
+
 
   // Component to print the order table
   const OrderTableToPrint = () => {
@@ -68,32 +74,31 @@ const OrdersTable = () => {
 
   return (
     <>
-      <Table striped bordered hover className="bg-white">
+      <Table striped bordered hover className="bg-white" style={{fontSize:'14px'}}>
         <thead>
           <tr>
             <th>Order ID</th>
             <th>Order Date</th>
             <th>Username</th>
-            <th>Order Date</th>
-            <th>Products</th>
+            <th colSpan={2}>Products</th>
+            {/* <th>Quantity</th>
+            <th>Price</th>
 
-
-            <th>Order Total</th>
+            <th>Total Amount</th> */}
             
           </tr>
         </thead>
-<tbody>
-  { currentOrders.length > 0 ? (
-    currentOrders.map((order) => (
-      <tr key={order._id}>
-        <td>{order._id}</td>
-        <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-        <td>{order.user.name}</td>
-        <td>
-        {order.cartitems.map((cartItem) => (
-  <div key={cartItem.productId}>{cartItem.productId}</div>
-))}
-</td>
+<tbody >
+  { orders.length > 0 ? (
+    orders.map((order,i) => (
+      <tr key={i}>
+    <td>{order._id}</td>
+    <td>{order.cartitems.createdAt}</td>
+    <td>{order.user.name}</td>
+    {order.cartitems.products.map((pro)=>(
+      <td>{pro.name}</td>
+      
+    ))}
       </tr>
     ))
   ) : (

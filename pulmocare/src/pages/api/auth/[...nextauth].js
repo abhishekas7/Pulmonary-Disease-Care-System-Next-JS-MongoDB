@@ -6,6 +6,7 @@ import db from '@/util/db';
 
 
 export default NextAuth({
+  secret:process.env.SECRET,
   session: {
     strategy: 'jwt',
   },
@@ -26,7 +27,7 @@ export default NextAuth({
       async authorize(credentials) {
         await db.connect();
         const user = await User.findOne({
-          email: credentials.email,status:true
+          email: credentials.email, status:true
         });
         await db.disconnect();
         if (user && bcryptjs.compareSync(credentials.password, user.password)) {
@@ -41,6 +42,6 @@ export default NextAuth({
       },
     }),
   ],
-  debug: true,
+
 
 });

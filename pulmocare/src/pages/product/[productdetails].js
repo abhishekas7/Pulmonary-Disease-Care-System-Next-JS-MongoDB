@@ -5,6 +5,7 @@ import Header from '../components/Header'
 import Footer from '../Footer'
 import axios from 'axios'
 import ProductRating from './ProductRating'
+import Swal from "sweetalert2";
 
 export default function k({product}) {
   
@@ -31,15 +32,22 @@ export default function k({product}) {
   //   }
   // };
   
+
+
   const addToCartHandler = async () => {
     try {
       const response = await axios.post(`/api/cartoperation/cartoperation?productId=${productId}&name=${name}&price=${price}&quantity=${1}&image=${image}`);
-      if (response.status === 200) {
-        fetchCartData();
-        // console.log(cart);
-      }
+      if (response) {
+        Swal.fire({
+          icon: "success",
+          text: "Item Added Sucessfull",
+        })}
     } catch (error) {
-      console.error(error);
+      Swal.fire({
+        icon: "error",
+        text: "Item Added Sucessfull",
+      })
+      
     }
   };
 
@@ -67,6 +75,7 @@ export default function k({product}) {
               <div className="col-md-6" >
                 <div className="ltn__shop-details-img-gallery">
                   <div className="ltn__shop-details-large-img">
+                    
                     <div className="single-small-img">
                     {/* <img src={`images/${product.image}`} alt="Image" /> */}
                     <img src={`/images/${product.image}`} alt='product image'/>

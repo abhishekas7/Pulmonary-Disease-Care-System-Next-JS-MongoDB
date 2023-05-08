@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { getError } from "@/util/error";
 import { useRouter } from "next/router";
+import Swal from "sweetalert2";
 
 
 
@@ -75,7 +76,7 @@ const cartSubtotal = cartitems.reduce((total, item) => {
           amount: cartSubtotal.toFixed(2) * 100, 
         });
         const { data } = response;
-        console.log(data);
+      
         const options = {
           key: process.env.RAZORPAY_KEY,
           amount: data.amount,
@@ -150,14 +151,13 @@ const cartSubtotal = cartitems.reduce((total, item) => {
         <div></div>
 
         {paymentMethod === "payOnline" && (
-          <form onSubmit={handleSubmit}>
+          <><form onSubmit={handleSubmit}>
             <label>
               <h4 className="p-3">Amount:</h4>
               <input
                 type="text"
                 value={cartSubtotal.toFixed(2)}
-                onChange={handleAmountChange}
-              />
+                onChange={handleAmountChange} />
             </label>
             <button
               id="razopay btn"
@@ -166,7 +166,10 @@ const cartSubtotal = cartitems.reduce((total, item) => {
             >
               Place order
             </button>
-          </form>
+
+
+          </form></>
+
         )}
       </div>
     </div>

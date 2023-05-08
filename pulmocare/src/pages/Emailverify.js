@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useRouter } from 'next/router'
 import { useSession, getSession } from "next-auth/react";
 import { useState } from "react";
 import { redirect } from "next/dist/server/api-utils";
+import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
 function VerifyOTP() {
   const [email, setEmail] = useState("");
@@ -29,9 +30,17 @@ function VerifyOTP() {
     try {
       const response = await axios.post("/api/user/verify", { email, otp });
       setMessage(response.data.message);
-      router.push('/login')
+      if(response.status==200){
+        Swal.fire({
+          icon: 'success',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        })
+        router.push('/login')
+      }
     } catch (error) {
       console.error(error);
+      Swal.fire('Invalid Email or OTP')
     }
   };
 
@@ -41,7 +50,7 @@ function VerifyOTP() {
 
 
       <div className="container mt-5">
-     <div className="ltn__form-box contact-form-box box-shadow white-bg">
+     <div className="ltn__form-box contact-form-box box-shadow white-bg ml-0">
   <h4 className="title-2">Verify Your Account</h4>
   <form onSubmit={handleSubmit}>
     <div className="col-12">
@@ -68,9 +77,12 @@ function VerifyOTP() {
           />
         </label>
         </div>
+        <div className="col-12">
+        <button type="submit" className="btn btn-success">Verify OTP</button>
+        </div>
       </div>
     </div>
-        <button type="submit">Verify OTP</button>
+       
       </form>
       {message && <p>{message}</p>}
 </div>

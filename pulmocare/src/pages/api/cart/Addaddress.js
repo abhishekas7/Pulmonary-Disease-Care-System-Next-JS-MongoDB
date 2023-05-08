@@ -1,14 +1,14 @@
 import db from "@/util/db";
 import { getError } from "@/util/error";
-import { getSession } from "next-auth/react";
 import { MyAddress } from "@/models/CheckoutSchema";
+import { getToken } from "next-auth/jwt";
 
 db.connect();
 
 export default async function handler(req, res) {
   const { method } = req;
-  const sess = await getSession({ req });
-  const Id = sess.user._id;
+  const sess = await getToken({ req: req, secret: process.env.SECRET });
+  const Id = sess._id;
  
 
   switch (method) {

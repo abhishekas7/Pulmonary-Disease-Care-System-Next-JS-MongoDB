@@ -32,12 +32,14 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.2.1",
+    "client": "^0.0.1",
     "compromise": "^14.8.2",
     "cookie-parse": "^0.4.0",
     "country-state-city-js": "^2.5.0",
     "disposable-email-domains": "^1.0.62",
     "dompurify": "^3.0.1",
     "dotenv": "^16.0.3",
+    "easyinvoice": "^3.0.16",
     "echarts": "^5.4.2",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
@@ -77,6 +79,7 @@
     "react-google-recaptcha": "^2.1.0",
     "react-hook-form": "^7.43.7",
     "react-icons": "^4.8.0",
+    "react-image-magnify": "^2.7.4",
     "react-modal": "^3.16.1",
     "react-otp-input": "^3.0.0",
     "react-pdf": "^6.2.2",
@@ -95,6 +98,7 @@
     "react-vertical-timeline-component": "^3.6.0",
     "sharp": "^0.32.0",
     "shortid": "^2.2.16",
+    "simple-text-editor-react": "^0.0.6",
     "spacy": "^0.0.4",
     "spacy-js": "^0.0.5",
     "sweetalert": "^2.1.2",
@@ -105,6 +109,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
-    "@babel/preset-env": "^7.21.4"
+    "@babel/preset-env": "^7.21.4",
+    "@next/eslint-plugin-next": "^13.4.1",
+    "next-transpile-modules": "^10.0.0"
   }
 }
