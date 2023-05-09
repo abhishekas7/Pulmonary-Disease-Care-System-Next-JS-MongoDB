@@ -1,0 +1,351 @@
+import React, { useState, useRef ,useEffect} from "react";
+import { Table, Pagination, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
+import { getError } from '@/util/error';
+import _ from 'lodash';
+import { Modal, Button, Form } from "react-bootstrap";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+
+
+const OrdersTable = () => {
+  const [orders, setOrders] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ordersPerPage] = useState(10);
+
+
+  
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+
+  function createPDF() {
+    const doc = new jsPDF();
+  
+    // Add content to the PDF
+    doc.text('Invoice Number: 123456', 10, 10);
+    doc.text('Shipping Address:', 10, 20);
+    doc.text('123 Main Street', 10, 30);
+    doc.text('Anytown, USA 12345', 10, 40);
+    doc.text('Amount: $100.00', 100, 20);
+    doc.text('Order ID: 123456', 10, 60);
+    doc.text('Date of Issue: May 9, 2023', 10, 70);
+
+    // Create the table
+    const table = [
+    ['Qty', 'Name of Product', 'Price', 'Amount'],
+    ['1', 'Product 1', '$50.00', '$50.00'],
+    ['2', 'Product 2', '$25.00', '$50.00'],
+    ['', '', 'Subtotal', '$100.00'],
+    ['', '', 'Discount', '$0.00'],
+    ['', '', 'Total', '$100.00'],
+    ];
+    
+    doc.autoTable({
+    head: [table[0]],
+    body: table.slice(1),
+    startY: 80,
+    });
+    
+    // Add the footer
+    doc.text('Thanks for going and getting us the office supplies!', 10, doc.internal.pageSize.height - 10);
+    
+    // Save the PDF
+    doc.save('invoice.pdf');
+    }
+<Button variant="primary" onClick={createPDF}>Send Invoice & Download Copy</Button>
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+ try {
+  const res = await axios.get('/api/patient/vieworders'); // replace with your API endpoint for fetching orders
+  setOrders(res.data.data);
+  
+
+ } catch (error) {
+  getError(error)
+ }
+    };
+    fetchOrders();
+
+    
+  }, []);
+
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: true,
+    });
+  }
+
+// -----------------------------------PDF-----------------------------------------
+
+const [show, setShow] = useState(false);
+  const [invoiceData, setInvoiceData] = useState({});
+  const formRef = useRef(null);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = formRef.current;
+
+    const data = {
+      invoiceNumber: form.invoiceNumber.value,
+      customerName: form.customerName.value,
+      amount: form.amount.value,
+    };
+
+    setInvoiceData(data);
+    handleClose();
+  };
+
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+    const data = Object.values(invoiceData);
+    const headers = ["Invoice Number", "Customer Name", "Amount"];
+
+    doc.autoTable({
+      head: [headers],
+      body: [data],
+    });
+
+    doc.save(`Invoice_${invoiceData.invoiceNumber}.pdf`);
+  };
+
+
+
+  function handleSendInvoice() {
+    // create a new PDF document
+    const doc = new jsPDF();
+  
+    // Add content to the PDF
+    doc.text('Invoice Number: 123456', 10, 10);
+    doc.text('Shipping Address:', 10, 20);
+    doc.text('123 Main Street', 10, 30);
+    doc.text('Anytown, USA 12345', 10, 40);
+    doc.text('Amount: $100.00', 100, 20);
+    doc.text('Order ID: 123456', 10, 60);
+    doc.text('Date of Issue: May 9, 2023', 10, 70);
+  
+    // add the table to the PDF
+    const columns = ['Qty', 'Name of the Product', 'Price', 'Amount'];
+    const data = [    [1, 'Product 1', '$10.00', '$10.00'],
+      [2, 'Product 2', '$20.00', '$40.00'],
+      [3, 'Product 3', '$15.00', '$45.00'],
+      ['', 'Subtotal', '', '$95.00'],
+      ['', 'Discount', '', '$5.00'],
+      ['', 'Total', '', '$90.00'],
+    ];
+  
+    doc.autoTable({
+      head: [columns],
+      body: data,
+      startY: 80,
+    });
+  
+    // add the footer to the PDF
+    doc.text('Thanks for going and getting us the office supplies', 10, doc.internal.pageSize.getHeight() - 10);
+  
+    // download the PDF
+    doc.save('invoice.pdf');
+  }
+
+    const handleDownloadCopy = () => {
+    const doc = new jsPDF();
+
+    // Add content to the PDF
+    doc.text('Invoice Number: 123456', 10, 10);
+    doc.text('Shipping Address:', 10, 20);
+    doc.text('123 Main Street', 10, 30);
+    doc.text('Anytown, USA 12345', 10, 40);
+    doc.text('Amount: $100.00', 100, 20);
+    doc.text('Order ID: 123456', 10, 60);
+    doc.text('Date of Issue: May 9, 2023', 10, 70);
+
+    // Save the PDF
+    doc.save('invoice.pdf');
+  };
+// --------------------------------------END PDF---------------------------------------
+
+
+
+
+  return (
+    <>
+      <Table striped bordered hover className="bg-white" style={{fontSize:'14px'}}>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th colSpan={1}>Products</th>
+            <th >Quantity</th>
+             <th>Total</th>
+             <th>Bill</th>
+           
+            
+          </tr>
+        </thead>
+        <tbody>
+  { orders.length > 0 ? (
+    orders.map((order,i) => {
+      const totalPrice = order.products.reduce((acc, product) => acc + (product.price * product.quantity), 0);
+      return (
+        <tr key={i}>
+          <td>{order._id}</td>
+          <td>{formatDate(order.createdAt)}</td>
+          <td>
+            {order.products.map((pro, j) => (
+              <tr key={j} className='bg-transparent'>
+                <td className='p-2'><img src={`images/${pro.image}`} alt="" width={80} /></td>
+                <td className='p-3'>{pro.name}</td>
+              </tr>
+            ))}
+          </td>
+          <td>
+            {order.products.map((pro, j) => (
+              <tr key={j} className='bg-transparent'>
+                <td className='p-3'><span>{pro.price}&nbsp;&nbsp;&nbsp;&nbsp;<b>X</b></span>&nbsp;&nbsp;&nbsp;&nbsp;{pro.quantity}</td>
+              </tr>
+            ))}
+          </td>
+          <td className='p-3'><span>{totalPrice.toFixed(2)}</span></td>
+          <td>   <Button variant="primary" onClick={handleShow}>
+        Create Invoice
+      </Button></td>
+        </tr>
+      )
+    })
+  ) : (
+    <tr>
+      <td colSpan="4">No orders found.</td>
+    </tr>
+  )}
+</tbody>
+      </Table>
+      <div className="d-flex justify-content-between align-items-center">
+        <Pagination>
+          {Array.from({ length: Math.ceil(orders.length / ordersPerPage) }, (_, i) => (
+            <Pagination.Item key={i} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
+              {i + 1}
+            </Pagination.Item>
+          ))}
+        </Pagination>
+   
+      </div>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Create Invoice</Modal.Title>
+        </Modal.Header>
+
+        <Form onSubmit={handleSubmit} ref={formRef}>
+        <Modal.Body>
+        
+  <Row>
+    <Col>
+      <h4>Shipping Address:</h4>
+      <p>123 Main Street</p>
+      <p>Anytown, USA 12345</p>
+    </Col>
+    <Col>
+      <h4>Amount:</h4>
+      <p>$100.00</p>
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <h4>Order ID:</h4>
+      <p>123456</p>
+      <h4>Date of Issue:</h4>
+      <p>May 9, 2023</p>
+      <h4>Billed To:</h4>
+      <p>Acme Corporation</p>
+      <p>John Doe</p>
+      <p>1234 Main Street</p>
+      <p>Anytown, USA 12345</p>
+    </Col>
+    <Col>
+      <Table>
+        <thead>
+          <tr>
+            <th>Qty</th>
+            <th>Name of Product</th>
+            <th>Price</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Product 1</td>
+            <td>$50.00</td>
+            <td>$50.00</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Product 2</td>
+            <td>$25.00</td>
+            <td>$50.00</td>
+          </tr>
+        </tbody>
+      </Table>
+      <hr />
+      <Row>
+        <Col>
+          <h4>Subtotal:</h4>
+        </Col>
+        <Col>
+          <p>$100.00</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <h4>Discount:</h4>
+        </Col>
+        <Col>
+          <p>$0.00</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <h4>Total:</h4>
+        </Col>
+        <Col>
+          <p>$100.00</p>
+        </Col>
+      </Row>
+    </Col>
+  </Row>
+</Modal.Body>
+<Modal.Footer>
+  <Button variant="secondary" onClick={handleClose}>
+    Close
+  </Button>
+  <Button variant="primary" onClick={handleSendInvoice}>
+    Send Invoice
+  </Button>
+  <Button variant="primary" onClick={handleDownloadCopy}>
+    Download Copy
+  </Button>
+</Modal.Footer>
+
+        </Form>
+      </Modal>
+      {invoiceData.invoiceNumber && (
+        <Button variant="primary" onClick={handleDownloadPDF}>
+          Download PDF
+        </Button>
+      )}
+    </>
+  );
+};
+
+          
+export default OrdersTable;

@@ -30,17 +30,18 @@ function VerifyOTP() {
     try {
       const response = await axios.post("/api/user/verify", { email, otp });
       setMessage(response.data.message);
+     
       if(response.status==200){
         Swal.fire({
           icon: 'success',
-          title: 'Oops...',
-          text: 'Something went wrong!',
+          title: 'Email Verified',
+          text: 'You Can Login Now',
         })
         router.push('/login')
       }
     } catch (error) {
       console.error(error);
-      Swal.fire('Invalid Email or OTP')
+      Swal.fire({text:'Invalid Email or OTP / Already Verified'})
     }
   };
 

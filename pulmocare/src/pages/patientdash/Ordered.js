@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Pagination, Button } from 'react-bootstrap';
-import { FaPrint } from 'react-icons/fa';
-import ReactToPrint from 'react-to-print';
+import { Table, Pagination } from 'react-bootstrap';
 import axios from 'axios';
 import { getError } from '@/util/error';
 import _ from 'lodash';
+import { Modal, Button, Form } from "react-bootstrap";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import { BillApp } from './Orderbill';
 
 
 const OrdersTable = () => {
@@ -13,13 +15,14 @@ const OrdersTable = () => {
   const [ordersPerPage] = useState(10);
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  const currentOrders = Array.isArray(orders) ? orders.slice(indexOfFirstOrder, indexOfLastOrder) : [];
+
 
   useEffect(() => {
     const fetchOrders = async () => {
  try {
   const res = await axios.get('/api/patient/vieworders'); // replace with your API endpoint for fetching orders
   setOrders(res.data.data);
+  
 
  } catch (error) {
   getError(error)
@@ -30,47 +33,24 @@ const OrdersTable = () => {
     
   }, []);
 
-  // Get current orders
- 
-  {currentOrders.map((item)=>{
-    [item.cartitems].map((prod)=>{
-      [prod.products].map((it)=>{
-       it.map((j)=><div key={j.productId}>{j.name}</div>)
-      })
-    })
-  })}
-  // const products = currentOrders[0].cartitems.products;
-  // console.log(products)
-  // console.log(currentOrders[0].cartitems);
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  console.log(orders.length);
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: true,
+    });
+  }
 
 
-  // Component to print the order table
-  const OrderTableToPrint = () => {
-    return (
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Customer Name</th>
-            <th>Order Date</th>
-            <th>Order Total</th>
-          </tr>
-        </thead>
-        <tbody>
-      <tr>
-        <td>d</td>
-        <td>d</td>
-        <td>d</td>
-        
-      </tr>
-        </tbody>
-      </Table>
-    );
-  };
+
+
+
 
   return (
     <>
@@ -79,37 +59,52 @@ const OrdersTable = () => {
           <tr>
             <th>Order ID</th>
             <th>Order Date</th>
-            <th>Username</th>
-            <th colSpan={2}>Products</th>
-            {/* <th>Quantity</th>
-            <th>Price</th>
-
-            <th>Total Amount</th> */}
+            <th colSpan={1}>Products</th>
+            <th >Quantity</th>
+             <th>Total</th>
+             <th>Bill</th>
+           
             
           </tr>
         </thead>
-<tbody >
-  { orders.length > 0 ? (
-    orders.map((order,i) => (
+        <tbody>
+        {orders.length > 0 ? (
+  orders.map((order,i) => {
+    const totalPrice = order.products.reduce((acc, product) => acc + (product.price * product.quantity), 0);
+    return (
       <tr key={i}>
-    <td>{order._id}</td>
-    <td>{order.cartitems.createdAt}</td>
-    <td>{order.user.name}</td>
-    {order.cartitems.products.map((pro)=>(
-      <td>{pro.name}</td>
+        <td>{order._id}</td>
+        <td>{formatDate(order.createdAt)}</td>
+        <td>
+          {order.products.map((pro, j) => (
+            <tr key={j} className='bg-transparent'>
+              <td className='p-2'><img src={`images/${pro.image}`} alt="" width={80} /></td>
+              <td className='p-3'>{pro.name}</td>
+            </tr>
+          ))}
+        </td>
+        <td>
+          {order.products.map((pro, j) => (
+            <tr key={j} className='bg-transparent'>
+              <td className='p-3'><span>{pro.price}&nbsp;&nbsp;&nbsp;&nbsp;<b>X</b></span>&nbsp;&nbsp;&nbsp;&nbsp;{pro.quantity}</td>
+            </tr>
+          ))}
+        </td>
+        <td className='p-3'><span>&#x20B9;{totalPrice.toFixed(2)}</span></td>
+        
+        <td><BillApp orderId={order}/></td>
+
       
-    ))}
+        
       </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="4">No orders found.</td>
-    </tr>
-  )}
+    )
+  })
+) : (
+  <tr>
+    <td colSpan="4">No orders found.</td>
+  </tr>
+)}
 </tbody>
-
-
-     
       </Table>
       <div className="d-flex justify-content-between align-items-center">
         <Pagination>
@@ -119,18 +114,10 @@ const OrdersTable = () => {
             </Pagination.Item>
           ))}
         </Pagination>
-        <ReactToPrint
-          trigger={() => (
-            <Button variant="outline-primary">
-              <FaPrint /> Print
-            </Button>
-          )}
-          content={() => this.OrderTableRef}
-        />
+   
       </div>
-      <div style={{ display: 'none' }}>
-        <OrderTableToPrint ref={(el) => (this.OrderTableRef = el)} />
-      </div>
+      <div>
+    </div>
     </>
   );
 };

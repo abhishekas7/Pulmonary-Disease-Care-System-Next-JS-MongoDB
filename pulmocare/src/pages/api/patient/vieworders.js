@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         const sess = await getSession({ req });
         const Id = sess.user._id;
         try {
-            const orders = await MyOrders.find({ user: Id }).populate('cartitems user shippingAddress').exec();
+            const orders = await MyOrders.find({ user: Id }).populate('user shippingAddress').exec();
             // Return a JSON response with the orders data
             res.status(200).json({ data: orders, message: 'Orders fetched successfully' });
             
