@@ -4,8 +4,6 @@ import { useRouter } from 'next/router'
 import { getSession, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { signOut} from 'next-auth/react'
-import $ from 'jquery'
-import axios from "axios";
 import UpdateProfile from "./UpdateProfile";
 import Patientprofile from "./Patientprofile";
 import Deafultpage from "./Deafultpage";
@@ -13,7 +11,6 @@ import MedicalRecord from "./MedicalRecord";
 import Ordered from "./Ordered";
 import Patient from "@/models/Patient";
 import db from "@/util/db";
-import Order from "@/models/Order";
 import Addaddress from "./Addaddress";
 import Link from "next/link";
 
@@ -315,7 +312,7 @@ const index = ({patientdetails,orderdetails}) => {
                 data-bs-toggle="dropdown"
               >
 
-{patData.map((data,i)=>(
+{patData.map((data)=>(
  <img
  src={`..//images/${data.image}`}
                   alt="Profile"
@@ -455,7 +452,6 @@ export async function getServerSideProps(context) {
 
   const patientdetails = await Patient.find({user:user_id}).populate('user');
 
-  const orderdetails = await Order.find();
   
   return {
     props:{

@@ -47,7 +47,6 @@ export default async function handler(req, res) {
     
     case "POST":
       try {
-        const appointment = await Appointment.create(req.body);
       } catch (error) {
         res.status(400).json({ success: false });
       }
@@ -64,9 +63,6 @@ export default async function handler(req, res) {
               try {
                 const filter = { _id: appId };
                 const update = { status: 'confirmed' };
-                const doc = await Appointment.findOneAndUpdate(filter, update, {
-                  new: 'true'
-                });
             
               } catch (error) {
                 console.log(getError(error));

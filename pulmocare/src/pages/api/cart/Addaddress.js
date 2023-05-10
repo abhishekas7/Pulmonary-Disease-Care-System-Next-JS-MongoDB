@@ -62,11 +62,6 @@ export default async function handler(req, res) {
         if (appointment) {
           if (status === "confirmed") {
             try {
-              const filter = { _id: appId };
-              const update = { status: "confirmed" };
-              const doc = await Appointment.findOneAndUpdate(filter, update, {
-                new: "true",
-              });
             } catch (error) {
               console.log(getError(error));
             }

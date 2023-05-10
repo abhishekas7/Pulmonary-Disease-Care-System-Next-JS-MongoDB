@@ -1,6 +1,5 @@
 import User from "@/models/User";
 import { compare } from "bcrypt";
-import { jwt } from "jsonwebtoken";
 
 export default async function handler(req, res) {
     try {

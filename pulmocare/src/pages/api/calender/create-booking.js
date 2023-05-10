@@ -101,7 +101,6 @@ export default async function handler(req, res) {
     const name = sess.email;
     console.log(name);
     mailer(phonenumber, date, docname, name);
-    const app = await appointment1.save();
 
     // Push the appointment to the doctor's appointments array
     await Doctor.findByIdAndUpdate(doctor, {

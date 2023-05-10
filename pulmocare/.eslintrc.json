@@ -1,13 +1,26 @@
 {
-  "extends": [
-    "next/babel"
-    // ... any other extensions you may have
-  ]
-  // ... other configuration options
+  "ecmaFeatures": {
+    "modules": true,
+    "spread": true,
+    "restParams": true,
+    "jsx": true
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "no-unused-vars": 2,
+    "no-undef": 2,
+    "react/jsx-indent": [2, 2],
+    "react/prop-types": 2
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2020
+  }
 }
-
-
-// {
-//   // "extends": "next/core-web-vitals"
-//   "extends": ["next/babel","next/core-web-vitals"]
-// }

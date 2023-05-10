@@ -1,5 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable @next/next/no-css-tags */
+
 import React, { useState } from "react";
 import AddProduct from "./dashboards/AddProduct";
 import ViewProducts from "./dashboards/ViewProducts";

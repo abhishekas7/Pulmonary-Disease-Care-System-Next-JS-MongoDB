@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { getError } from "@/util/error";
 import { useRouter } from "next/router";
-import Swal from "sweetalert2";
 
 
 

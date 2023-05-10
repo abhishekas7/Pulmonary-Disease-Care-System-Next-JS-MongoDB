@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+export default async function handler() {
     const accountSid = process.env.ACCOUNT_ID; 
     const authToken = process.env.ACCOUNT_TOKEN; 
     const client = require('twilio')(accountSid, authToken); 

@@ -8,8 +8,6 @@ export default async function handler(req, res) {
   const sess = await getSession({ req });
 
   if (!sess || !sess.user) {
-    // Handle the case where `sess` or `sess.user` is null
-    // For example, you could return an error response or redirect to a login page
   } else {
     const Id = sess.user._id;
 
