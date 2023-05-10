@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import Script from 'next/script'
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -135,24 +137,24 @@ const register = () => {
                           </div>
 
                           <div className='col-12'>
-                          <Field type="text" name="email" placeholder="Email*" className="form-control" />
-                      <ErrorMessage name="email" className="error-message" component="div" />
-                        </div>
-                        <div className='col-6'>
+                            <Field type="text" name="email" placeholder="Email*" className="form-control" />
+                            <ErrorMessage name="email" className="error-message" component="div" />
+                          </div>
+                          <div className='col-6'>
                     
-                        <button
+                            <button
                           className="theme-btn-1 btn reverse-color btn-block"
                           type="submit"
                           disabled={isSubmitting}
                         >
-                          {isSubmitting ? 'Creating account...' : 'CREATE ACCOUNT'}
-                        </button>
+                              {isSubmitting ? 'Creating account...' : 'CREATE ACCOUNT'}
+                            </button>
                    
-                        </div>
-                        <div className='col-6'>
-                        <Link href="/login"><p style={{fontSize:'14px',paddingTop:'15px'}}>ALREADY HAVE AN ACCOUNT ?</p></Link>
+                          </div>
+                          <div className='col-6'>
+                            <Link href="/login"><p style={{fontSize:'14px',paddingTop:'15px'}}>ALREADY HAVE AN ACCOUNT ?</p></Link>
 
-                        </div>
+                          </div>
               
 
                         </div>

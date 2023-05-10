@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 
 import React, { useState } from "react";
 import AddProduct from "./dashboards/AddProduct";
@@ -17,6 +18,7 @@ import AdminDefault from "./dashboards/AdminDefault";
 import Script from "next/script";
 import dynamic from "next/dynamic";
 
+// eslint-disable-next-line react/prop-types
 const Admindash = ({ productss, allusers, order }) => {
   const logout = () => {
     signOut({ callbackUrl: "/login" });

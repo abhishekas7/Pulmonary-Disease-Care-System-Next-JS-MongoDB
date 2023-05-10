@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-underscore-dangle
+
 import { createContext, useReducer } from 'react';
 import Cookies from 'js-cookie';
 

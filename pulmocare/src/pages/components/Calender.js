@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import ReactEventModal from './ReactEventModal'
+
 import axios from 'axios';
 import Modal from 'react-modal';
 import React, { useState } from "react";
@@ -74,25 +76,25 @@ const events = [
         // eventAdd={(event => handleEventAdd(event))}
         eventContent={renderEventContent}
       />
- <div>
-<p>{doctor._id}</p>
-   <form onSubmit={onSubmit} className='mt-5'>
-   <label for="date">Symptoms</label>
-     <input type="text" placeholder="Shortness of breath" value={reason} onChange={e => setReason(e.target.value)}/>
-        <div>
+      <div>
+        <p>{doctor._id}</p>
+        <form onSubmit={onSubmit} className='mt-5'>
+          <label for="date">Symptoms</label>
+          <input type="text" placeholder="Shortness of breath" value={reason} onChange={e => setReason(e.target.value)}/>
+          <div>
             <label for="date">Date</label>
-        <Datetime value={date} onChange={date=>setDate(date)}  isValidDate={disablePastDt}/>
-        </div>
-        <label>
-        Phone number:</label>
-        <input
+            <Datetime value={date} onChange={date=>setDate(date)}  isValidDate={disablePastDt}/>
+          </div>
+          <label>
+            Phone number:</label>
+          <input
           type="text" placeholder="7356237894"
           value={phonenumber}
           onChange={(event) => setPhoneNumber(event.target.value)}
         />
-       <button class="theme-btn-1 btn reverse-color btn-block" type="submit" >BookNow</button>
-     </form>
- </div>
+          <button class="theme-btn-1 btn reverse-color btn-block" type="submit" >BookNow</button>
+        </form>
+      </div>
     </div>
   )
 }

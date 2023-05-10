@@ -17,7 +17,7 @@ export default async function Upload(req, res) {
     keepExtensions: true,
     maxFileSize: 10 * 1024 * 1024, // 10mb
     maxFieldsSize: 10 * 1024 * 1024, // 10mb
-    filename: function (name, ext, part, form) {
+    filename: function (name, ext) {
       return name + ext;
     },
   };
@@ -38,7 +38,6 @@ export default async function Upload(req, res) {
       password:hash,
       role:"doctor"
     });
-    const doctor = await newUser.save();
 
     const details = new Doctor({
       user:newUser._id,  
@@ -50,9 +49,8 @@ export default async function Upload(req, res) {
       qualification: fields.qualification,
     });
 
-    const doctor2 = await details.save();
     db.disconnect();
-    res.send("successful");
+    res.status(200).json({data:details,message:"Successfull"})
 
   });
 }

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -169,39 +171,39 @@ if (subtotal > 500) {
         <Row>
           <Col md={4}>
             <h6><b>Shipping Address</b></h6>
-          <div style={{fontSize:'15px'}} >
-          <p>{orderId.shippingAddress.address1}</p>
-            <p>{orderId.shippingAddress.address2}</p>
-            <p>{orderId.shippingAddress.city}</p>
-            <p>{orderId.shippingAddress.state}</p>
-            <p>{orderId.shippingAddress.zip}</p>
-          </div>
+            <div style={{fontSize:'15px'}} >
+              <p>{orderId.shippingAddress.address1}</p>
+              <p>{orderId.shippingAddress.address2}</p>
+              <p>{orderId.shippingAddress.city}</p>
+              <p>{orderId.shippingAddress.state}</p>
+              <p>{orderId.shippingAddress.zip}</p>
+            </div>
           </Col>
           <Col md={8}>
             <h6><b>Amount</b></h6>
             <div style={{fontSize:'15px'}} >
-            <p>{orderId.total}</p>
-                </div>
+              <p>{orderId.total}</p>
+            </div>
           </Col>
         </Row>
         <Row>
-        <Col md={4}>
-          <h6><b>Order ID</b></h6>
+          <Col md={4}>
+            <h6><b>Order ID</b></h6>
           
             <p style={{fontSize:'15px'}} >{orderId._id}</p>
         
             <h6><b>Date of Issue</b></h6>
             <div style={{fontSize:'15px'}} >
-            <p>{formatDate(orderId.createdAt)}</p>
-                </div>
+              <p>{formatDate(orderId.createdAt)}</p>
+            </div>
             <h6><b>Billed To</b></h6>
             <div style={{fontSize:'15px'}} >
-          <p>{orderId.shippingAddress.address1}</p>
-            <p>{orderId.shippingAddress.address2}</p>
-            <p>{orderId.shippingAddress.city}</p>
-            <p>{orderId.shippingAddress.state}</p>
-            <p>{orderId.shippingAddress.zip}</p>
-          </div>
+              <p>{orderId.shippingAddress.address1}</p>
+              <p>{orderId.shippingAddress.address2}</p>
+              <p>{orderId.shippingAddress.city}</p>
+              <p>{orderId.shippingAddress.state}</p>
+              <p>{orderId.shippingAddress.zip}</p>
+            </div>
           </Col>
           <Col md={8}>
             <Table>
@@ -215,7 +217,7 @@ if (subtotal > 500) {
                 </tr>
               </thead>
               <tbody>
-              {orderId.products.length > 0 ?
+                {orderId.products.length > 0 ?
   orderId.products.map((item) => (
     <tr key={item._id}>
       <td>{item.name}</td>
@@ -237,41 +239,41 @@ if (subtotal > 500) {
                 <h6><b>Subtotal:</b></h6>
               </Col>
               <Col>
-              <p>&#x20B9;{subtotal.toFixed(2)}</p>
+                <p>&#x20B9;{subtotal.toFixed(2)}</p>
               </Col>
             </Row>
             <Row>
               <Col>
-              <h6><b>Discount:</b></h6>
+                <h6><b>Discount:</b></h6>
               </Col>
               <Col>
-    {subtotal > 500 ?
-      <p>&#x20B9;{discount} <span class="badge bg-success">10% Off Purchase Above 500 &#x20B9; </span></p> :
-      <p>&#x20B9;0</p>
+                {subtotal > 500 ?
+                  <p>&#x20B9;{discount} <span class="badge bg-success">10% Off Purchase Above 500 &#x20B9; </span></p> :
+                  <p>&#x20B9;0</p>
     }
-  </Col>
+              </Col>
              
             </Row>
             <Row>
               <Col>
-              <h6><b>Total:</b></h6>
+                <h6><b>Total:</b></h6>
               </Col>
               <Col>
-              <p>&#x20B9;{total.toFixed(2)}</p>
+                <p>&#x20B9;{total.toFixed(2)}</p>
               </Col>
             </Row>
           </Col>
         </Row>
       </Modal.Body>
       <Modal.Footer>
-  <Button variant="secondary" onClick={handleClose}>
-    Close
-  </Button>
-  <Button variant="primary" onClick={handleSendInvoice}>
-    Send Invoice
-  </Button>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={handleSendInvoice}>
+          Send Invoice
+        </Button>
 
-</Modal.Footer>
+      </Modal.Footer>
     </Modal>
   );
 }

@@ -1,7 +1,7 @@
 import db from "@/util/db";
 import Doctor from "@/models/Doctor";
-import { getSession } from "next-auth/react";
 import { getError } from "@/util/error";
+import { getToken } from "next-auth/jwt";
 
 export default async function handler(req, res) {
     await db.connect();

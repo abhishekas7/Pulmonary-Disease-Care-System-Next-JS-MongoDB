@@ -1,5 +1,6 @@
 
 
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react'
 
 function ViewProfile() {
@@ -18,9 +19,9 @@ function ViewProfile() {
 
 
   return (
-<div>
-{patientData.length === 0 ? (
-  <p>No patient data found</p>
+    <div>
+      {patientData.length === 0 ? (
+        <p>No patient data found</p>
 ) : (
   <>
     {patientData.map((data, i) => (
@@ -78,7 +79,7 @@ function ViewProfile() {
 )}
 
  
-</div>
+    </div>
 
   )
 }

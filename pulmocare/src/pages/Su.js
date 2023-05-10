@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -72,22 +74,22 @@ function Su() {
   };
 
   return (
-<div>
-    <button onClick={startRecognition} disabled={recognizing}>
-      Start
-    </button>
-    <button onClick={stopRecognition} disabled={!recognizing}>
-      Stop
-    </button>
-    <form onSubmit={handleSubmit}>
-      <label>
-        Enter prescription payload:
-        <textarea value={payload} onChange={(e) => setText(e.target.value)} />
-      </label>
-      <button type="submit">Extract medical terms</button>
-    </form>
+    <div>
+      <button onClick={startRecognition} disabled={recognizing}>
+        Start
+      </button>
+      <button onClick={stopRecognition} disabled={!recognizing}>
+        Stop
+      </button>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Enter prescription payload:
+          <textarea value={payload} onChange={(e) => setText(e.target.value)} />
+        </label>
+        <button type="submit">Extract medical terms</button>
+      </form>
 
-    {response.length > 0 && (
+      {response.length > 0 && (
       <ul>
         {response.map((term, index) => (
           <li key={index}>
@@ -97,7 +99,7 @@ function Su() {
       </ul>
     )}
 
-  </div>
+    </div>
   );
 }
 

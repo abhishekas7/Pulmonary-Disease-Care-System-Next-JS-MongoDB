@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/c6aed314-73d7-49f6-bacf-3435d728956a/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/pulmocare",
+    "appService.deploySubpath": "."
+}

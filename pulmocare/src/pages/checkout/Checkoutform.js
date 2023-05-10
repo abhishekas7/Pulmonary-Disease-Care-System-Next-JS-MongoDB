@@ -10,7 +10,7 @@ const CheckoutForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a new checkout document in the database
+
     try {
       const res = await axios.post('/api/checkout', {
         user,

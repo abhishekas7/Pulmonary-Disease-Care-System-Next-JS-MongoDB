@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -86,7 +89,7 @@ const UpdateProducts = ({Item}) => {
 
   return (
     <div className="col-12">
-        <p>{Item._id}</p>
+      <p>{Item._id}</p>
       <Formik
         initialValues={{
           name: "",

@@ -61,8 +61,6 @@ export default async function handler(req, res) {
            if(status==='confirmed')
             {
               try {
-                const filter = { _id: appId };
-                const update = { status: 'confirmed' };
             
               } catch (error) {
                 console.log(getError(error));

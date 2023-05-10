@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import axios from "axios";
 import Script from "next/script";
 import React, { useEffect, useState } from "react";
@@ -163,12 +166,12 @@ function Demo({Data}) {
   
 
   return (
-<>
-<p><b>Name :</b>{Data.patient.name.first} {Data.patient.name.last}</p>
-  <form>
-    <h6 className="mt-4">Transcript</h6>
-    <div>
-      <textarea
+    <>
+      <p><b>Name :</b>{Data.patient.name.first} {Data.patient.name.last}</p>
+      <form>
+        <h6 className="mt-4">Transcript</h6>
+        <div>
+          <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
         id="final"
@@ -178,58 +181,58 @@ function Demo({Data}) {
           borderRadius: 8,
         }}
       />
-    </div>
-    <button
+        </div>
+        <button
       className="btn btn-warning"
       type="submit"
       onClick={handleSubmit}
     >
-      Extract medical terms
-    </button>
-  </form>
-  <div className="mt-4">
-    <button className="btn btn-success" id="start">
-      Start
-    </button>
-    <button className="btn btn-danger" id="stop">
-      Stop
-    </button>
-    <p id="status" className="lead mt-3" style={{ display: "none" }}>
-      Listening...
-    </p>
-  </div>
-  <div>
-    {entities.length > 0 && (
+          Extract medical terms
+        </button>
+      </form>
+      <div className="mt-4">
+        <button className="btn btn-success" id="start">
+          Start
+        </button>
+        <button className="btn btn-danger" id="stop">
+          Stop
+        </button>
+        <p id="status" className="lead mt-3" style={{ display: "none" }}>
+          Listening...
+        </p>
+      </div>
       <div>
-        <h4>Medicines and Dosage</h4>
-        <ul>
-          {entities.map((entity, index) => (
-            <li key={index}>
-              {entity.entity_group}:{" "}
-              <span className={`badge rounded-pill ${getBadgeColor(entity.entity_group)}`}>{entity.word}</span>
-            </li>
+        {entities.length > 0 && (
+        <div>
+          <h4>Medicines and Dosage</h4>
+          <ul>
+            {entities.map((entity, index) => (
+              <li key={index}>
+                {entity.entity_group}:{" "}
+                <span className={`badge rounded-pill ${getBadgeColor(entity.entity_group)}`}>{entity.word}</span>
+              </li>
           ))}
-        </ul>
-        <button
+          </ul>
+          <button
            className="btn btn-primary"
            onClick={generatePrescriptionPDF}
          >
-         Generate PDF
-        </button>
+            Generate PDF
+          </button>
         
+        </div>
+    )}
+        {showPayload && (
+        <>
+          <h2>Payload:</h2>
+          <p>{text}</p>
+          <h2>Response:</h2>
+          <p>{JSON.stringify(prescription)}</p>
+        </>
+    )}
       </div>
-    )}
-    {showPayload && (
-      <>
-        <h2>Payload:</h2>
-        <p>{text}</p>
-        <h2>Response:</h2>
-        <p>{JSON.stringify(prescription)}</p>
-      </>
-    )}
-  </div>
-</>
-);
+    </>
+  );
 }
 
 export default Demo;

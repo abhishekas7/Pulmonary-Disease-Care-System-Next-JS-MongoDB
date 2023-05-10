@@ -1,5 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable @next/next/no-css-tags */
+/* eslint-disable no-unused-vars */
+
+
 import React, { useState } from "react";
 
 import { useRouter } from 'next/router'
@@ -305,8 +306,8 @@ const index = () => {
                 data-bs-toggle="dropdown"
               >
 
-{docData.map((data)=>(
- <img
+                {docData.map((data)=>(
+                  <img
  src={`..//images/${data.image}`}
                   alt="Profile"
                   className="rounded-circle"
@@ -315,7 +316,7 @@ const index = () => {
 
                
                 <span className="d-none d-md-block dropdown-toggle ps-2">
-                {status==='authenticated'? data.user.name:'loading'}
+                  {status==='authenticated'? data.user.name:'loading'}
                 </span>
               </a>
               <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -401,9 +402,9 @@ const index = () => {
         <div className="pagetitle">
           <h1>DOC DASHBOARD</h1>
           <button onClick={logout}>logout</button>
-<div>
-{page()}
-</div>
+          <div>
+            {page()}
+          </div>
 
         </div>
       </main>

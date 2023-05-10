@@ -1,5 +1,6 @@
 import db from '@/util/db';
 import Product from '@/models/Product';
+import { getError } from '@/util/error';
 
 export default async function handler(req, res) {
   const { method } = req
@@ -34,7 +35,7 @@ await db.connect();
               const doc = await Product.findOneAndUpdate(filter, update, {
                 new: 'true'
               });
-          
+              res.status(200).json({ data: doc });
             } catch (error) {
               console.log(getError(error));
             }
@@ -55,7 +56,6 @@ await db.connect();
         res.status(400).json({ success: false });
       }
       break;
-      break
     case 'DELETE':
       // Handle DELETE request for deleting data
       res.status(204).json({ message: 'Deleting data' })

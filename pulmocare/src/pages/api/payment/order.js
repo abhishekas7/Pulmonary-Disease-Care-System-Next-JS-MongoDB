@@ -20,7 +20,7 @@ const handler = async (req, res) => {
     return;
   }
 
-  const { response, amount, payment_method, cartId, addressId, paymentId } = req.body;
+  const { response, cartId, addressId } = req.body;
   // console.log(amount, payment_method, cartId, addressId, paymentId);
   // console.log(response.razorpay_payment_id);
   try {

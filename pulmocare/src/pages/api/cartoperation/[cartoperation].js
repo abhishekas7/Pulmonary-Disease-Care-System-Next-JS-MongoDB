@@ -74,7 +74,7 @@ res.status(200).json({ success: true, data: addtocart });
 
       case 'DELETE':
         try {
-          const { cartId, itemId } = req.query;
+          const { itemId } = req.query;
         
         
           const cartDoc = await cart.findOne({ userId: userId, active: true });
@@ -84,7 +84,6 @@ res.status(200).json({ success: true, data: addtocart });
             return res.status(404).json({ message: 'Cart not found' });
           }
         
-          const updatedProducts = cartDoc.products.filter((product) => product._id.toString() !== itemId);
       
 
           const result = await cart.findOneAndUpdate(

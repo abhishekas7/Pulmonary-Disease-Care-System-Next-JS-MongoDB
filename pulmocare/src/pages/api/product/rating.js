@@ -3,7 +3,6 @@ import db from "@/util/db";
 import Rating from "@/models/Review";
 import { getError } from "@/util/error";
 import { getSession } from "next-auth/react";
-import { disconnect } from "mongoose";
 const handler = async (req, res) => {
   
   const session = await getSession({ req });
@@ -28,12 +27,6 @@ const handler = async (req, res) => {
     //   await disconnect()
       res.send({ message: 'Thank you for updating your rating' ,status:true});
     } else {
-      const newrating = new Rating({
-        user:session.user._id,
-        product: req.body.productId,
-        rating:req.body.rating,
-        status:true
-      });
       
       if(product1.rating===0){
       product1.rating=req.body.rating
@@ -43,7 +36,6 @@ const handler = async (req, res) => {
       }
       await product1.save()
       // console.log(newrating)
-      const rating= await newrating.save()
       res.send({ message: 'Thank you for rating' ,status:true});
     }
   await db.disconnect();

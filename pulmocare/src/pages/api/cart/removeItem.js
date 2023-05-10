@@ -1,6 +1,8 @@
 import db from '@/util/db';
 import cart from '@/models/CartSchema';
+import { getSession } from 'next-auth/react';
 
+export default async function handler(req, res) {
   const sess =await getSession({req})
 
   const userId = sess.user._id;
@@ -21,7 +23,7 @@ import cart from '@/models/CartSchema';
     
       const updatedProducts = cart.products.filter((product) => product._id.toString() !== productId);
     
-      const result = await CartSchema.updateOne(
+      const result = await cart.updateOne(
         { _id: cartId },
         { $set: { products: updatedProducts } }
       );
@@ -42,3 +44,4 @@ import cart from '@/models/CartSchema';
     res.status(405).json({ message: 'Method Not Allowed' });
   }
 
+}

@@ -1,8 +1,8 @@
-import { getSession } from 'next-auth/react';
 import db from '@/util/db';
 // import Product from 'models/Product';
 import Address from '@/models/Address';
 import { getError } from '@/util/error';
+import { getToken } from 'next-auth/jwt';
 // import Address from '../../models/Address';
 // export const config = {
 //     api: {
@@ -31,9 +31,8 @@ export default async function Upload(req, res) {
           status:true,
         });
         db.disconnect()
-        const newAddress = await address.save();
         // console.log(req.body)
-        res.send({message:'Address added Successfully',status:true})
+        res.send({message:'Address added Successfully',status:true,data:address})
     }catch(e){
       res.send({message:getError(e),status:false})
     }

@@ -1,4 +1,5 @@
-import Script from "next/script";
+/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useRef, useState } from "react";
 
 
@@ -109,6 +110,7 @@ function Demo() {
   const webSpeech = () => {
     if ("webkitSpeechRecognition" in window) {
       // Initialize webkitSpeechRecognition
+      // eslint-disable-next-line no-undef
       let speechRecognition = new webkitSpeechRecognition();
 
 
@@ -175,8 +177,6 @@ function Demo() {
   const [pateintID,setPateintID]=useState();
   const [show, setShow] = useState(false);
   const [currentRow, setCurrentRow] = useState(0);
-  const handleClose = () => setShow(false);
-  const sigCanvas = useRef({});
   const [result, setResult] = useState('<h3>Please Give Some Input</h3>');
 
   useEffect(() => {

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";
@@ -205,41 +207,41 @@ onSubmit: async (values) => {
          
             </div>
             <div className="col-6">
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
-              </div>
-              <div className="col-6">
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </div>
+            <div className="col-6">
               <button type="button" variant="success" onClick={()=>{fetchPincode(formik.values.zip)}}  className='btn btn-success '>Get Details</button>
 
-              </div>
+            </div>
           </div>
         </div>
       </Form>
 
       <div>
-<div className="col-12">
-    <div className="row">
-       {addresses.length>0?addresses.map((address) => (  <div className="col-md-3 m-3" style={{backgroundColor:'white',padding:'15px',borderRadius:'10px'}}>
-        <div>
+        <div className="col-12">
+          <div className="row">
+            {addresses.length>0?addresses.map((address) => (  <div className="col-md-3 m-3" style={{backgroundColor:'white',padding:'15px',borderRadius:'10px'}}>
+              <div>
          
-            <div key={address._id}>
-              <p>{address.address1}</p>
-              <p>{address.address2}</p>
-              <p>
-                {address.city}, {address.state} {address.zip}
-              </p>
-              <button onClick={() => {handleDelete(address._id)}} className="btn">
-                <i className="fas fa-trash"></i>
-              </button>
+                <div key={address._id}>
+                  <p>{address.address1}</p>
+                  <p>{address.address2}</p>
+                  <p>
+                    {address.city}, {address.state} {address.zip}
+                  </p>
+                  <button onClick={() => {handleDelete(address._id)}} className="btn">
+                    <i className="fas fa-trash"></i>
+                  </button>
        
-              <Modalc btnname={<i className="fas fa-edit"></i>} content={<Updateaddress address={address}/>} heading={'UpdateAdress'} savebtn={null}/>
-            </div>
+                  <Modalc btnname={<i className="fas fa-edit"></i>} content={<Updateaddress address={address}/>} heading={'UpdateAdress'} savebtn={null}/>
+                </div>
          
+              </div>
+            </div> )):(<p className="mt-3">No Address Found</p>)}
+          </div>
         </div>
-        </div> )):(<p className="mt-3">No Address Found</p>)}
-    </div>
-</div>
       </div>
     </div>
   );

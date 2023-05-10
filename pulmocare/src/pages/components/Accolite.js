@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import Accordion from 'react-bootstrap/Accordion';
 
+// eslint-disable-next-line react/prop-types
 function Accolite({header,body}) {
   return (
     <Accordion>
@@ -7,7 +9,7 @@ function Accolite({header,body}) {
       <Accordion.Item eventKey="1">
         <Accordion.Header>{header}</Accordion.Header>
         <Accordion.Body>
-   {body}
+          {body}
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

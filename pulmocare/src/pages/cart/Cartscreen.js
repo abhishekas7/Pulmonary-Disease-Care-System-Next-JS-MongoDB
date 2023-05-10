@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Footer from "../Footer";
 import { getSession } from "next-auth/react";
@@ -108,7 +110,7 @@ const cartSubtotal = cart.reduce((total, item) => {
   return (
     <div>
     
-   <Header/>
+      <Header/>
       <div className="mycrt">
         <div className="liton__shoping-cart-area mb-120">
           <div className="container">
@@ -127,65 +129,65 @@ const cartSubtotal = cart.reduce((total, item) => {
                         </tr>
                       </thead>
                       {cart.length === 0 ? (
-    <p>Your cart is empty</p>
+                        <p>Your cart is empty</p>
 ) : (
     cart.map((item) => (
-        <tbody>
-            {item.products.map((items) => (
-                <tr>
+      <tbody>
+        {item.products.map((items) => (
+          <tr>
                
-                    <td  className="cart-product-remove">
-                        <button onClick={() => removeItemFromCart(items.productId, items._id)}>x</button>
-                    </td>
-                    <td className="cart-product-image">
-                    <Link href={`/product/${items.productId}`}>
-                            <img
+            <td  className="cart-product-remove">
+              <button onClick={() => removeItemFromCart(items.productId, items._id)}>x</button>
+            </td>
+            <td className="cart-product-image">
+              <Link href={`/product/${items.productId}`}>
+                <img
                                 src={`..//images/${items.image}`}
                                 className="img-fluid img-thumbnail"
                                 width={"150px"}
                             />
-                        </Link>
-                    </td>
-                    <td className="cart-product-info">
-                        <h4>
-                            <a href="#" className="">
+              </Link>
+            </td>
+            <td className="cart-product-info">
+              <h4>
+                <a href="#" className="">
 
-                              {shortenProductName(items.name)}
+                  {shortenProductName(items.name)}
                            
-                            </a>
-                        </h4>
-                    </td>
-                    <td className="cart-product-price">
-                        {items.price}
-                    </td>
-                    <td>
-                        <div className="cart-plus-minus">
-                            <div
+                </a>
+              </h4>
+            </td>
+            <td className="cart-product-price">
+              {items.price}
+            </td>
+            <td>
+              <div className="cart-plus-minus">
+                <div
                                 className="dec qtybutton"
                                 onClick={() => decrementQuantity(items.productId, items._id)}
                             >
-                                -
-                            </div>
-                            <input
+                  -
+                </div>
+                <input
                                 type="text"
                                 value={items.quantity}
                                 name="qtybutton"
                                 className="cart-plus-minus-box"
                             />
-                            <div
+                <div
                                 className="inc qtybutton"
                                 onClick={() => incrementQuantity(items.productId, items._id)}
                             >
-                                +
-                            </div>
-                        </div>
-                    </td>
-                    <td className="cart-product-price">
-                        {items.price * items.quantity}
-                    </td>
-                </tr>
+                  +
+                </div>
+              </div>
+            </td>
+            <td className="cart-product-price">
+              {items.price * items.quantity}
+            </td>
+          </tr>
             ))}
-        </tbody>
+      </tbody>
     ))
 )}
 
@@ -194,30 +196,30 @@ const cartSubtotal = cart.reduce((total, item) => {
                   <div className="shoping-cart-total mt-50">
                     <h4>Cart Totals</h4>
                     <table className="table">
-  <tbody>
-  <tr>
-  <td>Cart Subtotal</td>
-  <td>&#x20B9;{cartSubtotal.toFixed(2)}</td>
-</tr>
+                      <tbody>
+                        <tr>
+                          <td>Cart Subtotal</td>
+                          <td>&#x20B9;{cartSubtotal.toFixed(2)}</td>
+                        </tr>
 
-<tr>
-  <td>
-    <strong>Order Total</strong>
-  </td>
+                        <tr>
+                          <td>
+                            <strong>Order Total</strong>
+                          </td>
 
-  <td>&#x20B9;{cartSubtotal.toFixed(2)}</td>
-</tr>
-  </tbody>
-</table>
+                          <td>&#x20B9;{cartSubtotal.toFixed(2)}</td>
+                        </tr>
+                      </tbody>
+                    </table>
 
-<div className="btn-wrapper btn-success text-right mt-1">
-  {/* <Link href="/Checkout" className="btn btn-success">
+                    <div className="btn-wrapper btn-success text-right mt-1">
+                      {/* <Link href="/Checkout" className="btn btn-success">
     Proceed to checkout
   </Link> */}
-  <Link href="/Checkout2" className="btn btn-success mt-4">
-    Proceed to checkout
-  </Link>
-</div>
+                      <Link href="/Checkout2" className="btn btn-success mt-4">
+                        Proceed to checkout
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>

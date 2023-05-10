@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 
 import React, { useState } from "react";
 import { useRouter } from 'next/router'
@@ -122,9 +123,9 @@ const index = ({patientdetails,orderdetails}) => {
     data-bs-toggle="dropdown"
   >
   
-  <i class="bi bi-house"></i>
+            <i class="bi bi-house"></i>
    
-  </Link>
+          </Link>
         </div>
 
         <nav className="header-nav ms-auto">
@@ -302,7 +303,7 @@ const index = ({patientdetails,orderdetails}) => {
   
 
 
-</li>
+            </li>
 
 
             <li className="nav-item dropdown pe-3">
@@ -312,8 +313,8 @@ const index = ({patientdetails,orderdetails}) => {
                 data-bs-toggle="dropdown"
               >
 
-{patData.map((data)=>(
- <img
+                {patData.map((data)=>(
+                  <img
  src={`..//images/${data.image}`}
                   alt="Profile"
                   className="rounded-circle"
@@ -322,7 +323,7 @@ const index = ({patientdetails,orderdetails}) => {
 
                
                 <span className="d-none d-md-block dropdown-toggle ps-2">
-                {status==='authenticated'? data.user.name:'loading'}
+                  {status==='authenticated'? data.user.name:'loading'}
                 </span>
               </a>
               <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -369,7 +370,7 @@ const index = ({patientdetails,orderdetails}) => {
         <ul className="sidebar-nav" id="sidebar-nav">
 
 
-       <li className="nav-item">
+          <li className="nav-item">
             <div className="nav-link collapsed">
               <i className="bi bi-grid" />
               <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('default')}}}><span className="fw-bold">Dashboard</span></button>           
@@ -419,9 +420,9 @@ const index = ({patientdetails,orderdetails}) => {
         <div className="pagetitle">
           <h1>PATIENT DASHBOARD</h1>
           <button onClick={logout}>logout</button>
-<div>
-{page()}
-</div>
+          <div>
+            {page()}
+          </div>
 
         </div>
       </main>

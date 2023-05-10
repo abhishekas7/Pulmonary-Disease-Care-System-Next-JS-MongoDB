@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -123,7 +126,7 @@ const getUserdata=async()=>{
         
 
         </div> */}
-        <div className='p-5'>
+      <div className='p-5'>
         
         
         <Formik
@@ -153,15 +156,15 @@ const getUserdata=async()=>{
           }
           }}
       >
-  {({ errors, touched }) => (
-    <Form className=''>
-    <legend className='text-2xl'>Add Address</legend>
-      <div className="mb-4">
-        <label htmlFor="address" className="block text-gray-700 font-bold mb-2">
-          Address
-        </label>
+          {({ errors, touched }) => (
+            <Form className=''>
+              <legend className='text-2xl'>Add Address</legend>
+              <div className="mb-4">
+                <label htmlFor="address" className="block text-gray-700 font-bold mb-2">
+                  Address
+                </label>
 
-        <Field
+                <Field
           type="text"
           name="address"
           id="address"
@@ -169,13 +172,13 @@ const getUserdata=async()=>{
             errors.address && touched.address ? "border-red-500" : ""
           }`}
         />
-        <ErrorMessage name="address" component="div" className="text-red-500" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="city" className="block text-gray-700 font-bold mb-2">
-          City
-        </label>
-        <Field
+                <ErrorMessage name="address" component="div" className="text-red-500" />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="city" className="block text-gray-700 font-bold mb-2">
+                  City
+                </label>
+                <Field
           type="text"
           name="city"
           id="city"
@@ -183,13 +186,13 @@ const getUserdata=async()=>{
             errors.city && touched.city ? "border-red-500" : ""
           }`}
         />
-        <ErrorMessage name="city" component="div" className="text-red-500" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="pin" className="block text-gray-700 font-bold mb-2">
-          Pin
-        </label>
-        <Field
+                <ErrorMessage name="city" component="div" className="text-red-500" />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="pin" className="block text-gray-700 font-bold mb-2">
+                  Pin
+                </label>
+                <Field
           type="text"
           name="pin"
           id="pin"
@@ -197,13 +200,13 @@ const getUserdata=async()=>{
             errors.pin && touched.pin ? "border-red-500" : ""
           }`}
         />
-        <ErrorMessage name="pin" component="div" className="text-red-500" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="country" className="block text-gray-700 font-bold mb-2">
-          Country
-        </label>
-        <Field
+                <ErrorMessage name="pin" component="div" className="text-red-500" />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="country" className="block text-gray-700 font-bold mb-2">
+                  Country
+                </label>
+                <Field
           type="text"
           name="country"
           id="country"
@@ -211,64 +214,64 @@ const getUserdata=async()=>{
             errors.country && touched.country ? "border-red-500" : ""
           }`}
         />
-        <ErrorMessage name="country" component="div" className="text-red-500" />
-      </div>
-      <button type="submit"  className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight hover:bg-amber-400 hover:text-white  focus:outline-none focus:shadow-outline`}>Submit</button>
-      </Form>
+                <ErrorMessage name="country" component="div" className="text-red-500" />
+              </div>
+              <button type="submit"  className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight hover:bg-amber-400 hover:text-white  focus:outline-none focus:shadow-outline`}>Submit</button>
+            </Form>
   )}
-      </Formik>
+        </Formik>
       </div>
 
       <div className='h-max -w-full bg-main'>
-      <p className='text-white text-4xl font-bold p-5'>Address</p>  
+        <p className='text-white text-4xl font-bold p-5'>Address</p>  
         <div className='grid grid-cols-3 gap-3 w-full p-4'>
-        {addressview.length>0?(
+          {addressview.length>0?(
             <>
-            {addressview.map((item,i)=>(
+              {addressview.map((item,i)=>(
                 <div  className='w-full h-max  p-4 bg-white shadow-md' key={i} >
-                    <div className='flex w-full p-3 '  >
+                  <div className='flex w-full p-3 '  >
 
-                        {/* <div className='flex justify-center items-start w-1/2'> Address:{item.address}</div>
+                    {/* <div className='flex justify-center items-start w-1/2'> Address:{item.address}</div>
                         <div className='w-1/2'>Zip:{item.zip}</div>
                     </div>
                     <div className='flex'>
                         <div className='flex justify-center items-start w-1/2'>City:{item.city}</div>
                         <div className='w-1/2'>Country:{item.country}</div> */}
-                        <table >
+                    <table >
                             
-                            <tr >
-                                <th className='flex justify-start items-center'>Address</th>
-                                <td className='flex justify-start items-center'>{item.address}</td>
-                            </tr>
-                            <tr>
-                                <th className='flex justify-start items-center'>City</th>
-                                <td className='flex justify-start items-center'>{item.city}</td>
+                      <tr >
+                        <th className='flex justify-start items-center'>Address</th>
+                        <td className='flex justify-start items-center'>{item.address}</td>
+                      </tr>
+                      <tr>
+                        <th className='flex justify-start items-center'>City</th>
+                        <td className='flex justify-start items-center'>{item.city}</td>
                                 
-                            </tr>
-                            <tr>
-                                <th className='flex justify-start items-center'>Zip</th>
-                                <td className='flex justify-start items-center'>{item.zip}</td>
+                      </tr>
+                      <tr>
+                        <th className='flex justify-start items-center'>Zip</th>
+                        <td className='flex justify-start items-center'>{item.zip}</td>
                                
-                            </tr>
-                            <tr>
-                                 <th className='flex justify-start items-center'>Country</th>
-                                <td className='flex justify-start items-center'>{item.country}</td>
-                                <td> <button type='button' className='btn btn-primary'  onClick={()=>removehandler(item._id)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
-</svg></button> <button type='button' className='cursor-pointer'  onClick={()=>updatehandler(item._id)}><i class="bi bi-pencil"></i></button></td>
-                            </tr>
+                      </tr>
+                      <tr>
+                        <th className='flex justify-start items-center'>Country</th>
+                        <td className='flex justify-start items-center'>{item.country}</td>
+                        <td> <button type='button' className='btn btn-primary'  onClick={()=>removehandler(item._id)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg></button> <button type='button' className='cursor-pointer'  onClick={()=>updatehandler(item._id)}><i class="bi bi-pencil"></i></button></td>
+                      </tr>
 
 
-                        </table>
-                    </div>
-                    </div> 
+                    </table>
+                  </div>
+                </div> 
             ))} </>
             
             ):(<div className='w-full justify-center text-xl'>Add AN address</div>)}
-         </div>
         </div>
       </div>
+    </div>
   )
 }
 

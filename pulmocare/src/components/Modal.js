@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function Modalc({heading,content,savebtn,btnname}) {
+function Modalc({heading,content,btnname}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -11,10 +14,6 @@ const UpdateProfile = ({data}) => {
 
  const [patientData, setPatientData] = useState([]);
 
-  const getData=async ()=>{
-    const response = await fetch('/api/patient/updateprofile', {method: 'GET'})
-    console.log(response);
-  }
 
   useEffect(() => {
     fetch('/api/patient/updateprofile')
@@ -94,9 +93,9 @@ const Submit = async (values) => {
 };
 
   return (
-<div className='container'>
+    <div className='container'>
 
-<Formik
+      <Formik
       initialValues={{
         age: '',
         gender: '',
@@ -121,13 +120,13 @@ const Submit = async (values) => {
         alert('Profile Updated')
       }}
     >
-      {({ isSubmitting }) => (
-      <Form>
+        {({ isSubmitting }) => (
+          <Form>
 
-{patientData && patientData.map((data,i)=>(
-  <p></p>
+            {patientData && patientData.map((data,i)=>(
+              <p></p>
 ))}
-      <Row>
+            <Row>
               <Col md={6}>
                 <label htmlFor="name.first">First Name</label>
                 <Field type="text" name="name.first" />
@@ -140,11 +139,11 @@ const Submit = async (values) => {
               </Col>
            
               <Col md={6}>
-              <label for="inputNumber" class="col-sm-2 col-form-label" >Image Upload</label>
-                        <div class="">
-                        <input type="file" onChange={(event) => setFile(event.target.files[0])} />
-                          <ErrorMessage name="image" className="text-danger" component="div" />
-                        </div>
+                <label for="inputNumber" class="col-sm-2 col-form-label" >Image Upload</label>
+                <div class="">
+                  <input type="file" onChange={(event) => setFile(event.target.files[0])} />
+                  <ErrorMessage name="image" className="text-danger" component="div" />
+                </div>
       
               </Col>
               <Col md={6}>
@@ -199,10 +198,10 @@ const Submit = async (values) => {
       
           </Form>
       )}
-    </Formik>
+      </Formik>
    
 
-</div>
+    </div>
     
   );
 };

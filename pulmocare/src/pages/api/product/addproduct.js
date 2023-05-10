@@ -38,6 +38,6 @@ export default async function Upload(req, res) {
       category: fields.category,
     });
     db.disconnect();
-    res.send("susessful");
+    res.status(200).json({data:newUser,message:"Product Added Successfully"})
   });
 }

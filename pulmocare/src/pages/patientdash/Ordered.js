@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import axios from 'axios';
@@ -61,14 +64,14 @@ const OrdersTable = () => {
             <th>Order Date</th>
             <th colSpan={1}>Products</th>
             <th >Quantity</th>
-             <th>Total</th>
-             <th>Bill</th>
+            <th>Total</th>
+            <th>Bill</th>
            
             
           </tr>
         </thead>
         <tbody>
-        {orders.length > 0 ? (
+          {orders.length > 0 ? (
   orders.map((order,i) => {
     const totalPrice = order.products.reduce((acc, product) => acc + (product.price * product.quantity), 0);
     return (
@@ -104,7 +107,7 @@ const OrdersTable = () => {
     <td colSpan="4">No orders found.</td>
   </tr>
 )}
-</tbody>
+        </tbody>
       </Table>
       <div className="d-flex justify-content-between align-items-center">
         <Pagination>
@@ -117,7 +120,7 @@ const OrdersTable = () => {
    
       </div>
       <div>
-    </div>
+      </div>
     </>
   );
 };

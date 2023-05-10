@@ -16,7 +16,7 @@ console.log('helo')
             { $set: { otp: 32453 } }
         );
         await result.save()
-        res.status(200).json({ success: true, user });
+        res.status(200).json({ success: true, data:result });
       } catch (error) {
         console.error(error);
         res.status(500).json({ success: false });

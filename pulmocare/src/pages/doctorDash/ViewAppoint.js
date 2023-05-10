@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -77,35 +79,35 @@ function ViewAppoint({appointment}) {
 
   return (
   
-      <div className='container'>
-        <div className="col-lg-12">
-          <div className="card">
-            <div className="card-body" style={{fontSize:14}}>
-              <div className="d-flex justify-content-between align-items-center">
-                <h5 className="card-title">Appointment Table</h5>
-                <button className="btn btn-primary" onClick={printReport}>Print Report</button>
-              </div>
-              {/* Default Table */}
-              <table id="appointment-table" className="table" border={1}>
-                <thead>
+    <div className='container'>
+      <div className="col-lg-12">
+        <div className="card">
+          <div className="card-body" style={{fontSize:14}}>
+            <div className="d-flex justify-content-between align-items-center">
+              <h5 className="card-title">Appointment Table</h5>
+              <button className="btn btn-primary" onClick={printReport}>Print Report</button>
+            </div>
+            {/* Default Table */}
+            <table id="appointment-table" className="table" border={1}>
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col" colSpan={2}>Patient</th>
+                  <th scope="col">Appointment Date</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Mobile</th>
+                  <th scope="col">Reason</th>
+                  <th scope="col">Status</th>
+                  <th scope="col" colSpan={2}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {Appointmt.data.length>0?Appointmt.data.map((item)=>(
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col" colSpan={2}>Patient</th>
-                    <th scope="col">Appointment Date</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Mobile</th>
-                    <th scope="col">Reason</th>
-                    <th scope="col">Status</th>
-                    <th scope="col" colSpan={2}>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-
-{Appointmt.data.length>0?Appointmt.data.map((item)=>(
-      <tr>
 
 
-      <td scope="col">#</td>
+                    <td scope="col">#</td>
                     <td scope="col"> <img src={`images/${item.image}`} alt="" width={50} /></td>
                     <td scope="col">{item.name.first} {item.name.last} </td>
                     <td scope="col">{item.date}</td>
@@ -118,29 +120,29 @@ function ViewAppoint({appointment}) {
 )}</td>
                     <td scope="col" colSpan={2}>
                       
-            <div className="btn-group" role="group" aria-label="Basic mixed styles example">
-<button variant="success" onClick={()=>{acceptHandler(item._id)}}  className='btn btn-success '>Accept</button>
-      <button variant="danger" onClick={()=>rejectHandler(item._id)} className='btn btn-danger'>Reject</button></div>
+                      <div className="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button variant="success" onClick={()=>{acceptHandler(item._id)}}  className='btn btn-success '>Accept</button>
+                        <button variant="danger" onClick={()=>rejectHandler(item._id)} className='btn btn-danger'>Reject</button></div>
 
 
                     </td>
-    </tr>
+                  </tr>
 )):(<p>No Appointment</p>)}
 
-                </tbody>
-              </table>
+              </tbody>
+            </table>
         
 
 
 
-      <button className="btn btn-primary" onClick={() => window.print()}>Print Report</button>
+            <button className="btn btn-primary" onClick={() => window.print()}>Print Report</button>
+          </div>
+          <div className="col-6">
+            {/* Add Pagination Functionality */}
+          </div>
+        </div>
+      </div>
     </div>
-    <div className="col-6">
-      {/* Add Pagination Functionality */}
-    </div>
-  </div>
-</div>
-</div>
   );
 }
 export default ViewAppoint;

@@ -1,24 +1,23 @@
-import Calender from '../components/Calender'
-import React from 'react'
+
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */import React from 'react'
 import Appointmentprofile from '../Appointmentprofile'
 import Header from '../components/Header'
 import Footer from '../Footer'
 import Doctor from '@/models/Doctor'
 import db from '@/util/db'
-import Navbar1 from '../components/Navbar1'
-import Navbarr from '../components/Navbar'
 import Appointment from '@/models/Appointment'
 
 
 function Bookdoc({doctor}) {
   return (
-   <>
-<Header/>
-   {/* <Navbar1/>
+    <>
+      <Header/>
+      {/* <Navbar1/>
    <Navbarr/> */}
-   <Appointmentprofile doctor={doctor}/>
-   <Footer/>
-   </>
+      <Appointmentprofile doctor={doctor}/>
+      <Footer/>
+    </>
     
   )
 }
@@ -31,9 +30,9 @@ export async function getServerSideProps({ params }) {
   const doctor = await Doctor.findById(params.Bookdoc).populate('user').lean();
   const appointment = await Appointment.find()
 
-  console.log(appointment);
+
   // const product = await Product.findOne({ _id: params.productdetails});
-  console.log(doctor);
+
   db.disconnect();
   return {
     props: {

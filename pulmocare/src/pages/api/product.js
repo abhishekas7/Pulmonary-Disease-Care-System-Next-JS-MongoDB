@@ -1,7 +1,5 @@
 
 import Product from '@/models/Product';
-import User from '@/models/User';
-import data from '@/util/data';
 import db from '@/util/db';
 
 const handler = async (req, res) => {

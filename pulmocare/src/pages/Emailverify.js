@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import axios from "axios";
 import { useSession, getSession } from "next-auth/react";
 import { useState } from "react";
@@ -51,42 +53,42 @@ function VerifyOTP() {
 
 
       <div className="container mt-5">
-     <div className="ltn__form-box contact-form-box box-shadow white-bg ml-0">
-  <h4 className="title-2">Verify Your Account</h4>
-  <form onSubmit={handleSubmit}>
-    <div className="col-12">
-      <div className="row">
-        <div className="col-12">
-        <label>
-          Email:
-          <input
+        <div className="ltn__form-box contact-form-box box-shadow white-bg ml-0">
+          <h4 className="title-2">Verify Your Account</h4>
+          <form onSubmit={handleSubmit}>
+            <div className="col-12">
+              <div className="row">
+                <div className="col-12">
+                  <label>
+                    Email:
+                    <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        </div>
-        <div className="col-12">
-        <label>
-          OTP:
-          <input 
+                  </label>
+                </div>
+                <div className="col-12">
+                  <label>
+                    OTP:
+                    <input 
             type="text" maxLength={4}
             value={otp}
             onChange={(e) => setOTP(e.target.value)}
             required
           />
-        </label>
-        </div>
-        <div className="col-12">
-        <button type="submit" className="btn btn-success">Verify OTP</button>
-        </div>
-      </div>
-    </div>
+                  </label>
+                </div>
+                <div className="col-12">
+                  <button type="submit" className="btn btn-success">Verify OTP</button>
+                </div>
+              </div>
+            </div>
        
-      </form>
-      {message && <p>{message}</p>}
-</div>
+          </form>
+          {message && <p>{message}</p>}
+        </div>
 
       </div>
     </div>

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import Footer from '../Footer';
 import Header from '../components/Header';
@@ -15,7 +17,7 @@ function AddressCheck({addressget}) {
     <div>
 
 
-<AddressView addressget={addressget}/>
+      <AddressView addressget={addressget}/>
 
     </div>
     

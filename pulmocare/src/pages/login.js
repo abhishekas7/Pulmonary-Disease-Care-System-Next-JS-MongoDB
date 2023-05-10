@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import Script from "next/script";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -19,11 +21,6 @@ export default function Home() {
 
   return (
     <>
-      <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
-      <link rel="stylesheet" href="css/font-icons.css" />
-      <link rel="stylesheet" href="css/plugins.css" />
-      <link rel="stylesheet" href="css/style.css" />
-      <link rel="stylesheet" href="css/responsive.css" />
       <div className="ltn__login-area pb-65">
         Status : {data.status}
         <div className="container">

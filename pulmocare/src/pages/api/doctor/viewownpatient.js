@@ -1,16 +1,13 @@
 import Appointment from "@/models/Appointment";
 import Doctor from "@/models/Doctor";
-import Patient from "@/models/Patient";
 import db from "@/util/db";
 import { getError } from "@/util/error";
 import { getSession } from "next-auth/react";
 
-db.connect();
+
 
 export default async function handler(req, res) {
   const { method } = req;
-  const sess = await getSession({ req });
-  const Id = sess.user._id;
   // console.log(Id);
 
   switch (method) {
@@ -38,7 +35,6 @@ export default async function handler(req, res) {
   break;
     case "POST":
       try {
-        const appointment = await Appointment.create(req.body);
       } catch (error) {
         res.status(400).json({ success: false });
       }
@@ -53,11 +49,6 @@ export default async function handler(req, res) {
            if(status==='confirmed')
             {
               try {
-                const filter = { _id: appId };
-                const update = { status: 'confirmed' };
-                const doc = await Appointment.findOneAndUpdate(filter, update, {
-                  new: 'true'
-                });
             
               } catch (error) {
                 console.log(getError(error));

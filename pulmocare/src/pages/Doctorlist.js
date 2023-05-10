@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from "react";
 import Footer from "./Footer";
 import Header from "./components/Header";
@@ -37,7 +39,7 @@ const Doctorlist = ({ doctor }) => {
                         <a href="team-details.html">{doc.user.name}</a>
                       </h4>
                       <h6 className="ltn__secondary-color">
-                       {doc.specialty}
+                        {doc.specialty}
              
                       </h6>
 

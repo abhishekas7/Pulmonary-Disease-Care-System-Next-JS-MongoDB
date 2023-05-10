@@ -11,7 +11,6 @@ const handler = async (req, res) => {
     return res.status(401).send("signin required");
   }
 
-  const { user } = session;
   try {
     await db.connect();
 
@@ -34,7 +33,7 @@ const handler = async (req, res) => {
         await product.save();
       }
     } catch (e) {
-      res.send({ message: "error @ product", status: true });
+      console.log(getError(e));
     }
     const order1 = await order.save();
     await db.disconnect();

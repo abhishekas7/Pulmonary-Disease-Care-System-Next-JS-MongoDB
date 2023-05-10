@@ -34,7 +34,7 @@ export default async function Upload(req, res) {
       keepExtensions: true,
       maxFileSize: 10 * 1024 * 1024, // 10mb
       maxFieldsSize: 10 * 1024 * 1024, // 10mb
-      filename: function (name, ext, part, form) {
+      filename: function (name, ext) {
         return name + ext;
       },
     };

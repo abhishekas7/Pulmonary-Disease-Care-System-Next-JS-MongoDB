@@ -2,6 +2,8 @@ import db from "@/util/db";
 import { getError } from "@/util/error";
 import { MyAddress } from "@/models/CheckoutSchema";
 import { getToken } from "next-auth/jwt";
+import Appointment from "@/models/Appointment";
+import Address from "@/models/Address";
 
 db.connect();
 
@@ -83,7 +85,6 @@ export default async function handler(req, res) {
       }
       break;
     case "DELETE":
-        const { addid } = req.query;
        
 
         try {
