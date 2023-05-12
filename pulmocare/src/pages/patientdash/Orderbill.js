@@ -278,7 +278,7 @@ if (subtotal > 500) {
   );
 }
 
-export function BillApp({orderId}) {
+function BillApp({orderId}) {
   const [modalShow, setModalShow] = useState(false);
   const [orderIds, setOrderId] = useState(null);
   const [order, setOrder] = useState(null);
@@ -312,3 +312,5 @@ export function BillApp({orderId}) {
     </>
   );
 }
+
+export default BillApp;

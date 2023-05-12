@@ -22,7 +22,7 @@ function Deafultpage({ userdet }) {
               </div>
               <div className='col-9'>
                 <p>Welcome back</p>
-                <h1 className='card-title m-0 p-0'>{user.name}</h1>
+                <h1 className='card-title m-0 p-0'></h1>
                 <p>
                   We would like to take this opportunity to welcome you to our practice and to thank you for choosing our physicians to participate in your healthcare. We look forward to providing you with personalized, comprehensive health care focusing on wellness and prevention.
                 </p>

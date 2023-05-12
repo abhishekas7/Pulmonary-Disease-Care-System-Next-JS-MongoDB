@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-
 import React, { useState } from "react";
 import { useRouter } from 'next/router'
 import { getSession, useSession } from "next-auth/react";
@@ -123,7 +122,7 @@ const index = ({patientdetails,orderdetails}) => {
     data-bs-toggle="dropdown"
   >
   
-            <i class="bi bi-house"></i>
+            <i className="bi bi-house"></i>
    
           </Link>
         </div>
@@ -313,7 +312,7 @@ const index = ({patientdetails,orderdetails}) => {
                 data-bs-toggle="dropdown"
               >
 
-                {patData.map((data)=>(
+                {patData.map((data,i)=>(
                   <img
  src={`..//images/${data.image}`}
                   alt="Profile"
@@ -373,34 +372,34 @@ const index = ({patientdetails,orderdetails}) => {
           <li className="nav-item">
             <div className="nav-link collapsed">
               <i className="bi bi-grid" />
-              <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('default')}}}><span className="fw-bold">Dashboard</span></button>           
+              <button className="btn bg-transparent font-weight-light" onClick={()=>{{setOption('default')}}}><span className="fw-bold">Dashboard</span></button>           
             </div>
           </li>
 
           <li className="nav-item">
             <div className="nav-link collapsed">
               <i className="bi bi-grid" />
-              <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('viewprofile')}}}><span className="fw-bold">Profile</span></button>           
+              <button className="btn bg-transparent font-weight-light" onClick={()=>{{setOption('viewprofile')}}}><span className="fw-bold">Profile</span></button>           
             </div>
           </li>
           <li className="nav-item">
             <div className="nav-link collapsed">
               <i className="bi bi-grid" />
-              <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('updateprofile')}}}><span className="fw-bold">UpdateProfile</span></button>           
-            </div>
-          </li>
-
-          <li className="nav-item">
-            <div className="nav-link collapsed">
-              <i className="bi bi-grid" />
-              <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('medicalrecord')}}}><span className="fw-bold">Medical Record</span></button>           
+              <button className="btn bg-transparent font-weight-light" onClick={()=>{{setOption('updateprofile')}}}><span className="fw-bold">UpdateProfile</span></button>           
             </div>
           </li>
 
           <li className="nav-item">
             <div className="nav-link collapsed">
               <i className="bi bi-grid" />
-              <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('addaddress')}}}><span className="fw-bold">Add Address</span></button>           
+              <button className="btn bg-transparent font-weight-light" onClick={()=>{{setOption('medicalrecord')}}}><span className="fw-bold">Medical Record</span></button>           
+            </div>
+          </li>
+
+          <li className="nav-item">
+            <div className="nav-link collapsed">
+              <i className="bi bi-grid" />
+              <button className="btn bg-transparent font-weight-light" onClick={()=>{{setOption('addaddress')}}}><span className="fw-bold">Add Address</span></button>           
             </div>
           </li>
 
@@ -408,7 +407,7 @@ const index = ({patientdetails,orderdetails}) => {
           <li className="nav-item">
             <div className="nav-link collapsed">
               <i className="bi bi-grid" />
-              <button class="btn bg-transparent font-weight-light" onClick={()=>{{setOption('order')}}}><span className="fw-bold">My Orders</span></button>           
+              <button className="btn bg-transparent font-weight-light" onClick={()=>{{setOption('order')}}}><span className="fw-bold">My Orders</span></button>           
             </div>
           </li>
    
@@ -449,7 +448,7 @@ export async function getServerSideProps(context) {
   const session = await getSession(context);
 
   const user_id = session.user._id;
-  console.log(user_id);
+
 
   const patientdetails = await Patient.find({user:user_id}).populate('user');
 

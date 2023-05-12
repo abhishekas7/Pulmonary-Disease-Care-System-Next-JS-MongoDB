@@ -1,61 +1,23 @@
 {
-  "ecmaFeatures": {
-    "modules": true,
-    "spread": true,
-    "restParams": true,
-    "jsx": true
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": ["react"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": false
+    }
+  },
+  "rules": {
+    "*": "off",
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off"
   },
   "env": {
     "browser": true,
-    "node": true,
-    "es6": true
-  },
-  "plugins": [
-    "react"
-  ],
-  "rules": {
-    "no-console": ["error", { "allow": ["warn", "error"] }],
-    "no-param-reassign": ["error", { "props": false }],
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-    "prefer-template": "error",
-    "prefer-destructuring": ["error", { "object": true, "array": false }],
-    "arrow-body-style": ["error", "as-needed"],
-    "object-shorthand": "error",
-    "quote-props": ["error", "as-needed"],
-    "no-else-return": "error",
-    "no-mixed-operators": ["error", { "groups": [["+", "-"], ["*", "/"], ["%", "**"], ["&", "|", "^", "~", "<<", ">>", ">>>"]] }],
-    "operator-linebreak": ["error", "after", { "overrides": { "?": "before", ":": "before" } }],
-    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
-    "react/jsx-props-no-spreading": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/jsx-indent-props": ["error", 2],
-    "react/jsx-indent": ["error", 2, { "checkAttributes": true, "indentLogicalExpressions": true }],
-    "react/jsx-one-expression-per-line": "off",
-    "react/require-default-props": "off",
-    "linebreak-style": 0,
-    "semi": ["error", "always"]
-
-  }
-  ,
-  "settings": {
-    "import/resolver": {
-      "alias": {
-        "map": [
-          ["@", "./src"]
-        ],
-        "extensions": [".js", ".jsx", ".json"]
-      }
-    }
-  },
-  "extends":"airbnb",
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 8,
-    "ecmaFeatures": {
-        "jsx": true,
-        "spread" : true,
-        "restParams" : true,
-        "modules": true
-    }
+    "node":true
   }
 }

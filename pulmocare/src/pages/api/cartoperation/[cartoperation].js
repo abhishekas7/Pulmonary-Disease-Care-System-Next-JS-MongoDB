@@ -1,3 +1,4 @@
+// eslint-disable-line no-console
 import cart from '@/models/CartSchema';
 import db from '@/util/db';
 import { getError } from '@/util/error';
@@ -15,13 +16,7 @@ export default async function handler(req, res) {
   await db.connect();
 
   switch (req.method) {
-    case 'GET':
-      try {
-  
-      } catch (error) {
-        res.status(500).json({ message: error.message });
-      }
-      break;
+
       case 'POST':
         try {
        
@@ -62,15 +57,6 @@ res.status(200).json({ success: true, data: addtocart });
           res.status(500).json({ message: error.message });
         }
         break;
-      
-
-    case 'PUT':
-      try {
-
-      } catch (error) {
-        res.status(500).json({ message: error.message });
-      }
-      break;
 
       case 'DELETE':
         try {

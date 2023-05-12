@@ -88,10 +88,10 @@ export default function k({product}) {
                     </div>
                     <div className="col-md-6">
                       <div className="modal-product-info shop-details-info pl-0">
-                        <div class="product-ratting">
+                        <div className="product-ratting">
                           <ul>
-                            <li><a href="#"><i class="fas fa-star"></i></a></li>
-                            <li class="review-total pl-5"> <a href="#"> ( {product.rating} Rating )</a></li>
+                            <li><a href="#"><i className="fas fa-star"></i></a></li>
+                            <li className="review-total pl-5"> <a href="#"> ( {product.rating} Rating )</a></li>
                           </ul>
                         </div>
                         <h3>{product.name}</h3>

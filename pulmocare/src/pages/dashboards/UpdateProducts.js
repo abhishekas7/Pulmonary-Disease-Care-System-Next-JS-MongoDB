@@ -76,6 +76,7 @@ const UpdateProducts = ({Item}) => {
            icon: 'success',
          });
          window.location.reload();
+         UpdateProducts()
  
        } catch (error) {
          Swal.fire({
