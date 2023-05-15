@@ -53,4 +53,4 @@ jobs:
           app-name: 'pulmocare'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DCF5BA2539854D75A4D6A8D39445C1F6 }}
-          package: .
+          package: /Pulmonary-Disease-Care-System-Next-JS-MongoDB/pulmocare/
