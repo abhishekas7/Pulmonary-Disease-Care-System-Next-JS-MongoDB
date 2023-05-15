@@ -20,8 +20,6 @@ const Doctorlist = ({ doctor }) => {
 
   return (
     <div>
-      {/* <Navbar1 />
-      <Navbarr /> */}
       <Header/>
       <div className="mt-5 mb-5">
         <div className="ltn__team-area pt-110--- pb-90">
