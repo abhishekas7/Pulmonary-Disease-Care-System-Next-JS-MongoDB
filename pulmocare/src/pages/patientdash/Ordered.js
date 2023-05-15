@@ -9,7 +9,8 @@ import _ from 'lodash';
 import { Modal, Button, Form } from "react-bootstrap";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import { BillApp } from './Orderbill';
+import BillApp from './Orderbill';
+
 
 
 const OrdersTable = () => {

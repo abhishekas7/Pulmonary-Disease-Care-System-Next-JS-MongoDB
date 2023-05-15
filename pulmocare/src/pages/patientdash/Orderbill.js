@@ -95,8 +95,7 @@ doc.autoTable({
 }); 
 
 
-doc.setLineWidth(0.5); // set line width
-doc.line(20, 50, 190, 50); // add horizontal line
+
 
 
 // Add subtotal information
@@ -114,7 +113,7 @@ doc.text(`Total: ${total.toFixed(2)}`, 120, doc.autoTable.previous.finalY + 30);
 
         // add the footer to the PDF
         doc.setFontSize(10);
-        doc.text('Thank you for your business!', 10, doc.internal.pageSize.getHeight() - 30);
+        doc.text('Thank you for your shopping!', 10, doc.internal.pageSize.getHeight() - 30);
         doc.text('Payment ID:', 400, doc.internal.pageSize.getHeight() - 30);
         
 
@@ -266,9 +265,7 @@ if (subtotal > 500) {
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
+      <Button onClick={props.onHide}>Close</Button>
         <Button variant="primary" onClick={handleSendInvoice}>
           Send Invoice
         </Button>

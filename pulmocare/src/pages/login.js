@@ -94,11 +94,7 @@ export default function Home() {
                         placeholder="Password*"
                       />
                       <ErrorMessage name="password" className="text-danger" />
-                      {/* <ReCAPTCHA
-                        sitekey="6LcojT4lAAAAABYNfpaKjCOAVYcabix_MP3fDXXZ"
-                        onChange={onCapcha}name="recapcha"
-                      /> */}
-                      ,
+             
                       <div className="btn-wrapper mt-0">
                         <button
                           className="theme-btn-1 btn btn-block"
