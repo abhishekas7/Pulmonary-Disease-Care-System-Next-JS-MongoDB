@@ -26,7 +26,6 @@
     "jspdf-autotable": "^3.5.28",
     "moment": "^2.29.4",
     "mongoose": "^7.1.1",
-    "natural": "^6.3.0",
     "next-auth": "^4.22.1",
     "nodemailer": "^6.9.2",
     "popper.js": "^1.16.1",
@@ -60,6 +59,9 @@
     "fs": false,
     "os": false,
     "path": false
+  },
+  "engines": {
+    "node": "18.x"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
