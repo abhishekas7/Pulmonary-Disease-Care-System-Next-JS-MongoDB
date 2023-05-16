@@ -94,7 +94,7 @@ function ViewAppoint({appointment}) {
                   <th scope="col">#</th>
                   <th scope="col" colSpan={2}>Patient</th>
                   <th scope="col">Appointment Date</th>
-                  <th scope="col">Email</th>
+                  {/* <th scope="col">Email</th> */}
                   <th scope="col">Mobile</th>
                   <th scope="col">Reason</th>
                   <th scope="col">Status</th>
@@ -111,7 +111,7 @@ function ViewAppoint({appointment}) {
                     <td scope="col"> <img src={`images/${item.image}`} alt="" width={50} /></td>
                     <td scope="col">{item.name.first} {item.name.last} </td>
                     <td scope="col">{item.date}</td>
-                    <td scope="col">{item.user.email }</td>
+                    {/* <td scope="col">{item.user.email }</td> */}
                     <td scope="col">{item.phonenumber}</td>
                     <td scope="col">{item.reason}</td>
                     <td scope="col">{item.status=='confirmed'?(<button type="button" className="btn btn-success"><i className="bi bi-check-circle" /></button>
