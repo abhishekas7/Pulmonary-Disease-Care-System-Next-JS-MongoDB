@@ -15,7 +15,7 @@
     "@fullcalendar/list": "^6.1.5",
     "@fullcalendar/moment": "^6.1.5",
     "@fullcalendar/moment-timezone": "^6.1.5",
-    "@fullcalendar/react": "^6.1.5",
+   
     "@fullcalendar/timegrid": "^6.1.5",
     "@nlpjs/core": "^4.26.1",
     "@speechly/react-client": "^2.2.3",
@@ -82,7 +82,6 @@
     "react-modal": "^3.16.1",
     "react-otp-input": "^3.0.0",
     "react-pdf": "^6.2.2",
-    "react-portal-overlay": "^1.1.0",
     "react-rating": "^2.0.5",
     "react-recaptcha": "^2.3.10",
     "react-signature-canvas": "^1.0.6",
