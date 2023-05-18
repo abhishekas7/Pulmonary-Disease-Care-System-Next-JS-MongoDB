@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-print("Register")
+print("start")
 options=webdriver.EdgeOptions()
 options.add_experimental_option('excludeSwitches',['enable-logging'])
 driver = webdriver.Edge(options=options)
@@ -14,20 +14,10 @@ driver.find_element("name", "email").send_keys("abhisheksubash25@gmail.com")
 time.sleep(3)
 driver.find_element("name", "password").send_keys("Abhi@123")
 time.sleep(3)
-driver.find_element("xpath", "/html/body/div/div/div/div/form/h1[2]/input").click()
-driver.get("http://localhost/MINI%20PROJECT/det/multilogin/dashtreme-master/dashboard.html")
-driver.get("http://localhost/MINI%20PROJECT/det/multilogin/dashtreme-master/update-progress.php?email=yiya@gmail.com")
+button = driver.find_element(By.ID, "submitbtn")  # Replace "button_id" with the actual ID of the button
+button.click()
 
-driver.find_element("name", "ini_weight").send_keys("70")
-time.sleep(3)
-driver.find_element("name", "curr_weight").send_keys("60")
-time.sleep(3)
-driver.find_element("name", "ini_bodytype").send_keys("Fat")
-time.sleep(3)
-driver.find_element("name", "curr_bodytype").send_keys("Fit")
-time.sleep(3)
-driver.find_element("xpath", "/html/body/div/div/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/button").click()
-time.sleep(3)
-print("Changes updated")
-driver.get("http://localhost/MINI%20PROJECT/det/multilogin/dashtreme-master/view-member-report.php?id=%20134")
-time.sleep(3) 
+
+
+
+

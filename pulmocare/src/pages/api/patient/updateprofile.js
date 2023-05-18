@@ -5,6 +5,7 @@ import Patient from "@/models/Patient";
 import { getSession } from "next-auth/react";
 import moment from "moment";
 import User from "@/models/User";
+import { getError } from "@/util/error";
 
 
 export const config = {
@@ -50,11 +51,11 @@ export default async function Upload(req, res) {
 
 
       try {
-        console.log(userId);
+     
 
         await db.connect();
         const user = await User.findById(userId);
-        console.log(user);
+   
         const patient = await Patient.findOne({ user: userId });
     
         if (patient) {
@@ -71,12 +72,6 @@ export default async function Upload(req, res) {
                   last: fields['name.last']
                 },
                 email:user.email,
-                address: {
-                  street: fields['address.street'],
-                  city: fields['address.city'],
-                  state: fields['address.state'],
-                  zip: fields['address.zip']
-                },
                 age: fields.age,
                 image: files.file.newFilename,
                 mobile: fields.mobile,
@@ -101,14 +96,9 @@ export default async function Upload(req, res) {
               last: fields['name.last']
             },
             dateOfBirth:moment(fields.dateOfBirth).format("MMMM Do YYYY, h:mm:ss a"),
-            address: {
-              street: fields['address.street'],
-              city: fields['address.city'],
-              state: fields['address.state'],
-              zip: fields['address.zip']
-            }
           });
-          await newPatient.save();
+          const responseData = await newPatient.save();
+          res.status(200).json(responseData);
         }
 
         // if(Patientdoc){
@@ -120,9 +110,9 @@ export default async function Upload(req, res) {
    
         
         // Add code here to save the uploaded file or any other data to the database
-        res.send("Successful");
+        
       } catch (error) {
-        console.log(error);
+        getError(error)
         res.status(500).send("Error connecting to the database.");
       } finally {
         await db.disconnect();

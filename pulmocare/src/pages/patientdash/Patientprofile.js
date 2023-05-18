@@ -5,16 +5,13 @@ import Tabs from 'react-bootstrap/Tabs';
 import UpdateProfile from './UpdateProfile';
 // eslint-disable-next-line no-unused-vars
 import ViewProfile from './ViewProfile';
-
-
+import ChangePassword from './ChangePassword';
 // eslint-disable-next-line react/prop-types
 function Patientprofile({patientdetails}) {
-
-
     const [patientData, setPatientData] = useState(patientdetails);
 
 
-console.log(patientData);
+
 
 
   return (
@@ -44,7 +41,10 @@ console.log(patientData);
                       <ViewProfile/>
                     </Tab>
                     <Tab eventKey="editprofile" title="EditProfile">
-                      <UpdateProfile data={data}/>
+                      <UpdateProfile datas={data}/>
+                    </Tab>
+                    <Tab eventKey="changepassword" title="Change Password">
+                      <ChangePassword/>
                     </Tab>
                     <Tab eventKey="contact" title="Contact" disabled>
                     </Tab>

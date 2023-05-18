@@ -15,7 +15,7 @@
     "@fullcalendar/list": "^6.1.5",
     "@fullcalendar/moment": "^6.1.5",
     "@fullcalendar/moment-timezone": "^6.1.5",
-   
+    "@fullcalendar/react": "^6.1.7",
     "@fullcalendar/timegrid": "^6.1.5",
     "@nlpjs/core": "^4.26.1",
     "@speechly/react-client": "^2.2.3",
@@ -59,7 +59,6 @@
     "mongodb": "^5.1.0",
     "mongoose": "^7.0.1",
     "multer": "^1.4.5-lts.1",
-    "natural": "^6.3.0",
     "next-auth": "^4.22.1",
     "node-fetch": "^3.3.1",
     "nodemailer": "^6.9.1",

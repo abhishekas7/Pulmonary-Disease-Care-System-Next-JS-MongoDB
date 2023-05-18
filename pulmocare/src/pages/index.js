@@ -32,7 +32,7 @@ export default function Home({products}) {
         }
         if(data.user.role==='patient'){
 
-Swal.fire('Please Fill Your Deatils ')
+// Swal.fire('Please Fill Your Deatils ')
         }
         
       }

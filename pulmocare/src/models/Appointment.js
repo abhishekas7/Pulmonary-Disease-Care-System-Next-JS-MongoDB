@@ -26,6 +26,11 @@ const appointmentSchema = new Schema({
     type: Boolean,
     default: false
   },
+  timeSlot: {
+    type: Schema.Types.ObjectId,
+    ref: 'TimeSlot',
+
+  },
   status: {
     type: String,
     enum: ['pending', 'confirmed', 'cancelled'],

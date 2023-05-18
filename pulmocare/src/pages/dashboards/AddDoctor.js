@@ -43,7 +43,7 @@ const Submit =async (values)=>{
     body.append('experience', values.experience);
     body.append('description', values.description);
     body.append('qualification', values.qualification);
-    alert("DOctor Added")
+    alert("Doctor Added")
     const response = await fetch('/api/doctor/doctor', {method: 'POST', body})
 
   
@@ -113,9 +113,12 @@ const Submit =async (values)=>{
             <div className="form-group">
               <label for="inputNumber" class="col-sm-2 col-form-label" >Image Upload</label>
               <div class="col-sm-10">
-                <input class="form-control" type="file" id="formFile" onChange={getImage } name='image'/>
-                <ErrorMessage name="image" className="text-danger" component="div" />
+                <input class="form-control" type="file" id="formFile" onChange={getImage} name='image'/>
+                <ErrorMessage name="image" className="text-danger" component="div"/>
               </div>
+            </div>
+            <div className="form-group">
+              hh
             </div>
        
        
