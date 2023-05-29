@@ -236,7 +236,7 @@ const Header = () => {
                           <Link href="/productpage">Products</Link>
                         </li>
                         <li>
-                          <Link href="/Doctorlist">Doctors</Link>
+                          <Link href="/doctorlist">Doctors</Link>
                         </li>
                         <li>
                           <Link href="http://localhost:3001/">Meditation</Link>
