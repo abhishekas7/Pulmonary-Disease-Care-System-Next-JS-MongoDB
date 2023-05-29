@@ -10,6 +10,7 @@ import Appointment from '@/models/Appointment'
 
 
 function Bookdoc({doctor}) {
+  console.log(doctor)
   return (
     <>
       <Header/>
@@ -25,7 +26,7 @@ export default Bookdoc
 export async function getServerSideProps({ params }) {
   // const product =await Product.findbyId(params.productdetails
     db.connect()
-  const doctor = await Doctor.findById(params.Bookdoc).populate('user').lean();
+  const doctor = await Doctor.findById(params.Bookdoc).populate().lean();
   const appointment = await Appointment.find()
 
 
