@@ -103,11 +103,9 @@ function ViewAppoint({appointment}) {
               </thead>
               <tbody>
 
-                {Appointmt.data.length>0?Appointmt.data.map((item)=>(
+                {Appointmt.data.length>0?Appointmt.data.map((item,i)=>(
                   <tr>
-
-
-                    <td scope="col">#</td>
+                    <td scope="col">{i+1}</td>
                     <td scope="col"> <img src={`images/${item.image}`} alt="" width={50} /></td>
                     <td scope="col">{item.name.first} {item.name.last} </td>
                     <td scope="col">{item.date}</td>
@@ -135,11 +133,8 @@ function ViewAppoint({appointment}) {
 
 
 
-            <button className="btn btn-primary" onClick={() => window.print()}>Print Report</button>
           </div>
-          <div className="col-6">
-            {/* Add Pagination Functionality */}
-          </div>
+   
         </div>
       </div>
     </div>

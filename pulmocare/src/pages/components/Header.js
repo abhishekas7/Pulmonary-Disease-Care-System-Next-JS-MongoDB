@@ -239,8 +239,9 @@ const Header = () => {
                           <Link href="/Doctorlist">Doctors</Link>
                         </li>
                         <li>
-                          <Link href="http://localhost:3001/">Meditation</Link>
+                          <Link href="/Blog">Blog</Link>
                         </li>
+                    
                       </ul>
                     </div>
                   </nav>
