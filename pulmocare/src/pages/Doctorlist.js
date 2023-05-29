@@ -15,7 +15,7 @@ const Doctorlist = ({ doctor }) => {
   const [showModal, setShowModal] = React.useState(false);
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
-
+  console.log(doctor)
   
 
   return (
@@ -68,24 +68,24 @@ const Doctorlist = ({ doctor }) => {
 
 export default Doctorlist;
 
-// export async function getServerSideProps() {
-//   await db.connect();
+export async function getServerSideProps() {
+  await db.connect();
 
-//   // Find the document with the given ID in Document1
+  // Find the document with the given ID in Document1
 
-//   const doctor = await Doctor.find()
-//     .populate({
-//       path: "user",
-//       match: { role: "doctor" },
-//       select: "-_id -__v -password", // exclude these fields from the result
-//     })
-//     .lean();
-//   // const product = await Product.findOne({ _id: params.productdetails});
-//   // console.log(doctor);
-//  await db.disconnect();
-//   return {
-//     props: {
-//       doctor: JSON.parse(JSON.stringify(doctor)),
-//     },
-//   };
-// }
+  const doctor = await Doctor.find()
+    .populate({
+      path: "user",
+      match: { role: "doctor" },
+      select: "-_id -__v -password", // exclude these fields from the result
+    })
+    .lean();
+  // const product = await Product.findOne({ _id: params.productdetails});
+  // console.log(doctor);
+ await db.disconnect();
+  return {
+    props: {
+      doctor: JSON.parse(JSON.stringify(doctor)),
+    },
+  };
+}
