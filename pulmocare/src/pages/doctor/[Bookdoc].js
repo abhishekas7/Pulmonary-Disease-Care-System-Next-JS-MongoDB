@@ -10,6 +10,7 @@ import Appointment from '@/models/Appointment'
 
 
 function Bookdoc({doctor}) {
+  console.log(doctor)
   return (
     <>
       <Header/>
