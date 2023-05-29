@@ -1,0 +1,18 @@
+from selenium import webdriver
+import time
+print("Login test case started")
+options=webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches',['enable-logging'])
+driver = webdriver.Chrome(options=options)
+driver.maximize_window()
+driver.get("http://localhost:3000")
+driver.find_element("name", "email").send_keys("abhisheksubash25@gmail.com")
+time.sleep(3)
+print("email entered.")
+driver.find_element("name", "password").send_keys("Abhi@1234")
+time.sleep(3)
+print("password entered.")
+driver.find_element("xpath", "/html/body/div[1]/div[1]/div/div[2]/div[1]/div/form/div[1]/button").click()
+time.sleep(3)
+print("Login button pressed.")
+print("User Logged In")

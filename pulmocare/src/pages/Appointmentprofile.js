@@ -6,14 +6,10 @@ import Calender from './components/Calender'
 function Appointmentprofile({doctor}) {
 
 useEffect(() => {
-
-
   return () => {
     // console.log(doctor);
   }
 },)
-
-
   return (
     <div className="container mt-5">
  

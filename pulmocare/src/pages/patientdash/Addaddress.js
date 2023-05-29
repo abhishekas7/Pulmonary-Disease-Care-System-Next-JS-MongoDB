@@ -88,6 +88,7 @@ onSubmit: async (values) => {
           icon: 'success',
           text: 'Address deleted successfully',
         });
+        fetchAddresses();
       }
     } catch (error) {
       console.log(error);

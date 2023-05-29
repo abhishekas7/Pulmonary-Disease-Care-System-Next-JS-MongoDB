@@ -167,9 +167,7 @@ const Header = () => {
                               </li>
              
                         
-                              <li>
-                                <Link href="/register">Register</Link>
-                              </li>
+                     
                               <li>
                                 {!sess.status==='loading'?(<div>{sess.data.user.role==='admin'?(<Link href="/admindash">Admindash</Link>):(<div>{sess.data.user.role==='admin'?(<Link href="/admindash">Admindash</Link>):(null)}</div>)}</div>):(null)}
                               </li>

@@ -20,6 +20,7 @@ import AOS from "aos";
 
 import "aos/dist/aos.css";
 import { useRouter } from "next/router";
+import ReduxWrapper from "../../store";
 
 
 export default function App({
@@ -50,6 +51,7 @@ export default function App({
     </link>
     <SessionProvider session={session}>
       <BreakpointProvider>
+      <ReduxWrapper>
           <StoreProvider>
           {Component.auth ? (
             
@@ -63,12 +65,11 @@ export default function App({
           )}
             <ToastContainer />
           </StoreProvider> 
+</ReduxWrapper>
       </BreakpointProvider>
   </SessionProvider>
-      <Script src="../../public/js/plugins.js"/>
-      <Script src="../../public/js/main.js" />
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/tinymce.min.js"></Script>
-      <Script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></Script>
+
+
     </>
   );
 }

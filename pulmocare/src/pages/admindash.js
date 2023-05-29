@@ -90,7 +90,7 @@ const Admindash = ({ productss, allusers, order }) => {
         className="header fixed-top d-flex align-items-center"
       >
         <div className="d-flex align-items-center justify-content-between">
-          <a href="index.html" className="logo d-flex align-items-center">
+          <a href="#" className="logo d-flex align-items-center">
             <img src="assets/img/logo.png" alt="" />
             <span className="d-none d-lg-block">Admin</span>
           </a>
@@ -302,7 +302,7 @@ const Admindash = ({ productss, allusers, order }) => {
                 <li>
                   <a
                     className="dropdown-item d-flex align-items-center"
-                    href="users-profile.html"
+                    href="#"
                   >
                     <i className="bi bi-person" />
                     <span>My Profile</span>
@@ -314,7 +314,7 @@ const Admindash = ({ productss, allusers, order }) => {
                 <li>
                   <a
                     className="dropdown-item d-flex align-items-center"
-                    href="users-profile.html"
+                    href="#"
                   >
                     <i className="bi bi-gear" />
                     <span>Account Settings</span>
@@ -326,7 +326,7 @@ const Admindash = ({ productss, allusers, order }) => {
                 <li>
                   <a
                     className="dropdown-item d-flex align-items-center"
-                    href="pages-faq.html"
+                    href="#"
                   >
                     <i className="bi bi-question-circle" />
                     <span>Need Help?</span>
@@ -347,7 +347,7 @@ const Admindash = ({ productss, allusers, order }) => {
       <aside id="sidebar" className="sidebar">
         <ul className="sidebar-nav" id="sidebar-nav">
           <li className="nav-item">
-            <a className="nav-link collapsed" href="index.html">
+            <a className="nav-link collapsed" href="#">
               <i className="bi bi-grid" />
               <span>Dashboard</span>
             </a>

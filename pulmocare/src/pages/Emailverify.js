@@ -38,8 +38,10 @@ function VerifyOTP() {
           icon: 'success',
           title: 'Email Verified',
           text: 'You Can Login Now',
+        }).then(()=>{
+          router.push('/login')
         })
-        router.push('/login')
+        
       }
     } catch (error) {
       console.error(error);

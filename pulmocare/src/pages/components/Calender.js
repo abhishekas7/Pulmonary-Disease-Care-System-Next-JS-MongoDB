@@ -39,7 +39,7 @@ function Calender({doctor}) {
       validationSchema.validate({ reason, date, phonenumber }, { abortEarly: false })
       .then(async () => {
         await axios.post('/api/calender/create-booking',{'reason':reason,'phonenumber':phonenumber,'date':date,'doctor':doctor._id,}).then((res=>alert(res.data.message)));
-        swal("Thank you for booking a slot with us. Your appointment has been successfully scheduled");
+        swal("Thank you for booking a slot with us. Your appointment is on waiting .Once approved the you will get the notification");
   
       })
       .catch((error) => {
@@ -76,19 +76,19 @@ const events = [
         // eventAdd={(event => handleEventAdd(event))}
         eventContent={renderEventContent}
       />
-      <div>
-        <p>{doctor._id}</p>
+      <div> 
+       
         <form onSubmit={onSubmit} className='mt-5'>
           <label for="date">Symptoms</label>
-          <input type="text" placeholder="Shortness of breath" value={reason} onChange={e => setReason(e.target.value)}/>
+          <input id='sym' type="text" placeholder="Enter the Reason" value={reason} onChange={e => setReason(e.target.value)}/>
           <div>
             <label for="date">Date</label>
-            <Datetime value={date} onChange={date=>setDate(date)}  isValidDate={disablePastDt}/>
+            <Datetime name='date' value={date} onChange={date=>setDate(date)}  isValidDate={disablePastDt}/>
           </div>
           <label>
             Phone number:</label>
-          <input
-          type="text" placeholder="7356237894"
+          <input id='phone'
+          type="text" placeholder="Enter your Phone Number"
           value={phonenumber}
           onChange={(event) => setPhoneNumber(event.target.value)}
         />

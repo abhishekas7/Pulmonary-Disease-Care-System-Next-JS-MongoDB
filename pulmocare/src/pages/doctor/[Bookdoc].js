@@ -13,8 +13,6 @@ function Bookdoc({doctor}) {
   return (
     <>
       <Header/>
-      {/* <Navbar1/>
-   <Navbarr/> */}
       <Appointmentprofile doctor={doctor}/>
       <Footer/>
     </>

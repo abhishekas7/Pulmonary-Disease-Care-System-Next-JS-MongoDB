@@ -48,11 +48,38 @@ const ProductPage = ({ products }) => {
           <div className="row">
             <div className="col-lg-8 order-lg-2 mb-120">
               <div className="ltn__shop-options">
-      
+                <ul>
+                  <li>
+                    <div className="ltn__grid-list-tab-menu ">
+                      <div className="nav">
+                        <a className="active show" data-bs-toggle="tab" href="#liton_product_grid">
+                          <i className="fas fa-th-large" />
+                        </a>
+                        <a data-bs-toggle="tab" href="#liton_product_list">
+                          <i className="fas fa-list" />
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
               </div>
 
               <div className='col-12'>
-         
+                <div className="widget ltn__search-widget">
+                  <h4 className="ltn__widget-title ltn__widget-title-border">
+                    Search Objects
+                  </h4>
+                  <input
+                    type="text"
+                    name="search"
+                    placeholder="Search your keyword..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <button type="submit" onClick={handleSearch}>
+                    <i className="fas fa-search" />
+                  </button>
+                </div>
 
          
                 {searchResults ? (
@@ -138,27 +165,6 @@ const ProductPage = ({ products }) => {
 </div>
 <div className="col-lg-4  mb-120">
 <aside className="sidebar ltn__shop-sidebar ltn__right-sidebar">
-
-<div className="widget ltn__search-widget">
-<h4 className="ltn__widget-title ltn__widget-title-border">
-Search Objects
-</h4>
-
-
-
-
-<input
-                    type="text"
-                    name="search"
-                    placeholder="Search your keyword..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                  <button type="submit" onClick={handleSearch}>
-                    <i className="fas fa-search" />
-                  </button>
-
-</div>
 {/* Category Widget */}
 <div className="widget ltn__menu-widget">
 <h4 className="ltn__widget-title ltn__widget-title-border">
@@ -166,7 +172,7 @@ Product categories
 </h4>
 <ul>
 <li>
-<a href="#">
+<a href="portfolio-details.html">
 Hand Sanitizer{" "}
 <span>
 <i className="fas fa-long-arrow-alt-right" />
@@ -174,7 +180,7 @@ Hand Sanitizer{" "}
 </a>
 </li>
 <li>
-<a href="#">
+<a href="portfolio-details.html">
 Lab N95 Face Mask{" "}
 <span>
 <i className="fas fa-long-arrow-alt-right" />
@@ -182,7 +188,7 @@ Lab N95 Face Mask{" "}
 </a>
 </li>
 <li>
-<a href="#">
+<a href="portfolio-details.html">
 Hand Gloves{" "}
 <span>
 <i className="fas fa-long-arrow-alt-right" />
@@ -190,7 +196,7 @@ Hand Gloves{" "}
 </a>
 </li>
 <li>
-<a href="#">
+<a href="portfolio-details.html">
 Medical Equipment{" "}
 <span>
 <i className="fas fa-long-arrow-alt-right" />
@@ -198,7 +204,7 @@ Medical Equipment{" "}
 </a>
 </li>
 <li>
-<a href="#">
+<a href="portfolio-details.html">
 New Arrival Product{" "}
 <span>
 <i className="fas fa-long-arrow-alt-right" />
@@ -206,7 +212,7 @@ New Arrival Product{" "}
 </a>
 </li>
 <li>
-<a href="#">
+<a href="portfolio-details.html">
 Uncategorized{" "}
 <span>
 <i className="fas fa-long-arrow-alt-right" />
@@ -214,7 +220,7 @@ Uncategorized{" "}
 </a>
 </li>
 <li>
-<a href="#">
+<a href="portfolio-details.html">
 Special Offers{" "}
 <span>
 <i className="fas fa-long-arrow-alt-right" />
@@ -223,9 +229,51 @@ Special Offers{" "}
 </li>
 </ul>
 </div>
+{/* Price Filter Widget */}
+<div className="widget ltn__price-filter-widget">
+<h4 className="ltn__widget-title ltn__widget-title-border">
+Filter by price
+</h4>
+<div className="price_filter">
+<div className="price_slider_amount">
+<input type="submit" defaultValue="Your range:" />
+<input type="text" className="amount" name="price" placeholder="Add Your Price" />
 
+</div>
+<div className="slider-range ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+<div
+className="ui-slider-range ui-widget-header ui-corner-all"
+style={{ left: "0%", width: "29.2929%" }}
+/>
+<span
+className="ui-slider-handle ui-state-default ui-corner-all"
+tabIndex={0}
+style={{ left: "0%" }}
+/>
+<span
+className="ui-slider-handle ui-state-default ui-corner-all"
+tabIndex={0}
+style={{ left: "29.2929%" }}
+/>
+</div>
+</div>
+</div>
 
-
+<div className="widget ltn__search-widget">
+<h4 className="ltn__widget-title ltn__widget-title-border">
+Search Objects
+</h4>
+<form action="#">
+<input
+type="text"
+name="search"
+placeholder="Search your keyword..."
+/>
+<button type="submit">
+<i className="fas fa-search" />
+</button>
+</form>
+</div>
 </aside>
 </div>
 </div>

@@ -5,28 +5,21 @@ import { Col, Row } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
 const UpdateProfile = ({ datas }) => {
-  // const [initial, setInitial] = useState({
-  //   age: datas.age,
-  //   gender: datas.gender,
-  //   name: {
-  //     first: datas.name.first,
-  //     last: datas.name.last,
-  //   },
-  //   dateOfBirth: '',
-  //   image: '',
-  //   mobile: datas.mobile,
-  // });
-  const [initial, setInitial] = useState(datas?datas:{
-      age: '',
-      gender: '',
-      name: {
-        first: '',
-        last: '',
-      },
-      dateOfBirth: '',
-      image: '',
-      mobile: '',
-    })
+  const [initial, setInitial] = useState(datas?datas:null)
+//   if(datas){
+//   const [initial, setInitial] = useState({
+//     age: datas.age,
+//     gender: datas.gender,
+//     name: {
+//       first: datas.name.first,
+//       last: datas.name.last,
+//     },
+//     dateOfBirth: '',
+//     image: '',
+//     mobile: datas.mobile,
+//   });
+// }
+
   const [patientData, setPatientData] = useState([]);
 
   useEffect(() => {

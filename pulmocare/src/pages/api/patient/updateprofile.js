@@ -7,7 +7,6 @@ import moment from "moment";
 import User from "@/models/User";
 import { getError } from "@/util/error";
 
-
 export const config = {
   api: {
     bodyParser: false,
@@ -15,19 +14,18 @@ export const config = {
 };
 
 export default async function Upload(req, res) {
-
   const sess = await getSession({ req });
   const userId = sess.user._id;
 
-  if (req.method === 'GET') {
+  if (req.method === "GET") {
     try {
-      const patients = await Patient.find({user:userId}).populate('user');
+      const patients = await Patient.find({ user: userId }).populate("user");
       res.status(200).json(patients);
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: 'Server error' });
+      res.status(500).json({ error: "Server error" });
     }
-  } 
+  }
 
   if (req.method === "PUT") {
     const options = {
@@ -47,81 +45,53 @@ export default async function Upload(req, res) {
         res.status(500).send("Error parsing form data.");
         return;
       }
-      // console.log(fields);
-
 
       try {
-     
-
         await db.connect();
         const user = await User.findById(userId);
-   
-        const patient = await Patient.findOne({ user: userId });
-    
+        let patient = await Patient.findOne({ user: userId });
+
         if (patient) {
           // Update existing patient document
-     
-          // await Patient.updateOne({ user: userId }, { ...updateData });
-
-          await Patient.updateOne(
-            { user: userId },
-            {
-              $set: {
-                name: {
-                  first: fields['name.first'],
-                  last: fields['name.last']
-                },
-                email:user.email,
-                age: fields.age,
-                image: files.file.newFilename,
-                mobile: fields.mobile,
-                gender: fields.gender,
-                dateOfBirth:moment(fields.dateOfBirth).format("MMMM Do YYYY, h:mm:ss a"),
-                  }
-            }
+          patient.name.first = fields["name.first"];
+          patient.name.last = fields["name.last"];
+          patient.email = user.email;
+          patient.age = fields.age;
+          patient.image = files.file.newFilename;
+          patient.mobile = fields.mobile;
+          patient.gender = fields.gender;
+          patient.dateOfBirth = moment(fields.dateOfBirth).format(
+            "MMMM Do YYYY, h:mm:ss a"
           );
 
-
-
+          await patient.save();
         } else {
           // Create new patient document
-          const newPatient = new Patient({
-            user:userId,
+          patient = new Patient({
+            user: userId,
             image: files.file.newFilename,
             age: fields.age,
             mobile: fields.mobile,
             gender: fields.gender,
             name: {
-              first: fields['name.first'],
-              last: fields['name.last']
+              first: fields["name.first"],
+              last: fields["name.last"],
             },
-            dateOfBirth:moment(fields.dateOfBirth).format("MMMM Do YYYY, h:mm:ss a"),
+            dateOfBirth: moment(fields.dateOfBirth).format(
+              "MMMM Do YYYY, h:mm:ss a"
+            ),
           });
-          const responseData = await newPatient.save();
-          res.status(200).json(responseData);
+
+          await patient.save();
         }
 
-        // if(Patientdoc){
-        //   console.log('update')
-        // }
-        // else{
-        //   console.log('insert');
-        // }
-   
-        
-        // Add code here to save the uploaded file or any other data to the database
-        
+        res.status(200).json(patient);
       } catch (error) {
-        getError(error)
-        res.status(500).send("Error connecting to the database.");
+        console.error(error);
+        res.status(500).json({ error: "Server error" });
       } finally {
         await db.disconnect();
       }
     });
-  } 
-
-
-
-
-
+  }
 }

@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Home() {
   const router = useRouter();
@@ -22,7 +21,7 @@ export default function Home() {
   return (
     <>
       <div className="ltn__login-area pb-65">
-        Status : {data.status}
+    
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
