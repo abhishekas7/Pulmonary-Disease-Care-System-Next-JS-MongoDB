@@ -68,10 +68,10 @@ const Doctorlist = ({ doctor }) => {
 
 export default Doctorlist;
 
-export async function getServerSideProps() {
-  await db.connect();
+// export async function getServerSideProps() {
+//   await db.connect();
 
-  // Find the document with the given ID in Document1
+//   // Find the document with the given ID in Document1
 
 //   const doctor = await Doctor.find()
 //     .populate({
